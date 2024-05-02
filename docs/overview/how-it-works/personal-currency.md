@@ -1,0 +1,3 @@
+# Personal Currency
+
+Circles employs a unique token issuance mechanism where each user generates their own currency (CRC) at a steady rate of one token per hour, simulating a basic income system. This continuous issuance is designed to ensure that every participant in the network receives a regular, unconditional flow of currency. The value and exchangeability of these individual currencies within the Circles system hinge on the establishment of trust networks. Users can choose to trust the currencies of others in the network, enabling the exchange of currencies between users at a one-to-one rate, thus creating a fluid and user-driven economy​​.
