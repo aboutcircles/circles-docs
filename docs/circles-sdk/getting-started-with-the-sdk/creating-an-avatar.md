@@ -15,7 +15,7 @@ await avatar.init();
 
 Now, based on your Avatar generation and activity, you can understand its various states.&#x20;
 
-<div align="left">
+<div align="center">
 
 <figure><img src="../../.gitbook/assets/image.png" alt="" width="282"><figcaption><p>Mapping for states of Avatar</p></figcaption></figure>
 
