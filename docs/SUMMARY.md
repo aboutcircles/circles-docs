@@ -12,7 +12,6 @@
 ## Developer Docs
 
 * [⭕ The Circles Protocol](developer-docs/the-circles-protocol.md)
-* [🏹 Understanding Circles Architecture](developer-docs/understanding-circles-architecture.md)
 
 ## Circles SDK
 
