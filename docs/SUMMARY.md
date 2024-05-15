@@ -12,13 +12,12 @@
 ## Developer Docs
 
 * [⭕ The Circles Protocol](developer-docs/the-circles-protocol.md)
+* [🔎 Circles SDK Overview](developer-docs/circles-sdk-overview.md)
+* [🚀 Getting started with the SDK](developer-docs/getting-started-with-the-sdk/README.md)
+  * [Creating an Avatar](developer-docs/getting-started-with-the-sdk/creating-an-avatar.md)
+  * [Migrating your Circles Account from V1 to V2](developer-docs/getting-started-with-the-sdk/migrating-your-circles-account-from-v1-to-v2.md)
 
 ## Circles SDK
-
-* [🔎 Circles SDK Overview](circles-sdk/circles-sdk-overview.md)
-* [🚀 Getting Started with the SDK](circles-sdk/getting-started-with-the-sdk/README.md)
-  * [Creating an Avatar](circles-sdk/getting-started-with-the-sdk/creating-an-avatar.md)
-  * [Migrating your Circles Account from V1 to V2](circles-sdk/getting-started-with-the-sdk/migrating-your-circles-account-from-v1-to-v2.md)
 
 ***
 

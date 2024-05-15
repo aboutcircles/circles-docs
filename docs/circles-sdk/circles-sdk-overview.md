@@ -1,2 +1,0 @@
-# 🔎 Circles SDK Overview
-

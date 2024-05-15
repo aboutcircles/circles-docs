@@ -1,4 +1,4 @@
-# 🚀 Getting Started with the SDK
+# 🚀 Getting started with the SDK
 
 ### Install the following packages :&#x20;
 
@@ -16,7 +16,7 @@ import {ethers} from "ethers";
 ```
 {% endcode %}
 
-You would require to mention your EOA private key, for this, you can also create `.env` file in your root folder where you can mention your Private Key and import directly in codebase.
+ou would require to mention your EOA private key, for this, you can also create `.env` file in your root folder where you can mention your Private Key and import directly in codebase.
 
 {% code title=".env" %}
 ```javascript
