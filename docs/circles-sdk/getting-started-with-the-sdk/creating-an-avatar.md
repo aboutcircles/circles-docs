@@ -4,10 +4,10 @@ description: An avatar represents a Circles user.
 
 # Creating an Avatar
 
-&#x20;To interact with Circles SDK, you would need an avatar. You can create one by calling `createAvatar`. The address for this avatar can be an EOA address or a smart account address. You should be fully in control of your account.
+&#x20;To interact with Circles SDK, you would need an avatar. You can create one by calling `createAvatar`. The address for this avatar can be an EOA address or a smart account address. You should be fully in control of your account. You can derive the address from the signer and pass it in `sdk.createAvatar.`
 
 ```javascript
-const avatar = await sdk.createAvatar("0x123..."); // Supply the avatar address
+const avatar = await sdk.createAvatar("0x123"); 
 await avatar.init();
 ```
 
