@@ -1,7 +1,5 @@
 # 🚀 Getting started with the SDK
 
-ou would require to mention your EOA private key, for this, you can also create `.env` file in your root folder where you can mention your Private Key and import directly in codebase.
-
 To begin using the SDK, you require to setup these packages.
 
 ### Install the following packages :&#x20;
