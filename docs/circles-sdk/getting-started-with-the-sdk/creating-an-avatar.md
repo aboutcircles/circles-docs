@@ -8,10 +8,20 @@ description: An avatar represents a Circles user.
 
 ```javascript
 const avatar = await sdk.createAvatar("0x123"); 
-await avatar.init();
+await avatar.initialize();
 ```
 
-### Different states of Avatar :
+### Subscribing to the state of Avatar :
+
+Subscribing to the state of Avatar allows developers to track changes in the state of an avatar object. By subscribing to the avatar's state observable or event emitter, developers can execute custom logic whenever the state of the avatar changes.
+
+```javascript
+avatar.state.subscribe((state) => {
+ avatarState = state;
+});
+```
+
+### Understanding different states of Avatar :
 
 Now, based on your Avatar generation and activity, you can understand its various states.&#x20;
 
