@@ -2,7 +2,7 @@
 description: An avatar represents a Circles user.
 ---
 
-# Creating an Avatar
+# 🎴 Creating an Avatar
 
 &#x20;To interact with Circles SDK, you would need an avatar. You can create one by calling `createAvatar`. The address for this avatar can be an EOA address or a smart account address. You should be fully in control of your account. You can derive the address from the signer and pass it in `sdk.createAvatar.`
 
@@ -11,7 +11,7 @@ const avatar = await sdk.createAvatar("0x123");
 await avatar.initialize();
 ```
 
-### Subscribing to the state of Avatar :
+### Subscribing to the state of Avatar
 
 Subscribing to the state of Avatar allows developers to track changes in the state of an avatar object. By subscribing to the avatar's state observable or event emitter, developers can execute custom logic whenever the state of the avatar changes.
 
@@ -21,7 +21,7 @@ avatar.state.subscribe((state) => {
 });
 ```
 
-### Understanding different states of Avatar :
+### Understanding different states of Avatar
 
 Now, based on your Avatar generation and activity, you can understand its various states.&#x20;
 
