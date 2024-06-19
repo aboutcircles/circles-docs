@@ -5,28 +5,37 @@ To begin using the SDK, you require to setup these packages.
 ### Install the following packages :&#x20;
 
 * `npm i ethers`
-* `npm i circles-sdk`
+* `npm i @circles-sdk/sdk@0.0.44`
 
 ### Step - 1 : Configure Circles SDK&#x20;
 
-Once you have installed the above packages, we will configure the SDK.
+Once you have installed the above packages, we will configure the SDK. We will also import `ChainConfig` to be able to utilise circles RPC in next steps.
 
 {% code fullWidth="false" %}
 ```javascript
 import { Sdk } from '@circles-sdk/sdk';
 import {ethers} from "ethers";
+import { ChainConfig } from "@circles-sdk/sdk";
 ```
 {% endcode %}
 
-### Step - 2 : Setup a signer
+### Step - 2 : Setup RPC and signer
 
-Our next step should be getting a signer. You can either use privatekey to derive wallet and use as signer param or simply use `window.ethereum` to use your metamask address.
+We will be using the custom RPC for circles
+
+```
+const chainConfig: ChainConfig = {
+  circlesRpcUrl: 'https://rpc.aboutcircles.com',
+};
+```
+
+Next should be getting a signer. You can either use privatekey to derive wallet and use as signer param or simply use `window.ethereum` to use your metamask address.
 
 {% tabs %}
 {% tab title="window.ethereum" %}
 <pre><code><strong>const provider = new ethers.BrowserProvider(window.ethereum);
 </strong>const signer = await provider.getSigner();
-console.log("Account:", await signer.getAddress()); //optionalsi
+console.log("Account:", await signer.getAddress());
 </code></pre>
 {% endtab %}
 
@@ -51,30 +60,12 @@ You can setup the rpcUrl from the next step.
 {% endtab %}
 {% endtabs %}
 
-### Step - 3 : Get a RPC URL for Chiado&#x20;
+### Step - 3 : Initializing the Circles SDK
 
-Now, lets add RPC network. For time being, we will utilise Chiado testnet.
-
-```javascript
-const rpcURL = 'https://gnosis-chiado.drpc.org';
-```
-
-### Step - 4 : Setup Hub Contracts and migration contract
-
-We will be setting V1 and V2 hub contracts which are deployed on Chiado testnet. This will allow us to use functions and events. We will dive in deeper to understand each contracts later. We will also add a migration contract which allows you to migrate your circles account between two different versions.
+It's time to initialise the sdk using the signer and RPC url.
 
 ```javascript
-const v1HubAddress = '0xdbf22d4e8962db3b2f1d9ff55be728a887e47710';
-const v2HubAddress = '0xDA02CDB5279B3a1eF27Be3d91aE924495E6A5569';
-const migration    = '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0';
+const sdk = new Sdk(chainConfig, signer);
 ```
 
-### Step - 5 : Initializing the Circles SDK
-
-It's time to initialise the sdk using the hub contracts, migration contract, signer, and RPC url.
-
-```javascript
-const sdk = new Sdk(v1HubAddress, v2HubAddress, migration, signer, rpcURL);
-```
-
-Once you have succesfully initialized the SDK, you are all set to use Circles in your dApp. Let's learn more about circles SDK features and how you can use them.
+Once you have successfully initialized the SDK, you are all set to use Circles in your dApp. Let's learn more about circles SDK features and how you can use them.

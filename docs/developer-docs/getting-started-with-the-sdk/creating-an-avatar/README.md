@@ -4,12 +4,16 @@ description: An avatar represents a Circles user.
 
 # 🎴 Creating an Avatar
 
-&#x20;To interact with Circles SDK, you would need an avatar. You can create one by calling `createAvatar`. The address for this avatar can be an EOA address or a smart account address. You should be fully in control of your account. You can derive the address from the signer and pass it in `sdk.createAvatar.`
+&#x20;To interact with Circles SDK, you would need an avatar. The address for this avatar can be an EOA address or a smart account address. You should be fully in control of your account. You can derive the address from the signer and pass it in&#x20;
 
 ```javascript
-const avatar = await sdk.createAvatar("0x123"); 
+const avatar = await sdk.getAvatar("0x123"); //wallet address
 await avatar.initialize();
 ```
+
+{% hint style="info" %}
+`getAvatar` method will throw an error if the address is not registered. You can use the `sdk.data.getAvatarInfo` to check if an address is registered or not. Check out how to use CirclesData class.
+{% endhint %}
 
 ### Subscribing to the state of Avatar
 
@@ -27,7 +31,7 @@ Now, based on your Avatar generation and activity, you can understand its variou
 
 <div align="center">
 
-<figure><img src="../../.gitbook/assets/image.png" alt="" width="282"><figcaption><p>Mapping for states of Avatar</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image.png" alt="" width="282"><figcaption><p>Mapping for states of Avatar</p></figcaption></figure>
 
 </div>
 

@@ -36,28 +36,3 @@ async function migrateToV2()
   console.log(V2migrate);
 }
 ```
-
-### Registering for new V2 circles account :
-
-A major difference from V1 to V2 circles account is  that in Circles V2, every human will have a profile which will be of ERC - 1155 standard. The profile will be a JSON object that will be stored on IPFS and will be identified by a CIDv0 (Content Identifier).  CID can be updated in case you would like to change your profile. The profile schema is defined in [ERC-1155 Metadata URI JSON Schema](https://eips.ethereum.org/EIPS/eip-1155#erc-1155-metadata-uri-json-schema).
-
-We will call `registerHuman` function to register to v2 circles.
-
-```javascript
-const cidV0 = 'Qm...'; // CIDv0 of profile
-const txReceipt = await avatar.registerHuman(cidV0);
-```
-
-**Verifying if your account was migrated to V2 version of Circles:**
-
-If the registration was successful, the state of your avatar should have changed to `V1_StoppedHuman_and_V2_Human`.
-
-```javascript
-if (avatar.state.value !== AvatarState.V1_StoppedHuman_and_V2_Human) {
-  throw new Error('Something went wrong');
-```
-
-Once you have successfully migrated to v2, you will be able to:
-
-* get a new personal v2 token that you can use to mint.
-* convert all of your v1 token holdings to v2 tokens as long as they're available on v2 already.
