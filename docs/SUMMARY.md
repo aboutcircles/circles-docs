@@ -18,7 +18,6 @@
     * [📝 Avatar class and methods](developer-docs/getting-started-with-the-sdk/creating-an-avatar/avatar-class-and-methods.md)
     * [📝 CirclesData class and methods](developer-docs/getting-started-with-the-sdk/creating-an-avatar/circlesdata-class-and-methods.md)
   * [📬 How to register as Human or Organization ?](developer-docs/getting-started-with-the-sdk/how-to-register-as-human-or-organization.md)
-  * [⚡ Migrating your Circles Account from V1 to V2](developer-docs/getting-started-with-the-sdk/migrating-your-circles-account-from-v1-to-v2.md)
   * [⏳ Converting Time Circles (TC) to CRC](developer-docs/getting-started-with-the-sdk/converting-time-circles-tc-to-crc.md)
 
 ## Support
