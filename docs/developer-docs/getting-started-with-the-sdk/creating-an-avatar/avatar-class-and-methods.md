@@ -61,7 +61,7 @@ async function getBalance() {
 }
 ```
 
-5. **getTransactionHistory**: Gets the transaction history of the avatar.
+8. **getTransactionHistory**: Gets the transaction history of the avatar.
 
 ```javascript
 async function getTxnHistory() {
