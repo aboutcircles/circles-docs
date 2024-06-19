@@ -8,16 +8,6 @@ description: Developers Hub for building with Circles.
 
 As a developer, you have the opportunity to contribute to this transformative initiative. Our developer documentation portal provides comprehensive guides, API references, and code examples to help you integrate Circles into your applications and build upon our ecosystem.
 
-
-
-### Protocol Architecture
-
-At its core, the Circles Protocol is built on decentralized technologies such as blockchain and cryptographic primitives. Here's a high-level overview of its architecture:
-
-* **Blockchain Layer:** Circles utilizes a blockchain as the underlying infrastructure for transaction validation and consensus. Gnosis Chain is currently the primary blockchain used, providing a secure and decentralized ledger for recording Circles transactions.
-* **Smart Contracts:** Smart contracts play a crucial role in the Circles Protocol, facilitating the creation and management of Circles currencies, as well as the execution of trust-based transactions. These contracts define the rules and logic governing Circles interactions, ensuring transparency and immutability.
-* **Identity and Trust Graph:** Within the Circles ecosystem, users establish trust relationships with one another, forming a dynamic graph of trust connections. This trust graph enables secure value transfer between trusted parties, fostering a decentralized network of economic collaboration.
-
 ### Using the SDK
 
 To integrate Circles into your applications, you can leverage the Circles Software Development Kit (SDK), which provides a set of tools and libraries for interacting with the protocol. Here's what you can do with the SDK:
