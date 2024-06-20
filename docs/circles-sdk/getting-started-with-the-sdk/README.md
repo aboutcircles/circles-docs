@@ -23,9 +23,9 @@ import { ChainConfig } from "@circles-sdk/sdk";
 
 We will be using the custom RPC for circles
 
-```
+```javascript
 const chainConfig: ChainConfig = {
-  circlesRpcUrl: 'https://rpc.aboutcircles.com',
+  circlesRpcUrl: 'rpc.helsinki.aboutcircles.com',
 };
 ```
 
@@ -33,7 +33,7 @@ Next should be getting a signer. You can either use privatekey to derive wallet 
 
 {% tabs %}
 {% tab title="window.ethereum" %}
-<pre><code><strong>const provider = new ethers.BrowserProvider(window.ethereum);
+<pre class="language-javascript"><code class="lang-javascript"><strong>const provider = new ethers.BrowserProvider(window.ethereum);
 </strong>const signer = await provider.getSigner();
 console.log("Account:", await signer.getAddress());
 </code></pre>
