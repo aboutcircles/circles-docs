@@ -15,10 +15,9 @@
 * [🔎 Circles SDK Overview](developer-docs/circles-sdk-overview.md)
 * [🚀 Getting started with the SDK](circles-sdk/getting-started-with-the-sdk/README.md)
   * [👾 Using Avatars](developer-docs/getting-started-with-the-sdk/creating-an-avatar/README.md)
-    * [📝 Query data](developer-docs/getting-started-with-the-sdk/creating-an-avatar/query-data.md)
+    * [📝 Avatar data](developer-docs/getting-started-with-the-sdk/creating-an-avatar/avatar-data.md)
     * [📝 Interact with other Avatars](developer-docs/getting-started-with-the-sdk/creating-an-avatar/interact-with-other-avatars.md)
-    * [📝 CirclesData class and methods](developer-docs/getting-started-with-the-sdk/creating-an-avatar/circlesdata-class-and-methods.md)
-  * [⏳ Converting Time Circles (TC) to CRC](developer-docs/getting-started-with-the-sdk/converting-time-circles-tc-to-crc.md)
+  * [🗃️ Circles data](developer-docs/getting-started-with-the-sdk/circles-data.md)
 
 ## Support
 
