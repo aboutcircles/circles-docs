@@ -2,53 +2,79 @@
 description: An avatar represents a Circles user.
 ---
 
-# 🎴 Creating an Avatar
+# 👾 Using Avatars
 
-&#x20;To interact with Circles SDK, you would need an avatar. The address for this avatar can be an EOA address or a smart account address. You should be fully in control of your account. You can derive the address from the signer and pass it in&#x20;
+The SDK is built around the concept of Avatars. An Avatar is basically a Circles user and is used to interact with other Avatars.&#x20;
+
+You can get an Avatar in two ways:
+
+* ... either by registering a new wallet at Circles (sign-up),&#x20;
+* ... or by loading an existing Avatar by it's address.
+
+### Create a new Avatar
+
+{% hint style="info" %}
+You will need a fresh account in MetaMask with some xDai on it in order to follow along with this step. Make sure you configured MetaMask for the correct Chain (Gnosis Chain or Chiado) before you continue.
+{% endhint %}
+
+Call the SDK's `registerHuman()` method to sign the connected MetaMask account up for Circles.
 
 ```javascript
-const avatar = await sdk.getAvatar("0x123"); //wallet address
-await avatar.initialize();
+const avatar = await sdk.registerHuman();
+console.log(avatar.avatarInfo);
+```
+
+There are different types of Avatars within Circles. A `human` Avatar is the most common and suitable for any person. It differentiates itself from all other Avatar types in that it can mint 24 new personal Circles per day.
+
+### Get an existing Avatar
+
+If you have the address of an existing Avatar, you can get an instance by calling `sdk.getAvatar(address)`. It returns either an `AvatarInterface` instance or throws an error if the avatar can't be found.
+
+```typescript
+const avatar = await sdk.getAvatar(avatarAddress);
+console.log(avatar.avatarInfo);
 ```
 
 {% hint style="info" %}
-`getAvatar` method will throw an error if the address is not registered. You can use the `sdk.data.getAvatarInfo` to check if an address is registered or not. Check out how to use CirclesData class.
+You can supply any avatar address to the function, even if you don't have the key for it. However, if you just want to query the data you're better off with the `@circles-sdk/data` package which will be described later.
 {% endhint %}
 
-### Subscribing to the state of Avatar
+### Other Avatar types
 
-Subscribing to the state of Avatar allows developers to track changes in the state of an avatar object. By subscribing to the avatar's state observable or event emitter, developers can execute custom logic whenever the state of the avatar changes.
+The other Avatar types will be covered in more detail later. Nonetheless, here's a short description and how you can create them.&#x20;
 
-```javascript
-avatar.state.subscribe((state) => {
- avatarState = state;
-});
+{% hint style="info" %}
+One account can only sign up as one Avatar. E.g. if an account is already signed up as human then it can't sign-up as organization.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Organization" %}
+Organizations can be used e.g. by shop owners to receive payments in Circles. They are available in Circles v1 and v2.
+
+```typescript
+// v1:
+const avatar = await sdk.registerOrganization();
 ```
 
-### Understanding different states of Avatar
-
-Now, based on your Avatar generation and activity, you can understand its various states.&#x20;
-
-<div align="center">
-
-<figure><img src="../../../.gitbook/assets/image.png" alt="" width="282"><figcaption><p>Mapping for states of Avatar</p></figcaption></figure>
-
-</div>
-
-{% code fullWidth="false" %}
-```solidity
-enum AvatarState {
- Unregistered,                 // address has not been used with Circles before
-  V1_Human,                    // address is only a V1 human
-  V1_StoppedHuman,             // address is only a V1 human that has been stopped
-  V1_Organization,             // address is only a V1 organization
-  V2_Human,                    // address is only a V2 human
-  V2_Group,                    // address is only a V2 group
-  V2_Organization,             // address is only a V2 organizations
-  V1_StoppedHuman_and_V2_Human,// address is a V1 human that has been stopped and a V2 human
-  Unknown                      //address has been used with Circles before, but the state is unknown
-}
+```typescript
+// v2:
+const avatar = await sdk.registerOrganizationV2();
 ```
-{% endcode %}
+{% endtab %}
 
-For instance, as you convert your circles account from V1 human to V2 human, your state will change to `8`which is `V1_StoppedHuman_and_V2_Human.` This way you shall be able to track your circles avatar account and actions.
+{% tab title="Group" %}
+The backbone of Circles are personal currencies. However, because there are so many of them, it's hard to use the personal currencies with many established protocols.
+
+Any Group that's registered in Circles is also a Token. Group members can mint these tokens in exchange for their personal currencies, effectively giving all group members' personal currencies the same value.
+
+Groups are only available in v2.
+
+```typescript
+const avatar = await sdk.registerGroupV2();
+```
+{% endtab %}
+{% endtabs %}
+
+### Next steps
+
+The next page will show you how to use the Avatar instance to query essential data like the Avatar's Circles balance, it's trust relations and transaction history. On the page after, we'll use it to interact with other Avatars.

@@ -1,71 +1,115 @@
+---
+description: >-
+  This guide will help you get started with the Circles SDK. It shows how to use
+  the Circles SDK with MetaMask.
+---
+
 # 🚀 Getting started with the SDK
 
-To begin using the SDK, you require to setup these packages.
+### 1. Prerequisites
 
-### Install the following packages :&#x20;
+#### Install MetaMask and add Gnosis Chain & Chiado
+
+You'll need the MetaMask Plug-In installed in your browser:
+
+* [https://metamask.io/](https://metamask.io/)
+
+Once installed, please make sure to add all the chains you want to use.&#x20;
+
+* [https://docs.gnosischain.com/tools/wallets/metamask/](https://docs.gnosischain.com/tools/wallets/metamask/)
+
+_You should use Chiado if you want to test a preview version of Circles v2. If you want to build with Circles v1 use Gnosis Chain instead._
+
+#### Get some xDai for gas fees
+
+To send transactions you will need a small amount of xDai in order to pay for gas fees. You can get some from a faucet:
+
+* [https://docs.gnosischain.com/tools/Faucets](https://docs.gnosischain.com/tools/Faucets)
+
+### 2. Install packages
+
+If you have all prerequisites in place, start by installing the Circles SDK package and ethers 6 in your project using npm.
 
 * `npm i ethers`
-* `npm i @circles-sdk/sdk@0.0.44`
+* `npm i @circles-sdk/sdk@0.3.0`
 
-### Step - 1 : Configure Circles SDK&#x20;
+### 2. Add imports
 
-Once you have installed the above packages, we will configure the SDK. We will also import `ChainConfig` to be able to utilise circles RPC in next steps.
+Then, import the necessary classes from the Circles SDK and ethers.
 
-{% code fullWidth="false" %}
-```javascript
-import { Sdk } from '@circles-sdk/sdk';
-import {ethers} from "ethers";
-import { ChainConfig } from "@circles-sdk/sdk";
-```
-{% endcode %}
-
-### Step - 2 : Setup RPC and signer
-
-We will be using the custom RPC for circles
-
-```javascript
-const chainConfig: ChainConfig = {
-  circlesRpcUrl: 'rpc.helsinki.aboutcircles.com',
-};
+```typescript
+import {Sdk, ChainConfig, SdkContractRunner} from "@circles-sdk/sdk";
+import {BrowserProvider} from "ethers";
 ```
 
-Next should be getting a signer. You can either use privatekey to derive wallet and use as signer param or simply use `window.ethereum` to use your metamask address.
+### 3. Chain specific configuration
+
+Circles is available on Gnosis Chain and Chiado (the GC testnet). You need to specify the correct contract addresses and service endpoints for each environment.&#x20;
+
+Choose from the following options, and copy & paste the selected `chainConfig` to your code.
 
 {% tabs %}
-{% tab title="window.ethereum" %}
-<pre class="language-javascript"><code class="lang-javascript"><strong>const provider = new ethers.BrowserProvider(window.ethereum);
-</strong>const signer = await provider.getSigner();
-console.log("Account:", await signer.getAddress());
-</code></pre>
+{% tab title="Chiado" %}
+The Gnosis Chain testnet has both versions (v1 and v2) of the Circles contracts.
+
+```typescript
+const chainConfig: ChainConfig = {
+    circlesRpcUrl: "https://chiado-rpc.aboutcircles.com",
+    v1HubAddress: "0xdbf22d4e8962db3b2f1d9ff55be728a887e47710",
+    v2HubAddress: "0x2066CDA98F98397185483aaB26A89445addD6740",
+    migrationAddress: "0x2A545B54bb456A0189EbC53ed7090BfFc4a6Af94"
+};
+```
 {% endtab %}
 
-{% tab title="Using private key" %}
-You would require to mention your EOA private key, for this, you can also create `.env` file in your root folder where you can mention your Private Key and import directly in codebase.
+{% tab title="Gnosis Chain " %}
+The Gnosis Chain mainnet is the production chain for Circles. It currently only has the v1 contracts deployed.
 
-{% code title=".env" overflow="wrap" %}
-```javascript
-PRIVATE_KEY = '0x..';
+```typescript
+const chainConfig: ChainConfig = {
+    pathfinderUrl: 'https://pathfinder.aboutcircles.com',
+    circlesRpcUrl: "https://rpc.helsinki.aboutcircles.com",
+    v1HubAddress: "0x29b9a7fbb8995b2423a71cc17cf9810798f6c543"
+};
 ```
-{% endcode %}
-
-Let's add the private key to main application file and get the wallet.
-
-```javascript
-const privatekey = process.env.PRIVATE_KEY
-const jsonRpcProvider = new ethers.JsonRpcProvider(rpcUrl);
-const wallet = new ethers.Wallet(privateKey, jsonRpcProvider);            
-```
-
-You can setup the rpcUrl from the next step.
 {% endtab %}
 {% endtabs %}
 
-### Step - 3 : Initializing the Circles SDK
+### 4. Use MetaMask as signer
 
-It's time to initialise the sdk using the signer and RPC url.
+For the purpose of this guide, we want to use MetaMask to interface with the blockchain. The SDK executes all calls and transactions against a custom `SdkContractRunner`. Here's how you can create one from the `window.ethereum` object that MetaMask provides.
 
 ```javascript
-const sdk = new Sdk(chainConfig, signer);
+async function getRunner() : Promise<SdkContractRunner> {
+    const w: any = window;
+    const browserProvider = new BrowserProvider(w.ethereum);
+    const signer = await browserProvider.getSigner();
+    const address = await signer.getAddress();
+    
+    return {
+        runner: signer,
+        address: address
+    };
+}
 ```
 
-Once you have successfully initialized the SDK, you are all set to use Circles in your dApp. Let's learn more about circles SDK features and how you can use them.
+### 5. Initialize the Circles SDK
+
+It's time to initialize the SDK using the ChainConfig and SdkContractRunner objects from above.
+
+```typescript
+async function getSdk() {
+    const runner = await getRunner();
+    return new Sdk(chainConfig, runner);
+}
+```
+
+### 6. Use the SDK
+
+You can now create an instance of the SDK by calling `getSdk()`. If you're using React you can e.g. store this instance in a Context to make it available in your application.
+
+```javascript
+const sdk = await getSdk();
+```
+
+Once you have successfully created a SDK instance, you are all set to use Circles in your dApp. Let's learn more about the Circles SDK features and how you can use them on the next pages.

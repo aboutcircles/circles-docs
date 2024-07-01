@@ -1,5 +1,5 @@
 ---
-description: You can utilise to get info related to avatar using @circles-sdk/data class.
+description: The @circles-sdk/data package let's you directly access all Circles RPC data.
 ---
 
 # 📝 CirclesData class and methods
