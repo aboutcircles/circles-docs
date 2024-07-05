@@ -6,7 +6,7 @@ description: >-
 
 # 📝 Interact with other Avatars
 
-### Manage trust
+### Trust and untrust other avatars
 
 Circles is fundamentally built around the concept of trust relations and any avatar type is able to trust and receive trust.
 
@@ -26,12 +26,24 @@ Revokes trust from another avatar. This means you will no longer accept Circles 
 await avatar.untrust("0x123");
 ```
 
-### Personal minting
+### Mint personal tokens
 
 Human avatars can mint 24 Circles per day. Call `personalMint()` to mint the max. available amount at the current point in time to your avatar address.
 
 ```javascript
 await avatar.personalMint();
+```
+
+### Mint group tokens
+
+If an avatar is a member of a group, it usually qualifies to mint group tokens. You can mint group tokens by using trusted personal tokens as collateral. With it, you can mint the same amount of group tokens.
+
+```typescript
+const groupAddress = "0x...";
+const collateral = [selectedCollateral];
+const amounts = [BigInt(mintAmount)];
+const data = Uint8Array.of(0);
+await avatar.groupMint(group.group, collateral, amounts, data);
 ```
 
 ### Transfer Circles

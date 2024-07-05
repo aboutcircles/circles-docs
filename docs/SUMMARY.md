@@ -17,7 +17,8 @@
   * [👾 Using avatars](developer-docs/getting-started-with-the-sdk/creating-an-avatar/README.md)
     * [📝 Avatar information](developer-docs/getting-started-with-the-sdk/creating-an-avatar/avatar-information.md)
     * [📝 Interact with other Avatars](developer-docs/getting-started-with-the-sdk/creating-an-avatar/interact-with-other-avatars.md)
-  * [🗃️ Query data](developer-docs/getting-started-with-the-sdk/query-data.md)
+  * [🗃️ Query data](developer-docs/getting-started-with-the-sdk/query-data/README.md)
+    * [📝 CirclesQuery\<T>](developer-docs/getting-started-with-the-sdk/query-data/circlesquery-less-than-t-greater-than.md)
 
 ## Support
 
