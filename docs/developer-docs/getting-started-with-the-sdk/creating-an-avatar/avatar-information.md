@@ -4,7 +4,7 @@ description: >-
   and balances.
 ---
 
-# 📝 Avatar data
+# 📝 Avatar information
 
 ### Avatar info
 
@@ -73,7 +73,7 @@ The result rows contain `from`, `to` and `value` properties as well as (in some 
 The CirclesQuery class is not suitable for classic pagination at the moment because there is no way to get the total result count.
 {% endhint %}
 
-### What's next?
+### Next steps
 
 On the next page we'll show how you can trust other avatars, mint personal Circles and transfer them.
 

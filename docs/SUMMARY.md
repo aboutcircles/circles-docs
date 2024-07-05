@@ -14,10 +14,10 @@
 * [⭕ The Circles Protocol](developer-docs/the-circles-protocol.md)
 * [🔎 Circles SDK Overview](developer-docs/circles-sdk-overview.md)
 * [🚀 Getting started with the SDK](circles-sdk/getting-started-with-the-sdk/README.md)
-  * [👾 Using Avatars](developer-docs/getting-started-with-the-sdk/creating-an-avatar/README.md)
-    * [📝 Avatar data](developer-docs/getting-started-with-the-sdk/creating-an-avatar/avatar-data.md)
+  * [👾 Using avatars](developer-docs/getting-started-with-the-sdk/creating-an-avatar/README.md)
+    * [📝 Avatar information](developer-docs/getting-started-with-the-sdk/creating-an-avatar/avatar-information.md)
     * [📝 Interact with other Avatars](developer-docs/getting-started-with-the-sdk/creating-an-avatar/interact-with-other-avatars.md)
-  * [🗃️ Circles data](developer-docs/getting-started-with-the-sdk/circles-data.md)
+  * [🗃️ Query data](developer-docs/getting-started-with-the-sdk/query-data.md)
 
 ## Support
 

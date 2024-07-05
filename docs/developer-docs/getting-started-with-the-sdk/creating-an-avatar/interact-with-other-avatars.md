@@ -51,3 +51,7 @@ In theory you can send your whole Circles balance to other avatars, however in p
 
 Use the `avatar.getMaxTransferableAmount(to)` method determine the max. possible flow between your avatar and the recipient.
 {% endhint %}
+
+### Next steps
+
+On the last few pages, we only worked with one avatar. Next we will learn how to query the data of arbitrary avatars and how to write custom queries.
