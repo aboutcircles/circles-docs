@@ -75,9 +75,15 @@ const chainConfig: ChainConfig = {
 {% endtab %}
 {% endtabs %}
 
-### 4. Use MetaMask as signer
+### 4. Create a contract runner
 
-For the purpose of this guide, we want to use MetaMask to interface with the blockchain. The SDK executes all calls and transactions against a custom `SdkContractRunner`. Here's how you can create one from the `window.ethereum` object that MetaMask provides.
+A `SdkContractRunner` represents a way for the Sdk to sign messages and send them to the chain.
+
+For the purpose of this guide, we'll show you two variants. One uses the `window.ethereum` object (as provided e.g. by MetaMask), the other uses a private key hex string.
+
+{% tabs %}
+{% tab title="MetaMask" %}
+Here's how you can create one from the `window.ethereum` object that MetaMask provides.
 
 ```javascript
 async function getRunner() : Promise<SdkContractRunner> {
@@ -92,6 +98,12 @@ async function getRunner() : Promise<SdkContractRunner> {
     };
 }
 ```
+{% endtab %}
+
+{% tab title="Private key string" %}
+TBD
+{% endtab %}
+{% endtabs %}
 
 ### 5. Initialize the Circles SDK
 
