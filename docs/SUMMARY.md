@@ -18,8 +18,8 @@
     * [📝 Avatar information](developer-docs/getting-started-with-the-sdk/creating-an-avatar/avatar-information.md)
     * [📝 Interact with other Avatars](developer-docs/getting-started-with-the-sdk/creating-an-avatar/interact-with-other-avatars.md)
   * [🗃️ Query data](developer-docs/getting-started-with-the-sdk/query-data/README.md)
-    * [📝 Subscribe to events](developer-docs/getting-started-with-the-sdk/query-data/subscribe-to-events.md)
-    * [📝 CirclesQuery\<T>](developer-docs/getting-started-with-the-sdk/query-data/circlesquery-less-than-t-greater-than.md)
+    * [📝 Subscribing to Avatar events](developer-docs/getting-started-with-the-sdk/query-data/subscribing-to-avatar-events.md)
+    * [📝 Utilising CirclesQuery Class](developer-docs/getting-started-with-the-sdk/query-data/utilising-circlesquery-class.md)
 
 ## Support
 

@@ -8,23 +8,22 @@ description: >-
 
 ### 1. Prerequisites
 
-#### Install MetaMask and add Gnosis Chain & Chiado
+#### Install MetaMask and add Gnosis Chain & Chiado testnet
 
-You'll need the MetaMask Plug-In installed in your browser:
+You'll need the MetaMask Plug-In installed in your browser: [https://metamask.io/](https://metamask.io/)
 
-* [https://metamask.io/](https://metamask.io/)
+Once installed, you can check out the [official gnosis chain docs](https://docs.gnosischain.com/about/networks/) to get ChainID and RPC URL. Or you can quickly utilise the deep link for [Gnosis mainnet](https://docs.gnosischain.com/about/networks/mainnet) and [Chiado testnet](https://shanejonas.github.io/metamask-link/deep?method=wallet\_addEthereumChain\&params%5B0%5D%5BchainId%5D=0x27D8\&params%5B0%5D%5BchainName%5D=Chiado\&params%5B0%5D%5BrpcUrls%5D%5B0%5D=https://rpc.chiadochain.net\&params%5B0%5D%5BnativeCurrency%5D%5Bname%5D=Chiado%20xDAI\&params%5B0%5D%5BnativeCurrency%5D%5Bsymbol%5D=XDAI\&params%5B0%5D%5BnativeCurrency%5D%5Bdecimals%5D=18\&params%5B0%5D%5BblockExplorerUrls%5D%5B0%5D=https://blockscout.com/gnosis/chiado) .
 
-Once installed, please make sure to add all the chains you want to use.&#x20;
+{% hint style="info" %}
+_You should use Chiado if you want to test a preview version of Circles v2. If you want to build with Circles v1, use Gnosis Chain instead._
+{% endhint %}
 
-* [https://docs.gnosischain.com/tools/wallets/metamask/](https://docs.gnosischain.com/tools/wallets/metamask/)
+#### Get some xDAI for paying gas fees
 
-_You should use Chiado if you want to test a preview version of Circles v2. If you want to build with Circles v1 use Gnosis Chain instead._
+To send transactions you will need a small amount of xDai in order to pay for gas fees. You can get get xDAI tokens from mainnet and testnet faucet, depending on the need.
 
-#### Get some xDai for gas fees
-
-To send transactions you will need a small amount of xDai in order to pay for gas fees. You can get some from a faucet:
-
-* [https://docs.gnosischain.com/tools/Faucets](https://docs.gnosischain.com/tools/Faucets)
+* Mainnet Faucet : [https://faucet.gnosischain.com/](https://faucet.gnosischain.com/)
+* Testnet Faucet : [https://faucet.chiadochain.net/](https://faucet.chiadochain.net/)
 
 ### 2. Install packages
 

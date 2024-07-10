@@ -2,22 +2,24 @@
 description: An avatar represents a Circles user.
 ---
 
-# 👾 Using Avatars
+# 👾 Using avatars
 
-The SDK is built around the concept of avatars. An avatar is basically a Circles user and is used to interact with other Avatars.&#x20;
+The SDK is built around the concept of avatars. An avatar is a Circles user and is used to interact with other Avatars aka Circles users.
 
 You can get an avatar in two ways:
 
-* ... either by registering a new wallet at Circles (sign-up),&#x20;
-* ... or by loading an existing avatar by it's address.
+* Registering a new wallet at Circles via Sign Up,&#x20;
+* Loading an existing avatar by it's address.
 
 ### Create a new avatar
 
 {% hint style="info" %}
-You will need a fresh account in MetaMask with some xDai on it in order to follow along with this step. Make sure you configured MetaMask for the correct Chain (Gnosis Chain or Chiado) before you continue.
+You will need a new Metamask account with some xDAI to be able to interact with contracts and follow along the steps. Make sure you configured MetaMask with the correct ChainID (Gnosis Chain or Chiado) before you continue.
 {% endhint %}
 
-Call the SDK's `registerHuman()` method to sign the connected MetaMask account up for Circles.
+### To register a new Human
+
+You can call `registerHuman()` method to sign the connected MetaMask account up for Circles and get your avatar address.
 
 ```javascript
 const avatar = await sdk.registerHuman();
@@ -36,12 +38,12 @@ console.log(avatar.avatarInfo);
 ```
 
 {% hint style="info" %}
-You can supply any avatar address to the function, even if you don't have the key for it. However, if you just want to query the data you're better off with the `@circles-sdk/data` package which will be described later.
+You can supply any avatar address to the function, even if you don't have the key for it. However, if you just want to query the data with the `@circles-sdk/data` package you can refer to [this part of documentation](https://docs.aboutcircles.com/developer-docs/getting-started-with-the-sdk/query-data).
 {% endhint %}
 
-### Other avatar types
+### Different Avatar types
 
-The other avatar types will be covered in more detail later. Nonetheless, here's a short description and how you can create them.&#x20;
+Apart from `Human` Avatar you can also create `Group` and `Orangization` Avatar types. The technical details of same will be mentioned in later sections of docs. But here's how you can sign up as Group or Organization Avatar.
 
 {% hint style="info" %}
 One account can only sign up as one avatar. E.g. if an account is already signed up as human then it can't sign-up as organization.
