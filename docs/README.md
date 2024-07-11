@@ -19,7 +19,7 @@ layout:
 
 # 👋 Welcome to Circles
 
-Circles is a vision for and a project to implement a social money that is collaborative, rather than comptetitive in its nature. At the core of the Circles project lies a simple yet powerful principle:
+Circles is a vision for and an implementation of a social money that is collaborative, rather than competitive, and fairly distributed over all people and over time. At the core of the Circles project lies a simple yet powerful principle:
 
 **"Every person receives one Circle every hour, unconditionally."**
 
