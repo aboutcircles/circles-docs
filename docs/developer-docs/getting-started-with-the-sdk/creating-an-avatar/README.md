@@ -21,7 +21,7 @@ You will need a new Metamask account with some xDAI to be able to interact with 
 
 You can call `registerHuman()` method to sign the connected MetaMask account up for Circles and get your avatar address.
 
-```javascript
+```typescript
 const avatar = await sdk.registerHuman();
 console.log(avatar.avatarInfo);
 ```
@@ -80,3 +80,107 @@ const avatar = await sdk.registerGroupV2();
 ### Next steps
 
 The next page will show you how to use the avatar instance to query essential data like the avatar's Circles balance, it's trust relations and transaction history. On the page after, we'll use it to interact with other avatars.
+
+### Full example
+
+{% tabs %}
+{% tab title="Svelte" %}
+For a complete example that registers a human or organization account, check out the [Circles SDK Svelte Examples](https://github.com/aboutcircles/circles-sdk-svelte-examples) on GitHub. Specifically the [Using avatars](https://github.com/aboutcircles/circles-sdk-svelte-examples/blob/master/src/routes/using-avatars/%2Bpage.svelte) route.
+{% endtab %}
+
+{% tab title="React" %}
+```tsx
+import React, { useState, useEffect } from "react";
+import { Sdk, ChainConfig, SdkContractRunner, Avatar } from "@circles-sdk/sdk";
+import { BrowserProvider } from "ethers";
+
+const AvatarComponent: React.FC = () => {
+    const [avatar, setAvatar] = useState<Avatar | undefined>();
+    const [sdk, setSdk] = useState<Sdk | undefined>();
+    const [error, setError] = useState<Error | undefined>();
+
+    const chainConfig: ChainConfig = {
+        pathfinderUrl: 'https://pathfinder.aboutcircles.com',
+        circlesRpcUrl: "https://rpc.helsinki.aboutcircles.com",
+        v1HubAddress: "0x29b9a7fbb8995b2423a71cc17cf9810798f6c543"
+    };
+
+    async function getRunner(): Promise<SdkContractRunner> {
+        const w: any = window;
+        const browserProvider = new BrowserProvider(w.ethereum);
+        const signer = await browserProvider.getSigner();
+        const address = await signer.getAddress();
+
+        return {
+            runner: signer,
+            address: address
+        };
+    }
+
+    async function getSdk() {
+        const runner = await getRunner();
+        return new Sdk(chainConfig, runner);
+    }
+
+    useEffect(() => {
+        const initializeSdk = async () => {
+            const sdkInstance = await getSdk();
+            setSdk(sdkInstance);
+        };
+
+        initializeSdk();
+    }, []);
+
+    const registerAvatar = async () => {
+        setError(undefined);
+        try {
+            const avatarInstance = await sdk?.registerHuman();
+
+            // If you want to sign up an organization:
+            // const avatarInstance = await sdk?.registerOrganization();
+
+            setAvatar(avatarInstance);
+        } catch (e) {
+            setError(e as Error);
+        }
+    };
+
+    const loadAvatar = async () => {
+        setError(undefined);
+        try {
+            const avatarInstance = await sdk?.getAvatar(sdk?.contractRunner.address);
+            setAvatar(avatarInstance);
+        } catch (e) {
+            setError(e as Error);
+        }
+    };
+
+    return (
+        <div>
+            {error && (
+                <p style={{ color: "darkred" }}>
+                    Error: {error.message}
+                </p>
+            )}
+            {!avatar ? (
+                <div>
+                    <button onClick={registerAvatar}>
+                        Register Human
+                    </button>
+                    <button onClick={loadAvatar}>
+                        Load Avatar
+                    </button>
+                </div>
+            ) : (
+                <p>
+                    Avatar {avatar.avatarInfo?.avatar} is {avatar.avatarInfo?.type}
+                </p>
+            )}
+        </div>
+    );
+};
+
+export default AvatarComponent;
+```
+{% endtab %}
+{% endtabs %}
