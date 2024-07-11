@@ -19,9 +19,9 @@ layout:
 
 # 👋 Welcome to Circles
 
-At the core of the Circles project lies a simple yet powerful principle:
+Circles is a vision for and a project to implement a social money that is collaborative, rather than comptetitive in its nature. At the core of the Circles project lies a simple yet powerful principle:
 
 **"Every person receives one Circle every hour, unconditionally."**
 
-By leveraging blockchain technology and smart contracts, we ensure that the distribution of Circles is fair, transparent, and secure.
+Circles uses smart contracts to facilitate this social contract between people and help it scale across communities.
 
