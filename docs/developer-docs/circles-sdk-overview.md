@@ -11,7 +11,14 @@ There are SDK example application available for Svelte and React.
 * Svelte:
   * [circles-sdk-svelte-examples](https://github.com/aboutcircles/circles-sdk-svelte-examples) - A very bare bones svelte application. Contains examples that accompany this SDK guide (v1 only).
   * [5ecret-garden](https://github.com/aboutcircles/5ecret-garden) - Also a very bare bones, yet fully featured Circles client with support for Circles v1 and v2 built around the SDK.
-* React:
-  * [circles-vite-app](https://github.com/vanshika-srivastava/circles-vite-app) - Similar to the basic svelte app but in React.
+*   React:
+
+    * Circles Vite React Dev Playground - [https://circles-vite-app-v2.vercel.app/](https://circles-vite-app-v2.vercel.app/)
+    * You can checkout the source github repo [here](https://github.com/vanshika-srivastava/circles-vite-app/tree/circlesv0.4.0) .
+    * &#x20;It's a react implementation of SDK
+
+
+
+Check out [Circles Graph Explorer](https://data.aboutcircles.com/graph-explorer) to understand trust relations which utilizes pathfinder.
 
 The next section will guide you on how to initialize the SDK and provide a step-by-step guide to using different features. If you have any questions at any point while integrating, you can hop onto our Discord server.
