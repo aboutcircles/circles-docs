@@ -12,7 +12,7 @@ By building on Circles, you can give your dApp some unique properties:
 
 **Fair and Inclusive**: By decentralising the verification process and leveraging human judgement for trust, Circles addresses the issue of fake accounts. This fosters a secure and resilient ecosystem, where the authenticity of each user is ensured by their social connections rather than centralised authorities or algorithms.
 
-**Support for Group Currencies:** Circles v2 allows for the creation of group currencies, enabling communities to share a currency that's backed by their members personal tokens. This reduces risk, simplifies payments, and enhances market creation by aggregating individual tokens into a more stable group currency that's easy to integrate in existing protocols.
+**Support for Group Currencies:** Circles v2 allows for the creation of group currencies, enabling communities to share a currency that's backed by their members personal tokens. This reduces risk, simplifies payments, and enhances market creation by aggregating individual tokens into a more stable group currency that's easy to integrate into existing protocols.
 
 By joining the Circles developer community, you can play a crucial role in building a more equitable and inclusive financial system.
 
