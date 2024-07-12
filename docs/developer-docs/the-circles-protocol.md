@@ -2,29 +2,66 @@
 description: Developers Hub for building with Circles.
 ---
 
-# ⭕ The Circles Protocol
+# ⭕ Overview
 
-## Building on the Circles protocol <a href="#using-circles-as-a-developer" id="using-circles-as-a-developer"></a>
+## Building on the Circles protocol
 
-As a developer, you have the opportunity to contribute to this transformative initiative. Our developer documentation portal provides comprehensive guides, API references, and code examples to help you integrate Circles into your applications and build upon our ecosystem.
+Our developer documentation portal provides comprehensive guides, API references, and code examples to help you integrate Circles into your applications and build upon our ecosystem.
 
-### Using the SDK
+### Contracts
 
-To integrate Circles into your applications, you can leverage the Circles Software Development Kit (SDK), which provides a set of tools and libraries for interacting with the protocol. Here's what you can do with the SDK:
+Depending on what you want to achieve, you'll might want to use the contracts directly from solidity. In this case you can check out the source code on GitHub. For Circles v2 there is an a reference available.
 
-* **Create circles user account and manage CRCs:** The SDK allows you to programmatically sign up as Circles user, trust new users and allows to manage CRC tokens for use-cases.
-* **Execute Transactions:** You can use the SDK to execute trust-based transactions within Circles networks, transferring value between trusted individuals based on established trust connections.
-* **Interact with Smart Contracts:** The SDK provides interfaces for interacting with Circles smart contracts deployed on the blockchain, enabling seamless integration of Circles functionality into your applications.
+* [Circles v1 contract source](https://github.com/circlesubi/circles-contracts/)&#x20;
+* [Circles v2 contract source](https://github.com/aboutcircles/circles-contracts-v2/)
+* Circles v2 reference docs
 
-### Contributing to the Protocol
+#### Deployments
 
-As a developer, you have the opportunity to contribute to the evolution of the Circles Protocol by:
+{% tabs %}
+{% tab title="Gnosis chain" %}
+Hub address (v1):
 
-* **Building Applications:** Develop innovative blockchain applications, use-cases, proof of concepts that leverage Circles for decentralized value exchange, community building, and economic collaboration.
-* **Improving the SDK:** Contribute to the development of the Circles SDK by submitting code contributions, bug fixes, and feature enhancements to enhance its usability and functionality.
-* **Research and Development:** Explore new ideas and approaches for enhancing the scalability, privacy, and interoperability of the Circles Protocol through research and development initiatives.
+[`0x29b9a7fbb8995b2423a71cc17cf9810798f6c543`](https://gnosisscan.io/address/0x29b9a7fbb8995b2423a71cc17cf9810798f6c543)
+{% endtab %}
 
-### Join the Technical Community
+{% tab title="Chiado" %}
+Hub address (v1):
+
+[`0xdbf22d4e8962db3b2f1d9ff55be728a887e47710`](https://gnosis-chiado.blockscout.com/address/0xdbF22D4e8962Db3b2F1d9Ff55be728A887e47710)
+
+Hub address (v2):
+
+[`0x2066CDA98F98397185483aaB26A89445addD6740`](https://gnosis-chiado.blockscout.com/address/0x2066CDA98F98397185483aaB26A89445addD6740)
+
+Migration contract (v2):
+
+[`0x2A545B54bb456A0189EbC53ed7090BfFc4a6Af94`](https://gnosis-chiado.blockscout.com/address/0x2A545B54bb456A0189EbC53ed7090BfFc4a6Af94)
+{% endtab %}
+{% endtabs %}
+
+### SDK
+
+If you want to develop a server or client application that utilizes Circles, you can check out the SDK and just keep reading (This documentation pages are mostly about the SDK).
+
+* [Circles SDK source](https://github.com/aboutcircles/circles-sdk)
+* [Circles SDK package on npm](https://www.npmjs.com/package/@circles-sdk/sdk)
+
+The SDK allows you to seamlessly use all features of Circles v1 and Circles v2. These include:
+
+* Signing up as a human, organisation, or group
+* Trusting, minting, and transferring personal and group Circles
+* Querying balances, trust relations, and transaction histories
+* Subscribing to and querying events
+
+### Infrastructure
+
+Circles relies on some infrastructure components to make it work. Most importantly:
+
+* [Pathfinder](https://github.com/circlesUBI/pathfinder2) - Finds liquid paths between two accounts in the trust network. These are used as input for the contract's transfer methods.
+* [Circles Nethermind plug-in](https://github.com/aboutcircles/circles-nethermind-plugin) - Provides access to the Gnosis Chain and indexes Circles events.
+
+## Join the Technical Community
 
 To collaborate with fellow developers, ask questions, and share your insights, join our technical community channels on Discord, GitHub, and other platforms.
 

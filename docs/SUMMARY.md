@@ -11,7 +11,7 @@
 
 ## Developer Docs
 
-* [⭕ The Circles Protocol](developer-docs/the-circles-protocol.md)
+* [⭕ Overview](developer-docs/the-circles-protocol.md)
 * [🔎 Circles SDK Overview](developer-docs/circles-sdk-overview.md)
 * [🚀 Getting started with the SDK](circles-sdk/getting-started-with-the-sdk/README.md)
   * [👾 Using avatars](developer-docs/getting-started-with-the-sdk/creating-an-avatar/README.md)
