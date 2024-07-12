@@ -4,15 +4,15 @@
 
 ## Overview
 
-* [⚡ How It Works](overview/how-it-works/README.md)
-  * [Personal Currency](overview/how-it-works/personal-currency.md)
-  * [Group Currencies](overview/how-it-works/group-currencies.md)
+* [❓ How It Works](overview/how-it-works/README.md)
+  * [🧍 Personal Currency](overview/how-it-works/personal-currency.md)
+  * [👫 Group Currencies](overview/how-it-works/group-currencies.md)
 * [🛠️ Why Build on Circles?](overview/why-build-on-circles.md)
 
 ## Developer Docs
 
-* [⭕ The Circles Stack](developer-docs/the-circles-protocol.md)
-* [🔎 Circles SDK Overview](developer-docs/circles-sdk-overview.md)
+* [🪜 The Circles Stack](developer-docs/the-circles-protocol.md)
+* [🗺️ Circles SDK Overview](developer-docs/circles-sdk-overview.md)
 * [🚀 Getting started with the SDK](circles-sdk/getting-started-with-the-sdk/README.md)
   * [👾 Using avatars](developer-docs/getting-started-with-the-sdk/creating-an-avatar/README.md)
     * [📝 Avatar information](developer-docs/getting-started-with-the-sdk/creating-an-avatar/avatar-information.md)
