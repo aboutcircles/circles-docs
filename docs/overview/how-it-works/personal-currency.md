@@ -1,4 +1,4 @@
-# Personal Currency
+# 🧍 Personal Currencies
 
 Circles is all about creating a fairer money system. Our current monetary system and most cryptocurrencies tend to benefit those with established wealth and market positions, making it challenging for newcomers to catch up. Wealth grows disproportionately for those already in the market, as time in the market often beats time to market.
 
