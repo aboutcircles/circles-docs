@@ -61,7 +61,11 @@ const chainConfig: ChainConfig = {
 {% endtab %}
 
 {% tab title="Chiado" %}
-The Gnosis Chain testnet has both versions (v1 and v2) of the Circles contracts.
+The Gnosis Chain testnet has both versions (v1 and v2) of the Circles contracts.&#x20;
+
+{% hint style="warning" %}
+_There is currently no pathfinder instance for Chiado which means that transfers in v1  are not possible on Chiado. Circles v2 is limited to direct transfers._
+{% endhint %}
 
 ```typescript
 const chainConfig: ChainConfig = {
