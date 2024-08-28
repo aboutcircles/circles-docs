@@ -6,144 +6,94 @@ description: >-
 
 # 🚀 Getting started with the SDK
 
-### 1. Prerequisites
+## Prerequisites
 
-#### Install MetaMask and add Gnosis Chain & Chiado testnet
-
-You'll need the MetaMask Plug-In installed in your browser: [https://metamask.io/](https://metamask.io/)
-
-Once installed, you can check out the [official gnosis chain docs](https://docs.gnosischain.com/about/networks/) to get ChainID and RPC URL. Or you can quickly utilise the deep link for [Gnosis mainnet](https://docs.gnosischain.com/about/networks/mainnet) and [Chiado testnet](https://shanejonas.github.io/metamask-link/deep?method=wallet\_addEthereumChain\&params%5B0%5D%5BchainId%5D=0x27D8\&params%5B0%5D%5BchainName%5D=Chiado\&params%5B0%5D%5BrpcUrls%5D%5B0%5D=https://rpc.chiadochain.net\&params%5B0%5D%5BnativeCurrency%5D%5Bname%5D=Chiado%20xDAI\&params%5B0%5D%5BnativeCurrency%5D%5Bsymbol%5D=XDAI\&params%5B0%5D%5BnativeCurrency%5D%5Bdecimals%5D=18\&params%5B0%5D%5BblockExplorerUrls%5D%5B0%5D=https://blockscout.com/gnosis/chiado) .
+* [Metamask Plugin](https://metamask.io/) installed in browser
+* Setup [Gnosis Chain (Mainnet)](https://docs.gnosischain.com/about/networks/mainnet) and/or [Chiado Chain (Testnet)](https://docs.gnosischain.com/about/networks/chiado). Check out Gnosis Chain docs [here](https://docs.gnosischain.com/about/networks/).
+* xDAI as gas token, check out [Mainnet](https://faucet.gnosischain.com/) and [Testnet ](https://faucet.chiadochain.net/)Faucet
 
 {% hint style="info" %}
 _You should use Chiado if you want to test a preview version of Circles v2. If you want to build with Circles v1, use Gnosis Chain instead._
 {% endhint %}
 
-#### Get some xDAI for paying gas fees
+## Install packages for CirclesSDK
 
-To send transactions you will need a small amount of xDai in order to pay for gas fees. You can get get xDAI tokens from mainnet and testnet faucet, depending on the need.
-
-* Mainnet Faucet : [https://faucet.gnosischain.com/](https://faucet.gnosischain.com/)
-* Testnet Faucet : [https://faucet.chiadochain.net/](https://faucet.chiadochain.net/)
-
-### 2. Install packages
-
-If you have all prerequisites in place, start by installing the Circles SDK package and ethers 6 in your project using npm.
+If you have all prerequisites in place, start by installing the Circles SDK package and ethers v6 in your project using `npm`
 
 * `npm i ethers`
-* `npm i @circles-sdk/sdk@0.4.0 @circles-sdk/data@0.4.0`
+* `npm i @circles-sdk/sdk@0.7.0-preview-1`&#x20;
+* `npm i @circles-sdk/data@0.7.0-preview-1 @circles-sdk/profiles0.7.0-preview-1`
 
-### 2. Add imports
+### 1. Add imports
 
-Then, import the necessary classes from the Circles SDK and ethers.
+Then, import the necessary classes from the Circles SDK and Ethers.
 
 ```typescript
-import {Sdk, ChainConfig, SdkContractRunner} from "@circles-sdk/sdk";
-import {BrowserProvider} from "ethers";
+import { Sdk,ChainConfig } from "@circles-sdk/sdk";
+import {BrowserProviderContractRunner} from "@circles-sdk/adapter-ethers"
 ```
 
-### 3. Chain specific configuration
+### 2. Add `ChainConfig` for SDK
 
-Circles is available on Gnosis Chain and Chiado (the GC testnet). You need to specify the correct contract addresses and service endpoints for each environment.&#x20;
-
-Choose from the following options, and copy & paste the selected `chainConfig` to your code.
+Circles is available on Gnosis Chain and Chiado Testnet. You need to specify the correct contract addresses and service endpoints for each environment.&#x20;
 
 {% tabs %}
 {% tab title="Gnosis Chain " %}
-The Gnosis Chain mainnet is the production chain for Circles. It currently only has the v1 contracts deployed.
+The Gnosis Chain mainnet is the production chain for Circles.&#x20;
 
 ```typescript
 const chainConfig: ChainConfig = {
-    pathfinderUrl: 'https://pathfinder.aboutcircles.com',
-    circlesRpcUrl: "https://rpc.helsinki.aboutcircles.com",
-    v1HubAddress: "0x29b9a7fbb8995b2423a71cc17cf9810798f6c543"
+  pathfinderUrl: 'https://pathfinder.aboutcircles.com',
+  circlesRpcUrl: 'https://rpc.helsinki.aboutcircles.com',
+  v1HubAddress: '0x29b9a7fbb8995b2423a71cc17cf9810798f6c543',
+  v2HubAddress: '0x7bC1F123089Bc1f384b6379d0587968d1CD5830a',
+  migrationAddress: '0xEaBa6046103C3A2f5A681fD4323f78C647Fb4292',
+  profileServiceUrl: 'https://chiado-pathfinder.aboutcircles.com/profiles/',
+  nameRegistryAddress: "0xb95ef3f3e693531d9588815bca954dc8dce30937",
 };
 ```
 {% endtab %}
 
 {% tab title="Chiado" %}
-The Gnosis Chain testnet has both versions (v1 and v2) of the Circles contracts.&#x20;
-
-{% hint style="warning" %}
-_There is currently no pathfinder instance for Chiado which means that transfers in v1  are not possible on Chiado. Circles v2 is limited to direct transfers._
-{% endhint %}
-
 ```typescript
 const chainConfig: ChainConfig = {
     circlesRpcUrl: "https://chiado-rpc.aboutcircles.com",
+    pathfinderUrl: "https://chiado-pathfinder.aboutcircles.com",
+    v2PathfinderUrl: "https://chiado-pathfinder.aboutcircles.com/pathfinder/",
+    profileServiceUrl: "https://chiado-pathfinder.aboutcircles.com/profiles/",
     v1HubAddress: "0xdbf22d4e8962db3b2f1d9ff55be728a887e47710",
-    v2HubAddress: "0x2066CDA98F98397185483aaB26A89445addD6740",
-    migrationAddress: "0x2A545B54bb456A0189EbC53ed7090BfFc4a6Af94"
+    v2HubAddress: "0xEddc960D3c78692BF38577054cb0a35114AE35e0",
+    migrationAddress: "0x8C9BeAccb6b7DBd3AeffB5D77cab36b62Fe98882",
+    nameRegistryAddress: "0x5525cbF9ad01a4E805ed1b40723D6377b336eCcf"
 };
 ```
 {% endtab %}
 {% endtabs %}
 
-### 4. Create a contract runner
+### 3. Setup Provider and Signer
 
-A `SdkContractRunner` represents a way for the Sdk to sign messages and send them to the chain.
-
-For the purpose of this guide, we'll show you two variants. One uses the `window.ethereum` object (as provided e.g. by MetaMask), the other uses a private key hex string.
-
-{% tabs %}
-{% tab title="MetaMask" %}
-Here's how you can create one from the `window.ethereum` object that MetaMask provides.
-
-```javascript
-async function getRunner() : Promise<SdkContractRunner> {
-    const w: any = window;
-    const browserProvider = new BrowserProvider(w.ethereum);
-    const signer = await browserProvider.getSigner();
-    const address = await signer.getAddress();
-    
-    return {
-        runner: signer,
-        address: address
-    };
-}
-```
-{% endtab %}
-
-{% tab title="Private key string" %}
-If you want a private key string instead use the following code:
+To setup provider and signer, we would utilize the Circles Adapter that is built to support transactions via ethers. Once you have already imported the `BrowserProviderContractRunner` , you would need to initialize it.
 
 ```typescript
-async function getRunner() : Promise<SdkContractRunner> {
-    const privateKey = 'your-private-key-hex-string';
-    const provider = new JsonRpcProvider(chainConfig.circlesRpcUrl);
-    const wallet = new Wallet(privateKey, provider);
-    const address = await wallet.getAddress();
+const adapter = new BrowserProviderContractRunner();
+await adapter.init();
 
-    return {
-        runner: wallet,
-        address: address
-    };
-}
+const circlesAddress = adapter.address
 ```
-{% endtab %}
-{% endtabs %}
 
-### 5. Initialize the Circles SDK
+### 3. Initialize the Circles SDK
 
-It's time to initialize the SDK using the ChainConfig and SdkContractRunner objects from above.
+To initialize the CirclesSDK, we will pass on the `ChainConfig` and `Adapter` to SDK instance.
 
 ```typescript
-async function getSdk() {
-    const runner = await getRunner();
-    return new Sdk(chainConfig, runner);
-}
-```
-
-### 6. Use the SDK
-
-You can now create an instance of the SDK by calling `getSdk()`. If you're using React you can e.g. store this instance in a Context to make it available in your application.
-
-```javascript
-const sdk = await getSdk();
+const sdk = new Sdk(chainConfig,adapter);
 ```
 
 Once you have successfully created a SDK instance, you are all set to use Circles in your dApp. Let's learn more about the Circles SDK features and how you can use them on the next pages.
 
-### Full example
+***
+
+### CirclesSDK Code implementation for Svelte and React Framework
 
 Here's the full code for Svelte and React for you to copy & paste:
 
@@ -151,91 +101,107 @@ Here's the full code for Svelte and React for you to copy & paste:
 {% tab title="Svelte" %}
 ```typescript
 <script lang="ts">
-    import {Sdk, type ChainConfig, type SdkContractRunner} from "@circles-sdk/sdk";
-    import {BrowserProvider} from "ethers";
-    import {onMount} from "svelte";
+    import { Sdk, type ChainConfig } from "@circles-sdk/sdk";
+    import {BrowserProviderContractRunner} from "@circles-sdk/adapter-ethers"
+    import { onMount } from "svelte";
 
-    let avatarAddress = "0xb235B56b91eccb9DbdF811D7b5C45c363AcaE98D";
     let avatarType = "";
+    let circlesAddress = "";
+    let sdk: Sdk;
 
     const chainConfig: ChainConfig = {
-        pathfinderUrl: 'https://pathfinder.aboutcircles.com',
-        circlesRpcUrl: "https://rpc.helsinki.aboutcircles.com",
-        v1HubAddress: "0x29b9a7fbb8995b2423a71cc17cf9810798f6c543"
+        circlesRpcUrl: "https://chiado-rpc.aboutcircles.com",
+        pathfinderUrl: "https://chiado-pathfinder.aboutcircles.com",
+        v2PathfinderUrl: "https://chiado-pathfinder.aboutcircles.com/pathfinder/",
+        profileServiceUrl: "https://chiado-pathfinder.aboutcircles.com/profiles/",
+        v1HubAddress: "0xdbf22d4e8962db3b2f1d9ff55be728a887e47710",
+        v2HubAddress: "0xEddc960D3c78692BF38577054cb0a35114AE35e0",
+        migrationAddress: "0x8C9BeAccb6b7DBd3AeffB5D77cab36b62Fe98882",
+        nameRegistryAddress: "0x5525cbF9ad01a4E805ed1b40723D6377b336eCcf"
     };
+    
+   async function initializeSdk() {
+        // Get Adapter
+        const adapter = new BrowserProviderContractRunner();
+        await adapter.init();
 
-    async function getRunner(): Promise<SdkContractRunner> {
-        const w: any = window;
-        const browserProvider = new BrowserProvider(w.ethereum);
-        const signer = await browserProvider.getSigner();
-        const address = await signer.getAddress();
+        // Get Circles Address
+        circlesAddress = adapter.address;
 
-        return {
-            runner: signer,
-            address: address
-        };
+        // Initialize the SDK with the adapter
+        sdk = new Sdk(chainConfig, adapter);
     }
 
-    async function getSdk() {
-        const runner = await getRunner();
-        return new Sdk(chainConfig, runner);
+    // Fetch the avatar associated with the wallet address
+    async function fetchAvatar() {
+        if (sdk && circlesAddress) {
+            const avatar = await sdk.getAvatar(circlesAddress);
+            avatarType = avatar.avatarInfo?.type || "Unknown";
+        }
     }
 
+    // Mounting the component and initializing the SDK
     onMount(async () => {
-        const sdk = await getSdk();
-        const avatar = await sdk.getAvatar(avatarAddress);
-
-        avatarType = avatar.avatarInfo?.type;
+        await initializeSdk();
+        await fetchAvatar();
     });
 </script>
+
 <p>
-    Avatar {avatarAddress} is {avatarType}
+    Avatar for {circlesAddress} is {avatarType}
 </p>
 ```
 {% endtab %}
 
 {% tab title="React" %}
 ```tsx
-import React, { useEffect, useState } from "react";
-import { Sdk, ChainConfig, SdkContractRunner } from "@circles-sdk/sdk";
-import { BrowserProvider } from "ethers";
 
-const AvatarComponent: React.FC = () => {
-    const [avatarType, setAvatarType] = useState<string>("");
-    const avatarAddress = "0xb235B56b91eccb9DbdF811D7b5C45c363AcaE98D";
+import React, { useEffect, useState } from 'react';
+import { Sdk, type ChainConfig } from "@circles-sdk/sdk";
+import { BrowserProviderContractRunner } from "@circles-sdk/adapter-ethers";
+
+const AvatarComponent = () => {
+    const [circlesAddress, setCirclesAddress] = useState<string | undefined>(undefined);
+    const [sdk, setSdk] = useState<Sdk | undefined>(undefined);
+    const [avatarType, setAvatarType] = useState<string>("Unknown");
+    const [avatarAddress, setAvatarAddress] = useState<string>("");
 
     const chainConfig: ChainConfig = {
-        pathfinderUrl: 'https://pathfinder.aboutcircles.com',
-        circlesRpcUrl: "https://rpc.helsinki.aboutcircles.com",
-        v1HubAddress: "0x29b9a7fbb8995b2423a71cc17cf9810798f6c543"
+        circlesRpcUrl: "https://chiado-rpc.aboutcircles.com",
+        pathfinderUrl: "https://chiado-pathfinder.aboutcircles.com",
+        v2PathfinderUrl: "https://chiado-pathfinder.aboutcircles.com/pathfinder/",
+        profileServiceUrl: "https://chiado-pathfinder.aboutcircles.com/profiles/",
+        v1HubAddress: "0xdbf22d4e8962db3b2f1d9ff55be728a887e47710",
+        v2HubAddress: "0xEddc960D3c78692BF38577054cb0a35114AE35e0",
+        migrationAddress: "0x8C9BeAccb6b7DBd3AeffB5D77cab36b62Fe98882",
+        nameRegistryAddress: "0x5525cbF9ad01a4E805ed1b40723D6377b336eCcf"
     };
 
-    async function getRunner(): Promise<SdkContractRunner> {
-        const w: any = window;
-        const browserProvider = new BrowserProvider(w.ethereum);
-        const signer = await browserProvider.getSigner();
-        const address = await signer.getAddress();
-
-        return {
-            runner: signer,
-            address: address
-        };
+    // Initialize SDK and set the circles address
+    async function initializeSdk() {
+        const adapter = new BrowserProviderContractRunner();
+        await adapter.init();
+        setCirclesAddress(adapter.address);
+        setSdk(new Sdk(chainConfig, adapter));
     }
 
-    async function getSdk() {
-        const runner = await getRunner();
-        return new Sdk(chainConfig, runner);
-    }
+    // Initialize SDK when component mounts
+    useEffect(() => {
+        initializeSdk();
+    }, []); // Empty dependency array to run only once on mount
 
+    // Fetch avatar information when sdk and circlesAddress are available
     useEffect(() => {
         async function fetchAvatar() {
-            const sdk = await getSdk();
-            const avatar = await sdk.getAvatar(avatarAddress);
-            setAvatarType(avatar.avatarInfo?.type || "");
+            if (sdk && circlesAddress) {
+                const avatar = await sdk.getAvatar(circlesAddress);
+                setAvatarType(avatar.avatarInfo?.type || "Unknown");
+                setAvatarAddress(circlesAddress);
+            }
         }
 
         fetchAvatar();
-    }, []);
+    }, [sdk, circlesAddress]); // Runs when either sdk or circlesAddress updates
 
     return (
         <p>

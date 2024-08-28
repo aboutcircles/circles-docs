@@ -2,20 +2,13 @@
 
 The [Circles SDK](https://www.npmjs.com/package/@circles-sdk/sdk) is a TypeScript library that allows you to integrate Circles into your dApp.&#x20;
 
-With the SDK, you can register a wallet as a human, organization, or group. Registered wallets, called Avatars, participate in the Circles trust graph and transact with other Circles Avatars.\
+With the SDK, you can register a wallet as a human, organization, or group. Registered wallets, called `Avatars`, participate in the Circles trust graph and transact with other Circles Avatars.\
 \
 Additionally, you can use the SDK to query the Circles trust graph, balances, and transaction data, as well as subscribe to protocol events.
 
-There are SDK example application available for Svelte and React.
+There are SDK example applications available for Svelte and React.
 
-* Svelte:
-  * [circles-sdk-svelte-examples](https://github.com/aboutcircles/circles-sdk-svelte-examples) - A very bare bones svelte application. Contains examples that accompany this SDK guide (v1 only).
-  * [5ecret-garden](https://github.com/aboutcircles/5ecret-garden) - Also a very bare bones, yet fully featured Circles client with support for Circles v1 and v2 built around the SDK.
-*   React:
-
-    * Circles Vite React Dev Playground - [https://circles-vite-app-v2.vercel.app/](https://circles-vite-app-v2.vercel.app/)
-    * You can checkout the source github repo [here](https://github.com/vanshika-srivastava/circles-vite-app/tree/circlesv0.4.0) .
-    * &#x20;It's a react implementation of SDK
+<table><thead><tr><th width="221">Application Framework</th><th width="312">Application info</th><th>Link to Github Repo</th></tr></thead><tbody><tr><td>Svelte</td><td>Svelte example application with v1</td><td><a href="https://github.com/aboutcircles/circles-sdk-svelte-examples">circles-sdk-svelte-examples</a></td></tr><tr><td>Svelte</td><td>Svelte application featuring Circles client with support for Circles v1 and v2 built around the SDK.</td><td><a href="https://github.com/aboutcircles/5ecret-garden">5ecret-garden</a></td></tr><tr><td>React + Vite</td><td>Circles implementation with v1 for personal currencies using React and Vite framework</td><td></td></tr></tbody></table>
 
 
 
