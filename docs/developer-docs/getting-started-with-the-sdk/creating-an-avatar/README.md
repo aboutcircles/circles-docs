@@ -4,27 +4,29 @@ description: An avatar represents a Circles user.
 
 # 👾 Using avatars
 
-The SDK is built around the concept of avatars. An avatar is a Circles user and is used to interact with other Avatars aka Circles users.
+The SDK is built around the concept of avatars. An avatar is a Circles user and is used to interact with other Avatars.&#x20;
 
-You can get an avatar in two ways:
+* For new Circles users, you would require them to Sign up.
+* For existing Circles users, you can simply get exisiting avatars by address.
 
-* Registering a new wallet at Circles via Sign Up,&#x20;
-* Loading an existing avatar by it's address.
-
-### Create a new avatar
+### Creating a new avatar
 
 {% hint style="info" %}
-You will need a new Metamask account with some xDAI to be able to interact with contracts and follow along the steps. Make sure you configured MetaMask with the correct ChainID (Gnosis Chain or Chiado) before you continue.
+You will need a Metamask account with some xDAI to be able to interact with contracts and follow along the steps. Make sure you configured MetaMask with the correct ChainID (Gnosis Chain or Chiado) before you continue.
 {% endhint %}
 
 ### To register a new Human
 
 You can call `registerHuman()` method to sign the connected MetaMask account up for Circles and get your avatar address.
 
-```typescript
-const avatar = await sdk.registerHuman();
+<pre class="language-typescript"><code class="lang-typescript"><strong>//v1
+</strong><strong>const avatar = await sdk.registerHuman();
+</strong>console.log(avatar.avatarInfo);
+
+//v2
+const avatar = await sdk.registerHumanV2();
 console.log(avatar.avatarInfo);
-```
+</code></pre>
 
 There are different types of avatars within Circles. A `human` avatar is the most common and suitable for any person. It differentiates itself from all other avatar types in that it can mint 24 new personal Circles per day.
 
@@ -81,7 +83,9 @@ const avatar = await sdk.registerGroupV2();
 
 The next page will show you how to use the avatar instance to query essential data like the avatar's Circles balance, it's trust relations and transaction history. On the page after, we'll use it to interact with other avatars.
 
-### Full example
+***
+
+### Circles SDK Avatar Implementation
 
 {% tabs %}
 {% tab title="Svelte" %}
@@ -90,53 +94,7 @@ For a complete example that registers a human or organization account, check out
 
 {% tab title="React" %}
 ```tsx
-import React, { useState, useEffect } from "react";
-import { Sdk, ChainConfig, SdkContractRunner, Avatar } from "@circles-sdk/sdk";
-import { BrowserProvider } from "ethers";
-
-const AvatarComponent: React.FC = () => {
-    const [avatar, setAvatar] = useState<Avatar | undefined>();
-    const [sdk, setSdk] = useState<Sdk | undefined>();
-    const [error, setError] = useState<Error | undefined>();
-
-    const chainConfig: ChainConfig = {
-        circlesRpcUrl: "https://chiado-rpc.aboutcircles.com",
-        pathfinderUrl: "https://chiado-pathfinder.aboutcircles.com",
-        v2PathfinderUrl: "https://chiado-pathfinder.aboutcircles.com/pathfinder/",
-        profileServiceUrl: "https://chiado-pathfinder.aboutcircles.com/profiles/",
-        v1HubAddress: "0xdbf22d4e8962db3b2f1d9ff55be728a887e47710",
-        v2HubAddress: "0xEddc960D3c78692BF38577054cb0a35114AE35e0",
-        migrationAddress: "0x8C9BeAccb6b7DBd3AeffB5D77cab36b62Fe98882",
-        nameRegistryAddress: "0x5525cbF9ad01a4E805ed1b40723D6377b336eCcf"
-    };
-
-    async function getRunner(): Promise<SdkContractRunner> {
-        const w: any = window;
-        const browserProvider = new BrowserProvider(w.ethereum);
-        const signer = await browserProvider.getSigner();
-        const address = await signer.getAddress();
-
-        return {
-            runner: signer,
-            address: address
-        };
-    }
-
-    async function getSdk() {
-        const runner = await getRunner();
-        return new Sdk(chainConfig, runner);
-    }
-
-    useEffect(() => {
-        const initializeSdk = async () => {
-            const sdkInstance = await getSdk();
-            setSdk(sdkInstance);
-        };
-
-        initializeSdk();
-    }, []);
-
-    const registerAvatar = async () => {
+const registerAvatar = async () => {
         setError(undefined);
         try {
             const avatarInstance = await sdk?.registerHuman();
@@ -149,8 +107,8 @@ const AvatarComponent: React.FC = () => {
             setError(e as Error);
         }
     };
-
-    const loadAvatar = async () => {
+    
+const loadAvatar = async () => {
         setError(undefined);
         try {
             const avatarInstance = await sdk?.getAvatar(sdk?.contractRunner.address);
@@ -159,33 +117,6 @@ const AvatarComponent: React.FC = () => {
             setError(e as Error);
         }
     };
-
-    return (
-        <div>
-            {error && (
-                <p style={{ color: "darkred" }}>
-                    Error: {error.message}
-                </p>
-            )}
-            {!avatar ? (
-                <div>
-                    <button onClick={registerAvatar}>
-                        Register Human
-                    </button>
-                    <button onClick={loadAvatar}>
-                        Load Avatar
-                    </button>
-                </div>
-            ) : (
-                <p>
-                    Avatar {avatar.avatarInfo?.avatar} is {avatar.avatarInfo?.type}
-                </p>
-            )}
-        </div>
-    );
-};
-
-export default AvatarComponent;
 ```
 {% endtab %}
 {% endtabs %}
