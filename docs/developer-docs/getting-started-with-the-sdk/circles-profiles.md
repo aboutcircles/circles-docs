@@ -25,8 +25,9 @@ The schema is very simple and only has one required attribute:
     },
     "previewImageUrl": {
       "type": "string",
-      "description": "Can be a base64-encoded image data URL for the profile preview or an external link",
-      "maxLength": 2000
+      "format": "data-url",
+      "pattern": "^data:image\\/(png|jpeg|jpg|gif);base64,",
+      "description": "A base64-encoded image data URL for the profile preview"
     },
     "imageUrl": {
       "type": "string",
@@ -39,6 +40,17 @@ The schema is very simple and only has one required attribute:
 }
 ```
 
-### @circles-sdk/profiles packages
+### Profile picture
 
-You may want to query the profiles for a bunch of of avatars all at once. For cases like this you can use the `@circles-sdk/profiles` package which contains methods that help you to handle profiles.
+You can include a profile picture in the profile document (the `previewImageUrl`). If you choose to do so, make sure the picture you are using has the following properties:
+
+1. **Format**: The image must be in PNG, JPEG, or GIF format.
+2. **Dimensions**: The image must be exactly 256x256 pixels.
+3. **File size**: The image must not exceed 150KB.
+4. **Encoding**: The image must be base64 encoded and included as a data URL in the `previewImageUrl` field.
+
+These requirements are enforced by the server to ensure consistency and performance across the platform.&#x20;
+
+{% hint style="warning" %}
+Profiles that don't adhere to the spec aren't considered and won't be served by Circles' profile service.
+{% endhint %}
