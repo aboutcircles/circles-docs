@@ -17,18 +17,35 @@ You will need a Metamask account with some xDAI to be able to interact with cont
 
 ### To register a new Human
 
-You can call `registerHuman()` method to sign the connected MetaMask account up for Circles and get your avatar address.
-
-<pre class="language-typescript"><code class="lang-typescript"><strong>//v1
-</strong><strong>const avatar = await sdk.registerHuman();
-</strong>console.log(avatar.avatarInfo);
-
-//v2
-const avatar = await sdk.registerHumanV2();
-console.log(avatar.avatarInfo);
-</code></pre>
+You can call `registerHuman()` method to sign the connected MetaMask account up for Circles and get your avatar address.&#x20;
 
 There are different types of avatars within Circles. A `human` avatar is the most common and suitable for any person. It differentiates itself from all other avatar types in that it can mint 24 new personal Circles per day.
+
+{% tabs %}
+{% tab title="Circles V2" %}
+In v2, all avatars need a profile CID. You can either bring you own (CID) and need to take care that it's available ...
+
+```typescript
+const avatar = await sdk.registerHumanV2("Qm.....");
+console.log(avatar.avatarInfo);
+```
+
+... or fill in the `Profile` object and implicitly use the Circles pinning service to pin it:
+
+```typescript
+const avatar = await sdk.registerHumanV2({
+    name: "My profile name"
+});
+console.log(avatar.avatarInfo);
+```
+{% endtab %}
+
+{% tab title="Circles V1" %}
+<pre class="language-typescript"><code class="lang-typescript"><strong>const avatar = await sdk.registerHuman();
+</strong>console.log(avatar.avatarInfo);
+</code></pre>
+{% endtab %}
+{% endtabs %}
 
 ### Get an existing avatar
 
@@ -78,6 +95,31 @@ const avatar = await sdk.registerGroupV2();
 ```
 {% endtab %}
 {% endtabs %}
+
+## Read and update a Profile
+
+To read and update profiles, you can get an `AvatarInfo` object and then use it's `getProfile()` and `updateProfile()` methods.
+
+```typescript
+//
+// Retrieve the profile for an avatar
+//
+const avatar = await sdk.getAvatar(walletAddress);
+const profile = await avatar?.getProfile();
+if (!profile) {
+    console.error("Couldn't load the profile of the avatar");
+    return undefined;
+}
+
+//
+// Update the profile of an avatar.
+//
+profile.name = "Test test test";
+
+const updatedProfileCID = await avatar.updateProfile(profile);
+console.log(`The profile was updated. New CID is: {updatedProfileCid}`);
+
+```
 
 ### Next steps
 

@@ -39,31 +39,30 @@ console.log(`Profile created with CID: ${cid}`);
 
 ***
 
-## Retrieving Circles Profiles using CID
+## Read and update a Profile
 
-To retrive Circles Profile using CID, you need to extract the CID from the `AvatarInfo`
+To read and update profiles, you can get an `AvatarInfo` object and then use it's `getProfile()` and `updateProfile()` methods.
 
 ```typescript
-const sdk = new Sdk(chainConfig, signer);
+const sdk = new Sdk(config, signer);
 
-async function getProfileData(walletAddress: string): Promise<Profile | undefined> {
-
-    const avatarInfo = await sdk.getAvatar(walletAddress);
-    const cid = avatarInfo?.avatarInfo?.cidV0;
-
-    if (!cid) {
-        console.error("No CID found for the avatar");
-        return undefined;
-    }
-    
-    const profile = await sdk.profiles.get(cid);
-
-    if (!profile) {
-        console.error("Profile not found for the given CID");
-        return undefined;
-    }
-
-    return profile;
+//
+// Retrieve the profile for an avatar
+//
+const avatar = await sdk.getAvatar(walletAddress);
+const profile = await avatar?.getProfile();
+if (!profile) {
+    console.error("Couldn't load the profile of the avatar");
+    return undefined;
 }
+
+//
+// Update the profile of an avatar.
+//
+profile.name = "Test test test";
+
+const updatedProfileCID = await avatar.updateProfile(profile);
+console.log(`The profile was updated. New CID is: {updatedProfileCid}`);
+
 ```
 
