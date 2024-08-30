@@ -49,7 +49,7 @@ You can include a profile picture in the profile document (the `previewImageUrl`
 3. **File size**: The image must not exceed 150KB.
 4. **Encoding**: The image must be base64 encoded and included as a data URL in the `previewImageUrl` field.
 
-These requirements are enforced by the server to ensure consistency and performance across the platform.&#x20;
+These requirements are enforced by the server to ensure consistency and performance across the platform.  [Here](https://github.com/aboutcircles/5ecret-garden/blob/06da3e5d472b487fa8e1bc726561eddbc97fdd30/circles-app/src/lib/components/ImageUpload.svelte#L33) is a code example (Browser; TypeScript) that shows how you can prepare the previewImageUrl.
 
 {% hint style="warning" %}
 Profiles that don't adhere to the spec aren't considered and won't be served by Circles' profile service.
