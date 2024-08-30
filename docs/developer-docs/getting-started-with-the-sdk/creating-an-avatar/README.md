@@ -79,7 +79,9 @@ const avatar = await sdk.registerOrganization();
 
 ```typescript
 // v2:
-const avatar = await sdk.registerOrganizationV2();
+const avatar = await sdk.registerOrganizationV2({
+  name: "Test shop"
+});
 ```
 {% endtab %}
 
@@ -91,7 +93,19 @@ Any Group that's registered in Circles is also a Token. Group members can mint t
 Groups are only available in v2.
 
 ```typescript
-const avatar = await sdk.registerGroupV2();
+import { GroupProfile, Profile, Profiles } from '@circles-sdk/profiles';
+
+// When on Gnosis Chain use this ..
+// const standardMintPolicy = "0x2470B43fc3303fCa660E68c86e3bEb8CE353C556";
+
+// When on Chiado use that ..
+// const standardMintPolicy = "0xaD49f877021c73d00bE142b135c9AA67f0D8e9c6";
+
+const groupProfile: GroupProfile = {
+    name: "Test group",
+    symbol: "TGRP"
+};
+const avatar = await sdk.registerGroupV2(standardMintPolicy, groupProfile);
 ```
 {% endtab %}
 {% endtabs %}
