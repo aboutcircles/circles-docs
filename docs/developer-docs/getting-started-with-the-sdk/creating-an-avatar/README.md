@@ -112,7 +112,7 @@ const avatar = await sdk.registerGroupV2(standardMintPolicy, groupProfile);
 
 ## Read and update a Profile
 
-To read and update profiles, you can get an `AvatarInfo` object and then use it's `getProfile()` and `updateProfile()` methods.
+To read and update profiles, you can get an `AvatarInfo` object and then use it's `getProfile()` and `updateProfile()` methods. These methods work for all avatar types.
 
 ```typescript
 //
@@ -134,6 +134,8 @@ const updatedProfileCID = await avatar.updateProfile(profile);
 console.log(`The profile was updated. New CID is: {updatedProfileCid}`);
 
 ```
+
+If you want to store a profile picture, make sure it adheres to the [circles-profiles.md](../circles-profiles.md "mention") specification.
 
 ### Next steps
 
