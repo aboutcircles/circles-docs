@@ -39,11 +39,10 @@ Circles is available on Gnosis Chain and Chiado Testnet. You need to specify the
 
 {% tabs %}
 {% tab title="Chiado" %}
-```typescript
-import type {CirclesConfig} from "@circles-sdk/sdk";
+<pre class="language-typescript"><code class="lang-typescript">import type {CirclesConfig} from "@circles-sdk/sdk";
 
-export const config: CirclesConfig = {
-    circlesRpcUrl: "https://chiado-rpc.aboutcircles.com",
+<strong>export const config: CirclesConfig = {
+</strong>    circlesRpcUrl: "https://chiado-rpc.aboutcircles.com",
     pathfinderUrl: "https://chiado-pathfinder.aboutcircles.com",
     v2PathfinderUrl: "https://chiado-pathfinder.aboutcircles.com/pathfinder/",
     profileServiceUrl: "https://chiado-pathfinder.aboutcircles.com/profiles/",
@@ -52,7 +51,7 @@ export const config: CirclesConfig = {
     migrationAddress: "0x8C9BeAccb6b7DBd3AeffB5D77cab36b62Fe98882",
     nameRegistryAddress: "0x5525cbF9ad01a4E805ed1b40723D6377b336eCcf"
 };
-```
+</code></pre>
 {% endtab %}
 
 {% tab title="Gnosis Chain " %}
@@ -62,13 +61,13 @@ The Gnosis Chain mainnet is the production chain for Circles.&#x20;
 import type {CirclesConfig} from "@circles-sdk/sdk";
 
 export const config: CirclesConfig = {
-  pathfinderUrl: 'https://pathfinder.aboutcircles.com',
-  circlesRpcUrl: 'https://rpc.helsinki.aboutcircles.com',
-  v1HubAddress: '0x29b9a7fbb8995b2423a71cc17cf9810798f6c543',
-  v2HubAddress: '0x7bC1F123089Bc1f384b6379d0587968d1CD5830a',
-  migrationAddress: '0xEaBa6046103C3A2f5A681fD4323f78C647Fb4292',
-  profileServiceUrl: 'https://chiado-pathfinder.aboutcircles.com/profiles/',
-  nameRegistryAddress: "0xb95ef3f3e693531d9588815bca954dc8dce30937",
+    pathfinderUrl: 'https://pathfinder.aboutcircles.com',
+    circlesRpcUrl: 'https://rpc.helsinki.aboutcircles.com',
+    v1HubAddress: '0x29b9a7fbb8995b2423a71cc17cf9810798f6c543',
+    v2HubAddress: '0x7bC1F123089Bc1f384b6379d0587968d1CD5830a',
+    migrationAddress: '0xEaBa6046103C3A2f5A681fD4323f78C647Fb4292',
+    profileServiceUrl: 'https://chiado-pathfinder.aboutcircles.com/profiles/',
+    nameRegistryAddress: "0xb95ef3f3e693531d9588815bca954dc8dce30937",
 };
 ```
 {% endtab %}
@@ -105,7 +104,7 @@ Here's the full code for Svelte and React for you to copy & paste:
 {% tab title="Svelte" %}
 ```typescript
 <script lang="ts">
-    import { Sdk, type ChainConfig } from "@circles-sdk/sdk";
+    import { Sdk, type CirclesConfig } from "@circles-sdk/sdk";
     import {BrowserProviderContractRunner} from "@circles-sdk/adapter-ethers"
     import { onMount } from "svelte";
 
@@ -113,7 +112,7 @@ Here's the full code for Svelte and React for you to copy & paste:
     let circlesAddress = "";
     let sdk: Sdk;
 
-    const chainConfig: ChainConfig = {
+    export const config: CirclesConfig = {
         circlesRpcUrl: "https://chiado-rpc.aboutcircles.com",
         pathfinderUrl: "https://chiado-pathfinder.aboutcircles.com",
         v2PathfinderUrl: "https://chiado-pathfinder.aboutcircles.com/pathfinder/",
@@ -133,7 +132,7 @@ Here's the full code for Svelte and React for you to copy & paste:
         circlesAddress = adapter.address;
 
         // Initialize the SDK with the adapter
-        sdk = new Sdk(chainConfig, adapter);
+        sdk = new Sdk(config, adapter);
     }
 
     // Fetch the avatar associated with the wallet address
@@ -161,7 +160,7 @@ Here's the full code for Svelte and React for you to copy & paste:
 ```tsx
 
 import React, { useEffect, useState } from 'react';
-import { Sdk, type ChainConfig } from "@circles-sdk/sdk";
+import { Sdk, type CirclesConfig } from "@circles-sdk/sdk";
 import { BrowserProviderContractRunner } from "@circles-sdk/adapter-ethers";
 
 const AvatarComponent = () => {
@@ -170,7 +169,7 @@ const AvatarComponent = () => {
     const [avatarType, setAvatarType] = useState<string>("Unknown");
     const [avatarAddress, setAvatarAddress] = useState<string>("");
 
-    const chainConfig: ChainConfig = {
+    export const config: CirclesConfig = {
         circlesRpcUrl: "https://chiado-rpc.aboutcircles.com",
         pathfinderUrl: "https://chiado-pathfinder.aboutcircles.com",
         v2PathfinderUrl: "https://chiado-pathfinder.aboutcircles.com/pathfinder/",
