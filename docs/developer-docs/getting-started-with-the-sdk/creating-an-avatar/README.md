@@ -112,7 +112,7 @@ const avatar = await sdk.registerGroupV2(standardMintPolicy, groupProfile);
 
 ## Read and update a Profile
 
-To read and update profiles, you can get an `AvatarInfo` object and then use it's `getProfile()` and `updateProfile()` methods. These methods work for all avatar types.
+To read and update profiles, you can get an `Avatar` object and then use it's `getProfile()` and `updateProfile()` methods. These methods work for all avatar types.
 
 ```typescript
 //
