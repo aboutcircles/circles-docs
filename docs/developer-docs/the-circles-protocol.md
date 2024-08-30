@@ -2,7 +2,7 @@
 description: Developers Hub for building with Circles.
 ---
 
-# ⭕ Overview
+# 🪜 The Circles Stack
 
 ## Building on the Circles protocol
 
@@ -13,7 +13,7 @@ Our developer documentation portal provides comprehensive guides, API references
 Depending on what you want to achieve, you'll might want to use the contracts directly from solidity. In this case you can check out the source code on GitHub. For Circles v2 there is an a reference available.
 
 * [Circles v1 contract source](https://github.com/circlesubi/circles-contracts/)&#x20;
-* [Circles v2 contract source](https://github.com/aboutcircles/circles-contracts-v2/)
+* [Circles v2 contract source (v0.3.5)](https://github.com/aboutcircles/circles-contracts-v2/tree/rc-v0.3.5)
 * Circles v2 reference docs
 
 #### Deployments
@@ -25,18 +25,18 @@ Hub address (v1):
 [`0x29b9a7fbb8995b2423a71cc17cf9810798f6c543`](https://gnosisscan.io/address/0x29b9a7fbb8995b2423a71cc17cf9810798f6c543)
 {% endtab %}
 
-{% tab title="Chiado" %}
+{% tab title="Chiado (v0.3.5)" %}
 Hub address (v1):
 
 [`0xdbf22d4e8962db3b2f1d9ff55be728a887e47710`](https://gnosis-chiado.blockscout.com/address/0xdbF22D4e8962Db3b2F1d9Ff55be728A887e47710)
 
-Hub address (v2):
+Hub address (v2 v0.3.5):
 
-[`0x2066CDA98F98397185483aaB26A89445addD6740`](https://gnosis-chiado.blockscout.com/address/0x2066CDA98F98397185483aaB26A89445addD6740)
+[`0xEddc960D3c78692BF38577054cb0a35114AE35e0`](https://gnosis-chiado.blockscout.com/address/0xEddc960D3c78692BF38577054cb0a35114AE35e0)
 
-Migration contract (v2):
+Migration contract (v2 v0.3.5):
 
-[`0x2A545B54bb456A0189EbC53ed7090BfFc4a6Af94`](https://gnosis-chiado.blockscout.com/address/0x2A545B54bb456A0189EbC53ed7090BfFc4a6Af94)
+[0x8C9BeAccb6b7DBd3AeffB5D77cab36b62Fe98882](https://gnosis-chiado.blockscout.com/address/0x8C9BeAccb6b7DBd3AeffB5D77cab36b62Fe98882)
 {% endtab %}
 {% endtabs %}
 
