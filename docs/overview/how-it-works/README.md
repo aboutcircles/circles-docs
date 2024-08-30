@@ -4,7 +4,7 @@ description: >-
   rather than by a central authority at specific events.
 ---
 
-# ⚡ How It Works
+# ❓ How It Works
 
 Circles offers a new approach to cryptocurrencies. Every person has their own personal Circles token and receives one Circle (CRC) per hour, unconditionally.
 
