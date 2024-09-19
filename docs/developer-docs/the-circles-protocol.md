@@ -25,7 +25,7 @@ Hub address (v1):
 [`0x29b9a7fbb8995b2423a71cc17cf9810798f6c543`](https://gnosisscan.io/address/0x29b9a7fbb8995b2423a71cc17cf9810798f6c543)
 {% endtab %}
 
-{% tab title="Chiado (v0.3.5)" %}
+{% tab title="Chiado (v0.3.6)" %}
 Hub address (v1):
 
 [`0xdbf22d4e8962db3b2f1d9ff55be728a887e47710`](https://gnosis-chiado.blockscout.com/address/0xdbF22D4e8962Db3b2F1d9Ff55be728A887e47710)
