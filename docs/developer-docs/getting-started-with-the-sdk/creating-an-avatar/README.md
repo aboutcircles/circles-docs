@@ -96,7 +96,7 @@ Groups are only available in v2.
 import { GroupProfile, Profile, Profiles } from '@circles-sdk/profiles';
 
 // When on Gnosis Chain use this ..
-// const standardMintPolicy = "0x2470B43fc3303fCa660E68c86e3bEb8CE353C556";
+// const standardMintPolicy = "0x5Ea08c967C69255d82a4d26e36823a720E7D0317";
 
 // When on Chiado use that ..
 // const standardMintPolicy = "0xaD49f877021c73d00bE142b135c9AA67f0D8e9c6";
@@ -115,9 +115,8 @@ const avatar = await sdk.registerGroupV2(standardMintPolicy, groupProfile);
 To read and update profiles, you can get an `Avatar` object and then use it's `getProfile()` and `updateProfile()` methods. These methods work for all avatar types.
 
 ```typescript
-//
 // Retrieve the profile for an avatar
-//
+
 const avatar = await sdk.getAvatar(walletAddress);
 const profile = await avatar?.getProfile();
 if (!profile) {
@@ -125,9 +124,7 @@ if (!profile) {
     return undefined;
 }
 
-//
 // Update the profile of an avatar.
-//
 profile.name = "Test test test";
 
 const updatedProfileCID = await avatar.updateProfile(profile);
@@ -146,35 +143,11 @@ The next page will show you how to use the avatar instance to query essential da
 ### Circles SDK Avatar Implementation
 
 {% tabs %}
-{% tab title="Svelte" %}
-For a complete example that registers a human or organization account, check out the [Circles SDK Svelte Examples](https://github.com/aboutcircles/circles-sdk-svelte-examples) on GitHub. Specifically the [Using avatars](https://github.com/aboutcircles/circles-sdk-svelte-examples/blob/master/src/routes/using-avatars/%2Bpage.svelte) route.
+{% tab title="React" %}
+For complete implementation for CirclesSDK Avatar check out the circles implementation : [https://github.com/vanshika-srivastava/circles-vite-app/blob/circles-sdk-v0.9.0/src/circles-components/circlesonboarding.jsx](https://github.com/vanshika-srivastava/circles-vite-app/blob/circles-sdk-v0.9.0/src/circles-components/circlesonboarding.jsx)
 {% endtab %}
 
-{% tab title="React" %}
-```tsx
-const registerAvatar = async () => {
-        setError(undefined);
-        try {
-            const avatarInstance = await sdk?.registerHuman();
-
-            // If you want to sign up an organization:
-            // const avatarInstance = await sdk?.registerOrganization();
-
-            setAvatar(avatarInstance);
-        } catch (e) {
-            setError(e as Error);
-        }
-    };
-    
-const loadAvatar = async () => {
-        setError(undefined);
-        try {
-            const avatarInstance = await sdk?.getAvatar(sdk?.contractRunner.address);
-            setAvatar(avatarInstance);
-        } catch (e) {
-            setError(e as Error);
-        }
-    };
-```
+{% tab title="Svelte" %}
+For a complete example that registers a human or organization account, check out the [Circles SDK Svelte Examples](https://github.com/aboutcircles/circles-sdk-svelte-examples) on GitHub. Specifically the [Using avatars](https://github.com/aboutcircles/circles-sdk-svelte-examples/blob/master/src/routes/using-avatars/%2Bpage.svelte) route.
 {% endtab %}
 {% endtabs %}
