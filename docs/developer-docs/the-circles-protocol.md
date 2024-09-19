@@ -13,7 +13,7 @@ Our developer documentation portal provides comprehensive guides, API references
 Depending on what you want to achieve, you'll might want to use the contracts directly from solidity. In this case you can check out the source code on GitHub. For Circles v2 there is an a reference available.
 
 * [Circles v1 contract source](https://github.com/circlesubi/circles-contracts/)&#x20;
-* [Circles v2 contract source (v0.3.5)](https://github.com/aboutcircles/circles-contracts-v2/tree/rc-v0.3.5)
+* [Circles v2 contract source (v0.3.6)](https://github.com/aboutcircles/circles-contracts-v2/releases/tag/rc-v0.3.6-alpha)
 * Circles v2 reference docs
 
 #### Deployments
@@ -30,13 +30,13 @@ Hub address (v1):
 
 [`0xdbf22d4e8962db3b2f1d9ff55be728a887e47710`](https://gnosis-chiado.blockscout.com/address/0xdbF22D4e8962Db3b2F1d9Ff55be728A887e47710)
 
-Hub address (v2 v0.3.5):
+Hub address (v2 v0.3.6):
 
-[`0xEddc960D3c78692BF38577054cb0a35114AE35e0`](https://gnosis-chiado.blockscout.com/address/0xEddc960D3c78692BF38577054cb0a35114AE35e0)
+[`0xa5c7ADAE2fd3844f12D52266Cb7926f8649869Da`](https://gnosis-chiado.blockscout.com/address/0xa5c7ADAE2fd3844f12D52266Cb7926f8649869Da)
 
-Migration contract (v2 v0.3.5):
+Migration contract (v2 v0.3.6):
 
-[0x8C9BeAccb6b7DBd3AeffB5D77cab36b62Fe98882](https://gnosis-chiado.blockscout.com/address/0x8C9BeAccb6b7DBd3AeffB5D77cab36b62Fe98882)
+[0xe1dCE89512bE1AeDf94faAb7115A1Ba6AEff4201](https://gnosis-chiado.blockscout.com/address/0xe1dCE89512bE1AeDf94faAb7115A1Ba6AEff4201)
 {% endtab %}
 {% endtabs %}
 
