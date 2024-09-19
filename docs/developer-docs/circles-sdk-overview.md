@@ -8,7 +8,7 @@ Additionally, you can use the SDK to query the Circles trust graph, balances, an
 
 There are SDK example applications available for Svelte and React.
 
-<table><thead><tr><th width="221">Application Framework</th><th width="312">Application info</th><th>Link to Github Repo</th></tr></thead><tbody><tr><td>Svelte</td><td>Svelte example application with v1</td><td><a href="https://github.com/aboutcircles/circles-sdk-svelte-examples">circles-sdk-svelte-examples</a></td></tr><tr><td>Svelte</td><td>Svelte application featuring Circles client with support for Circles v1 and v2 built around the SDK.</td><td><a href="https://github.com/aboutcircles/5ecret-garden">5ecret-garden</a></td></tr><tr><td>React + Vite</td><td>Circles implementation with v1 for personal currencies using React and Vite framework</td><td></td></tr></tbody></table>
+<table><thead><tr><th width="221">Application Framework</th><th width="312">Application info</th><th>Link to Github Repo</th></tr></thead><tbody><tr><td>Svelte</td><td>Svelte example application with v1</td><td><a href="https://github.com/aboutcircles/circles-sdk-svelte-examples">circles-sdk-svelte-examples</a></td></tr><tr><td>Svelte</td><td>Svelte application featuring Circles client with support for Circles v1 and v2 built around the SDK.</td><td><a href="https://github.com/aboutcircles/5ecret-garden">5ecret-garden</a></td></tr><tr><td>React + Vite</td><td>Full frontend Circles implementation with v1 for personal currencies using React and Vite framework and TailwindCSS</td><td></td></tr></tbody></table>
 
 
 

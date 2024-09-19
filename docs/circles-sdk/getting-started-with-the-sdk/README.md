@@ -21,8 +21,7 @@ _You should use Chiado if you want to test a preview version of Circles v2. If y
 If you have all prerequisites in place, start by installing the Circles SDK package and ethers v6 in your project using `npm`
 
 * `npm i ethers`
-* `npm i @circles-sdk/sdk@0.7.1 @circles-sdk/adapter-ethers@0.7.1`&#x20;
-* `npm i @circles-sdk/data@0.7.1 @circles-sdk/profiles@0.7.1`
+* `npm i @circles-sdk/sdk@0.9.0 @circles-sdk/adapter-ethers@0.9.0 @circles-sdk/data@0.9.0 @circles-sdk/profiles@0.9.0`
 
 ### 1. Add imports
 
@@ -63,7 +62,7 @@ import type {CirclesConfig} from "@circles-sdk/sdk";
 
 export const config: CirclesConfig = {
     pathfinderUrl: 'https://pathfinder.aboutcircles.com',
-    circlesRpcUrl: 'https://rpc.helsinki.aboutcircles.com',
+    circlesRpcUrl: 'https://rpc.falkenstein.aboutcircles.com ',
     profileServiceUrl: 'https://chiado-pathfinder.aboutcircles.com/profiles/',
     v1HubAddress: '0x29b9a7fbb8995b2423a71cc17cf9810798f6c543',
     v2HubAddress: "0xa5c7ADAE2fd3844f12D52266Cb7926f8649869Da",
