@@ -12,10 +12,6 @@ description: >-
 * Setup [Gnosis Chain (Mainnet)](https://docs.gnosischain.com/about/networks/mainnet) and/or [Chiado Chain (Testnet)](https://docs.gnosischain.com/about/networks/chiado). Check out Gnosis Chain docs [here](https://docs.gnosischain.com/about/networks/).
 * xDAI as gas token, check out [Mainnet](https://faucet.gnosischain.com/) and [Testnet ](https://faucet.chiadochain.net/)Faucet
 
-{% hint style="info" %}
-_You should use Chiado if you want to test a preview version of Circles v2. If you want to build with Circles v1, use Gnosis Chain instead._
-{% endhint %}
-
 ## Install packages for CirclesSDK
 
 If you have all prerequisites in place, start by installing the Circles SDK package and ethers v6 in your project using `npm`
