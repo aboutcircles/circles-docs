@@ -12,7 +12,7 @@ Our developer documentation portal provides comprehensive guides, API references
 
 Depending on what you want to achieve, you'll might want to use the contracts directly from solidity. In this case you can check out the source code on GitHub. For Circles v2 there is an a reference available.
 
-* [Circles v1 contract source](https://github.com/circlesubi/circles-contracts/)&#x20;
+* [Circles v1 contract source](https://github.com/circlesubi/circles-contracts/)
 * [Circles v2 contract source (v0.3.6)](https://github.com/aboutcircles/circles-contracts-v2/releases/tag/rc-v0.3.6-alpha)
 * Circles v2 reference docs
 
@@ -65,4 +65,4 @@ Circles relies on some infrastructure components to make it work. Most important
 
 To collaborate with fellow developers, ask questions, and share your insights, join our technical community channels on Discord, GitHub, and other platforms.
 
-\
+Join [Telegram Group ](https://t.me/about\_circles/1)as Hacker or Developer.
