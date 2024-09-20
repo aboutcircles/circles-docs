@@ -25,15 +25,17 @@ There are different types of avatars within Circles. A `human` avatar is the mos
 {% tab title="Circles V2" %}
 In v2, all avatars need a profile CID. You can either bring you own (CID) and need to take care that it's available ...
 
+{% code overflow="wrap" %}
 ```typescript
-const avatar = await sdk.registerHumanV2("Qm.....");
+const avatar = await sdk.acceptInvitation(inviterAddress,"Qm.....");
 console.log(avatar.avatarInfo);
 ```
+{% endcode %}
 
 ... or fill in the `Profile` object and implicitly use the Circles pinning service to pin it:
 
 ```typescript
-const avatar = await sdk.registerHumanV2({
+const avatar = await sdk.acceptInvitation(inviterAddress, {
     name: "My profile name"
 });
 console.log(avatar.avatarInfo);
