@@ -22,7 +22,6 @@
     * [📝 Subscribing to Avatar events](developer-docs/getting-started-with-the-sdk/query-data/subscribing-to-avatar-events.md)
     * [📝 Utilising CirclesQuery Class](developer-docs/getting-started-with-the-sdk/query-data/utilising-circlesquery-class.md)
   * [🪪 Circles Profiles](developer-docs/getting-started-with-the-sdk/circles-profiles.md)
-* [Page](developer-docs/page.md)
 
 ## Support
 
