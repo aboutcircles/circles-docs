@@ -4,7 +4,7 @@
 
 ## Overview
 
-* [❓ How It Works](overview/how-it-works/README.md)
+* [❓ Understanding Personal and Group Currencies](overview/how-it-works/README.md)
   * [🧍 Personal Currencies](overview/how-it-works/personal-currency.md)
   * [👫 Group Currencies](overview/how-it-works/group-currencies.md)
 * [🛠️ Why Build on Circles?](overview/why-build-on-circles.md)
