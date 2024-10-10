@@ -8,6 +8,7 @@
   * [Personal Currencies](overview/how-it-works/personal-currency.md)
   * [Group Currencies](overview/how-it-works/group-currencies.md)
 * [Why Build on Circles?](overview/why-build-on-circles.md)
+* [Circles Architecture](overview/circles-architecture.md)
 
 ## Developer Docs
 
