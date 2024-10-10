@@ -1,8 +1,9 @@
 ---
 description: Developers Hub for building with Circles.
+icon: layer-group
 ---
 
-# 🪜 The Circles Stack
+# The Circles Stack
 
 ## Building on the Circles protocol
 

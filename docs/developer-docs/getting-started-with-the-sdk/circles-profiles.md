@@ -1,4 +1,8 @@
-# 🪪 Circles Profiles
+---
+icon: address-card
+---
+
+# Circles Profiles
 
 Circles is built around the ERC1155 token standard which allows tokens to have metadata. Since Circles is all about personal currency, it makes sense to utilize this metadata as a profile.&#x20;
 

@@ -2,9 +2,10 @@
 description: >-
   The CirclesData class provides an easy-to-use selection of common queries that
   are suitable for most use cases.
+icon: shovel
 ---
 
-# 🗃️ Query data
+# Query data
 
 ### Initialization
 

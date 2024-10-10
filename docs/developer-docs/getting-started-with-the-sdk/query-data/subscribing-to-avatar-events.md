@@ -3,9 +3,10 @@ description: >-
   The Circles SDK let's you subscribe to protocol events. Either filtered for an
   avatar or as a complete stream. There is also a way to query all past events
   in a block range.
+icon: diagram-previous
 ---
 
-# 📝 Subscribe to events
+# Subscribing to Avatar events
 
 ### Subscribe
 

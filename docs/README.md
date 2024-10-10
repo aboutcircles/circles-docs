@@ -1,4 +1,5 @@
 ---
+icon: font-awesome
 cover: .gitbook/assets/gitbook profile banner v1.png
 coverY: 0
 layout:
@@ -17,7 +18,7 @@ layout:
     visible: true
 ---
 
-# 👋 Welcome to Circles
+# Welcome to Circles
 
 Circles is a decentralized, sybil-resistant protocol designed to create and distribute fair and social money through personal currencies. At the core of the Circles project lies a simple yet powerful principle:
 

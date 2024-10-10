@@ -1,8 +1,9 @@
 ---
 description: An avatar represents a Circles user.
+icon: user-ninja
 ---
 
-# 👾 Using avatars
+# Using avatars
 
 The SDK is built around the concept of avatars. An avatar is a Circles user and is used to interact with other Avatars.&#x20;
 

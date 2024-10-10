@@ -2,9 +2,10 @@
 description: >-
   Avatars provide easy to use methods to query common values like trust lists
   and balances.
+icon: circle-info
 ---
 
-# 📝 Avatar information
+# Avatar information
 
 ### Avatar info
 

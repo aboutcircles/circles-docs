@@ -2,9 +2,10 @@
 description: >-
   In Circles, money is generated collectively by many individuals over time
   rather than by a central authority at specific events.
+icon: people-group
 ---
 
-# ❓ How It Works
+# Understanding Personal and Group Currencies
 
 Circles offers a new approach to cryptocurrencies. Every person has their own personal Circles token and receives one Circle (CRC) per hour, unconditionally.
 

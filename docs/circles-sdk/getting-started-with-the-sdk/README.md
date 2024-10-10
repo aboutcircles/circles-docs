@@ -2,9 +2,10 @@
 description: >-
   This guide will help you get started with the Circles SDK. It shows how to use
   the Circles SDK with MetaMask.
+icon: rectangles-mixed
 ---
 
-# 🚀 Getting started with the SDK
+# Getting started with the SDK
 
 ## Prerequisites
 

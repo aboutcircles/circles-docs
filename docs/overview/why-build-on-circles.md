@@ -1,4 +1,8 @@
-# 🛠️ Why Build on Circles?
+---
+icon: kaaba
+---
+
+# Why Build on Circles?
 
 Circles offers a fair and community-driven approach to digital currency, addressing common challenges in traditional cryptocurrencies and promoting an inclusive economy. Circles is not a crypto startup; it is collectively brought forward by its ambassadors and community members, who drive its adoption and utility.
 

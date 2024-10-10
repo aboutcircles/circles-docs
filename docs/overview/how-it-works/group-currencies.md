@@ -1,4 +1,8 @@
-# 👫 Group Currencies
+---
+icon: user-group
+---
+
+# Group Currencies
 
 In addition to individual CRC currencies, Circles has introduced the concept of Group Avatars and Currencies. The idea behind Group currencies is to social-economic value amongst groups, without the geographical bounds of where groups are generated or created. Group avatar tokens can't be minted based on time, rather dependes on personal collateral.&#x20;
 

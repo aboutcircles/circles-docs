@@ -2,9 +2,10 @@
 description: >-
   The CirclesQuery class allows you to execute custom queries against the
   Circles RPC api.
+icon: diagram-previous
 ---
 
-# 📝 CirclesQuery\<T>
+# Utilising CirclesQuery Class
 
 The previously shown `CirclesData` class returns `CirclesQuery<T>` objects for all paged query results. You can execute custom queries against all tables in the Circles index and filter with them.
 

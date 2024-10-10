@@ -2,9 +2,10 @@
 description: >-
   Avatars allow you to manage your trust relations and to interact with other
   avatars.
+icon: sitemap
 ---
 
-# 📝 Interact with other Avatars
+# Interact with other Avatars
 
 ### Trust and untrust other avatars
 

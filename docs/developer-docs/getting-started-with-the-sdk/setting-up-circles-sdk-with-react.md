@@ -1,8 +1,8 @@
 ---
+icon: rectangle-history
 description: >-
   Make CirclesSDK globally available using useContext Hook with React and
   initialize the SDK across application.
-icon: stethoscope
 ---
 
 # Setting up Circles SDK with React
