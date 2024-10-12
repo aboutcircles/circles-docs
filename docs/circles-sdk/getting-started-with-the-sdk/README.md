@@ -15,32 +15,38 @@ description: >-
 
 ## Install packages for CirclesSDK
 
-If you have all prerequisites in place, start by installing the Circles SDK package and ethers v6 in your project using `npm`
-
-* `npm i ethers`
-* Circles SDK :
+If you have all prerequisites in place, start by installing the Circles SDK package and ethers v6 in your project using `npm.`
 
 {% code overflow="wrap" %}
 ```
-npm i @circles-sdk/sdk@0.9.0
-@circles-sdk/adapter-ethers@0.9.0 
-@circles-sdk/data@0.9.0 
-@circles-sdk/profiles@0.9.0
+npm i 
+@circles-sdk/sdk
+@circles-sdk/data
+@circles-sdk/utils
+@circles-sdk/profile
+@circles-sdk/adapter-ethers
+ethers
 ```
 {% endcode %}
 
 ### 1. Add imports
 
-Then, import the necessary classes from the Circles SDK and Ethers.
+Then, import the necessary interfaces from the Circles SDK and Ethers.
 
 ```typescript
-import { Sdk,ChainConfig } from "@circles-sdk/sdk";
+import { CirclesConfig, Sdk } from '@circles-sdk/sdk';
 import {BrowserProviderContractRunner} from "@circles-sdk/adapter-ethers"
 ```
 
 ### 2. Add `CirclesConfig` for SDK
 
+**`CirclesConfig`**  defines the configuration settings needed to set up the SDK. You provide an object that follows this structure when initializing the SDK.&#x20;
+
+
+
 Circles is available on Gnosis Chain and Chiado Testnet. You need to specify the correct contract addresses and service endpoints for each environment.&#x20;
+
+<table><thead><tr><th width="265">Property</th><th>Description</th></tr></thead><tbody><tr><td><code>v2PathfinderUrl?</code></td><td>The URL for the V2 Pathfinder service (if using V2).</td></tr><tr><td><code>pathfinderUrl?</code></td><td>The URL for the Pathfinder service (used in V1).</td></tr><tr><td><code>circlesRpcUrl</code></td><td>The URL for the Circles RPC service</td></tr><tr><td><code>profileServiceUrl?</code></td><td>The URL for the profile service that manages user profiles in Circles.</td></tr><tr><td><code>v1HubAddress</code></td><td>The contract address for the Circles V1 Hub.</td></tr><tr><td><code>v2HubAddress?</code></td><td>The contract address for the Circles V2 Hub.</td></tr><tr><td><code>nameRegistryAddress?</code></td><td>The address of the name registry contract.</td></tr><tr><td><code>migrationAddress?</code></td><td>The address used for migrating avatars and tokens from V1 to V2.</td></tr><tr><td><code>baseGroupMintPolicy?</code></td><td>The address of the minting policy used for group avatars in Circles.</td></tr></tbody></table>
 
 {% tabs %}
 {% tab title="Chiado" %}
@@ -87,8 +93,6 @@ To setup provider and signer, we would utilize the Circles Adapter that is built
 ```typescript
 const adapter = new BrowserProviderContractRunner();
 await adapter.init();
-
-const circlesAddress = adapter.address
 ```
 
 ### 3. Initialize the Circles SDK
