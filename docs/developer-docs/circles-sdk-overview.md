@@ -4,22 +4,38 @@ icon: yelp
 
 # Circles SDK Overview
 
-<table data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden data-type="content-ref"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td>Circles REST API</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>Circles Pre-built UI</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>Circles Custom UI</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>Integrating Circles in Mobile Apps</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>Circles Webhooks</td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table>
+The [Circles SDK](https://www.npmjs.com/package/@circles-sdk/sdk) is a TypeScript library that allows you to integrate Circles protocol into your dApp to implement trust connections and offering the users of network to get socio-economic value.
+
+As a developer, you can start from installing the SDK and supported packages.
+
+### Circles v2.0 SDK features :&#x20;
+
+```sh
+npm i @circles-sdk/sdk
+```
+
+* **Manage Signers**: Use a contract runner (like MetaMask) to sign transactions.
+* **Circles Configuration**: Set up Circles-specific configuration (contract addresses, RPC endpoints).
+* **Access Circles Data**: Query data through the Circles RPC Query API, including balances, trust relations, and transaction histories.
+* **Support for Circles V1 and V2 Hubs**: Interact with both V1 and V2 of Circles protocol hubs for contract-related operations,
+* **Pathfinder Client**: Use the V1 and V2 Pathfinder for finding liquid paths in trust networks to facilitate transfers.
+* **Profile Management**: Store and retrieve profiles (human, group, organization) via the Circles profile service.
+* **Avatar Management**:
+  * Retrieve avatars by their address.
+  * Register human, group, and organization avatars in Circles V1 and V2.
+* **Invitation Handling**: Accept invitations to join the Circles network by specifying an inviter and providing profile data.
 
 
 
-The [Circles SDK](https://www.npmjs.com/package/@circles-sdk/sdk) is a TypeScript library that allows you to integrate Circles into your dApp.&#x20;
+### Circles SDK dependency packages
 
-With the SDK, you can register a wallet as a human, organization, or group. Registered wallets, called `Avatars`, participate in the Circles trust graph and transact with other Circles Avatars.\
-\
-Additionally, you can use the SDK to query the Circles trust graph, balances, and transaction data, as well as subscribe to protocol events.
+<table><thead><tr><th width="247">Package</th><th>Purpose</th><th>Why Use It</th></tr></thead><tbody><tr><td><code>@circles-sdk/abi-v1</code></td><td>Provides the ABI for Circles V1 contracts.</td><td>Interact with Circles V1 smart contracts for transfers, minting, and managing trust relations.</td></tr><tr><td><code>@circles-sdk/abi-v2</code></td><td>Provides the ABI for Circles V2 contracts.</td><td>Interact with Circles V2 smart contracts for advanced features like group avatars, inflationary/demurrage tokens.</td></tr><tr><td><code>@circles-sdk/data</code></td><td>Wrapper around the Circles RPC Query API.</td><td>Query Circles-related data (balances, trust relationships, transaction histories) without direct contract interaction.</td></tr><tr><td><code>@circles-sdk/profiles</code></td><td>Manages Circles avatar profiles (human, group, organization).</td><td>Retrieve and store avatar profiles, manage trust relations, and handle identity in the Circles ecosystem.</td></tr><tr><td><code>@circles-sdk/adapter-ethers</code></td><td>Adapter to connect Circles SDK with Ethers.js.</td><td>Leverage Ethers.js for signing and sending transactions, connecting to wallets, and interacting with contracts.</td></tr><tr><td><code>ethers</code></td><td>Library for interacting with Ethereum-based blockchains.</td><td>Simplify blockchain interactions like sending transactions, querying data, and working with smart contracts. We would be using ethers v6 version for Circles SDK.</td></tr><tr><td><code>multihashes</code></td><td>Handles multihash algorithms for decentralized file storage.</td><td>Ensure compatibility with IPFS and manage content-addressable storage for file integrity in decentralized systems.</td></tr></tbody></table>
 
-There are SDK example applications available for React and Svelte Frameworks.
+{% hint style="info" %}
+**Notes for Developers**
 
-<table><thead><tr><th width="223">Application Framework</th><th width="297">Application info</th><th>Link to Github Repo</th></tr></thead><tbody><tr><td>React + Vite</td><td>Full frontend Circles implementation with v1 for personal currencies using React and Vite framework and TailwindCSS</td><td><a href="https://github.com/vanshika-srivastava/circles-vite-app/tree/circles-sdk-v0.9.0">Circles Vite App for V1 Avatars</a></td></tr><tr><td>Svelte</td><td>Svelte application featuring Circles client with support for Circles v1 and v2 built around the SDK.</td><td><a href="https://github.com/aboutcircles/5ecret-garden">5ecret-garden</a></td></tr><tr><td>Svelte</td><td>Svelte example application with v1</td><td><a href="https://github.com/aboutcircles/circles-sdk-svelte-examples">circles-sdk-svelte-examples</a></td></tr></tbody></table>
-
-
-
-Check out [Circles Graph Explorer](https://data.aboutcircles.com/graph-explorer) to understand trust relations which utilizes pathfinder.
-
-The next section will guide you on how to initialize the SDK and provide a step-by-step guide to using different features. If you have any questions at any point while integrating, you can hop onto our Discord server.
+* The SDK uses ethers.js v6 for Ethereum interactions. Make sure, you are using Ethers V6 in your actual project as well to avoid compatibility issues.
+* Some features are specific to either v1 or v2 of the Circles protocol such as kind of avatars that exist on hub contract.
+* The SDK includes TypeScript definitions for improved developer experience and type safety.
+* When working with CIDs, the SDK provides utilities for handling both the raw bytes and base58-encoded formats.
+{% endhint %}

@@ -1,8 +1,8 @@
 ---
+icon: rectangles-mixed
 description: >-
   This guide will help you get started with the Circles SDK. It shows how to use
   the Circles SDK with MetaMask.
-icon: rectangles-mixed
 ---
 
 # Getting started with the SDK
@@ -22,7 +22,10 @@ If you have all prerequisites in place, start by installing the Circles SDK pack
 
 {% code overflow="wrap" %}
 ```
-npm i @circles-sdk/sdk@0.9.0 @circles-sdk/adapter-ethers@0.9.0 @circles-sdk/data@0.9.0 @circles-sdk/profiles@0.9.0
+npm i @circles-sdk/sdk@0.9.0
+@circles-sdk/adapter-ethers@0.9.0 
+@circles-sdk/data@0.9.0 
+@circles-sdk/profiles@0.9.0
 ```
 {% endcode %}
 
@@ -96,6 +99,11 @@ To initialize the CirclesSDK, we will pass on the `ChainConfig` and `Adapter` to
 const sdk = new Sdk(chainConfig,adapter);
 ```
 
-Once you have successfully created a SDK instance, you are all set to use Circles in your dApp. Let's learn more about the Circles SDK features and how you can use them on the next pages.
+Once you have successfully created a SDK instance, you are all set to use Circles in your dApp. Let's learn more about the Circles SDK features and how you can use them on the next pages.\
+
+
+## Choose which Avatar would you like to build on
+
+<table data-view="cards"><thead><tr><th></th><th></th></tr></thead><tbody><tr><td><strong>Personal / Human Avatars</strong></td><td>ERC-1155 standard avatars, which allows you to mint your personal Circles token (CRC) every hour, accumulating 24 CRC per day with an applied demurrage of 7%.</td></tr><tr><td><strong>Group Avatars</strong></td><td>Created by an owner, these avatars allow groups to trust human avatars within the group. Group tokens are utilized by collateralizing personal tokens, following the ERC-1155 standard.</td></tr><tr><td><strong>Organization Avatars</strong></td><td>As an organization, you are an avatar without any minting of new tokens. With your name and metadata file, which will be used for identification and can trust other avatars to receive Circles, with all owned Circles earned by avatars rather than minted.</td></tr></tbody></table>
 
 ***
