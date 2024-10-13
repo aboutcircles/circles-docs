@@ -1,9 +1,9 @@
 ---
+icon: diagram-previous
 description: >-
   The Circles SDK let's you subscribe to protocol events. Either filtered for an
   avatar or as a complete stream. There is also a way to query all past events
   in a block range.
-icon: diagram-previous
 ---
 
 # Subscribing to Avatar events
@@ -62,26 +62,44 @@ The above methods yield `CirclesEvent`s. All events have at least the following 
 
 Here's a list of all event types. Please refer to the [source code](https://github.com/aboutcircles/circles-sdk/blob/34160858798e3ec197e405a06d6a199a0bf73412/packages/data/src/events/events.ts) for the event properties.
 
-```typescript
-export type CirclesEvent =
-  | CrcV1_HubTransfer
-  | CrcV1_Signup
-  | CrcV1_OrganizationSignup
-  | CrcV1_Trust
-  | CrcV1_Transfer
-  | CrcV2_InviteHuman
-  | CrcV2_PersonalMint
-  | CrcV2_RegisterGroup
-  | CrcV2_RegisterHuman
-  | CrcV2_RegisterOrganization
-  | CrcV2_Stopped
-  | CrcV2_Trust
-  | CrcV2_TransferSingle
-  | CrcV2_URI
-  | CrcV2_ApprovalForAll
-  | CrcV2_TransferBatch
-  | CrcV2_DiscountCost
-  | CrcV2_RegisterShortName
-  | CrcV2_UpdateMetadataDigest
-  | CrcV2_CidV0;
-```
+<pre class="language-typescript"><code class="lang-typescript">export type CirclesEvent =
+
+// CrcV1 Events
+
+<strong>| CrcV1_HubTransfer
+</strong>| CrcV1_Signup
+| CrcV1_OrganizationSignup
+| CrcV1_Trust
+| CrcV1_Transfer
+
+// CrcV2 Events
+
+ | CrcV2_InviteHuman
+<strong> | CrcV2_PersonalMint
+</strong><strong> | CrcV2_RegisterGroup
+</strong><strong> | CrcV2_RegisterHuman
+</strong><strong> | CrcV2_RegisterOrganization
+</strong> | CrcV2_Stopped
+<strong> | CrcV2_Trust
+</strong> | CrcV2_TransferSingle
+ | CrcV2_Erc20WrapperTransfer
+ | CrcV2_Erc20WrapperDeployed
+ | CrcV2_URI
+ | CrcV2_ApprovalForAll
+ | CrcV2_TransferBatch
+ | CrcV2_RegisterShortName
+ | CrcV2_UpdateMetadataDigest
+ | CrcV2_CidV0
+ | CrcV2_StreamCompleted
+ | CrcV2_CreateVault
+ | CrcV2_GroupMintSingle
+ | CrcV2_GroupMintBatch
+ | CrcV2_GroupRedeem
+ | CrcV2_GroupRedeemCollateralReturn
+ | CrcV2_GroupRedeemCollateralBurn
+ | CrcV2_DepositDemurraged
+ | CrcV2_DepositInflationary
+ | CrcV2_WithdrawDemurraged
+<strong> | CrcV2_WithdrawInflationary
+</strong>
+</code></pre>
