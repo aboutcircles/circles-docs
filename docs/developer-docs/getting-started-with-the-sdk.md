@@ -49,11 +49,31 @@ Circles is available on Gnosis Chain and Chiado Testnet. You need to specify the
 <table><thead><tr><th width="265">Property</th><th>Description</th></tr></thead><tbody><tr><td><code>v2PathfinderUrl?</code></td><td>The URL for the V2 Pathfinder service (if using V2).</td></tr><tr><td><code>pathfinderUrl?</code></td><td>The URL for the Pathfinder service (used in V1).</td></tr><tr><td><code>circlesRpcUrl</code></td><td>The URL for the Circles RPC service</td></tr><tr><td><code>profileServiceUrl?</code></td><td>The URL for the profile service that manages user profiles in Circles.</td></tr><tr><td><code>v1HubAddress</code></td><td>The contract address for the Circles V1 Hub.</td></tr><tr><td><code>v2HubAddress?</code></td><td>The contract address for the Circles V2 Hub.</td></tr><tr><td><code>nameRegistryAddress?</code></td><td>The address of the name registry contract.</td></tr><tr><td><code>migrationAddress?</code></td><td>The address used for migrating avatars and tokens from V1 to V2.</td></tr><tr><td><code>baseGroupMintPolicy?</code></td><td>The address of the minting policy used for group avatars in Circles.</td></tr></tbody></table>
 
 {% tabs %}
-{% tab title="Chiado" %}
-<pre class="language-typescript"><code class="lang-typescript">import type {CirclesConfig} from "@circles-sdk/sdk";
+{% tab title="Gnosis Chain " %}
+The Gnosis Chain mainnet is the production chain for Circles.&#x20;
 
-<strong>export const config: CirclesConfig = {
-</strong>    circlesRpcUrl: "https://chiado-rpc.aboutcircles.com",
+```typescript
+import type {CirclesConfig} from "@circles-sdk/sdk";
+
+export const GnosisChainConfig: CirclesConfig = {
+    circlesRpcUrl: "https://static.174.163.76.144.clients.your-server.de/rpc/",
+    pathfinderUrl: "https://pathfinder.aboutcircles.com",
+    v2PathfinderUrl: "https://static.174.163.76.144.clients.your-server.de/pathfinder/",
+    v1HubAddress: "0x29b9a7fbb8995b2423a71cc17cf9810798f6c543",
+    v2HubAddress: "0xc12C1E50ABB450d6205Ea2C3Fa861b3B834d13e8",
+    nameRegistryAddress: "0xA27566fD89162cC3D40Cb59c87AAaA49B85F3474",
+    migrationAddress: "0xD44B8dcFBaDfC78EA64c55B705BFc68199B56376",
+    profileServiceUrl: "https://static.174.163.76.144.clients.your-server.de/profiles/",
+};
+```
+{% endtab %}
+
+{% tab title="Chiado Testnet" %}
+```typescript
+import type {CirclesConfig} from "@circles-sdk/sdk";
+
+export const chiadoConfig: CirclesConfig = {
+    circlesRpcUrl: "https://chiado-rpc.aboutcircles.com",
     pathfinderUrl: "https://chiado-pathfinder.aboutcircles.com",
     v2PathfinderUrl: "https://chiado-pathfinder.aboutcircles.com/pathfinder/",
     profileServiceUrl: "https://chiado-pathfinder.aboutcircles.com/profiles/",
@@ -62,25 +82,6 @@ Circles is available on Gnosis Chain and Chiado Testnet. You need to specify the
     migrationAddress: "0x12E815963A0b910288C7256CAD0d345c8F5db08E",
     nameRegistryAddress: "0x24b3fDCdD9fef844fB3094ef43c0A6Ac23a6dF9E",
     baseGroupMintPolicy: "0xE35c66531aF28660a1CdfA3dd0b1C1C0245D2F67"
-};
-</code></pre>
-{% endtab %}
-
-{% tab title="Gnosis Chain " %}
-The Gnosis Chain mainnet is the production chain for Circles.&#x20;
-
-```typescript
-import type {CirclesConfig} from "@circles-sdk/sdk";
-
-export const config: CirclesConfig = {
-    pathfinderUrl: 'https://pathfinder.aboutcircles.com',
-    circlesRpcUrl: 'https://rpc.falkenstein.aboutcircles.com ',
-    profileServiceUrl: 'https://chiado-pathfinder.aboutcircles.com/profiles/',
-    v1HubAddress: '0x29b9a7fbb8995b2423a71cc17cf9810798f6c543',
-    v2HubAddress: "0xa5c7ADAE2fd3844f12D52266Cb7926f8649869Da",
-    nameRegistryAddress: "0x738fFee24770d0DE1f912adf2B48b0194780E9AD",
-    migrationAddress: "0xe1dCE89512bE1AeDf94faAb7115A1Ba6AEff4201",
-    baseGroupMintPolicy: "0x5Ea08c967C69255d82a4d26e36823a720E7D0317"
 };
 ```
 {% endtab %}
