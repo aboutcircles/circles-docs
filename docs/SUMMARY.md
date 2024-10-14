@@ -41,6 +41,7 @@
 * [Circles SDK examples](circles-sdk-examples/README.md)
   * [Setting up Circles SDK with React and javascript](circles-sdk-examples/setting-up-circles-sdk-with-react-and-javascript.md)
 
-## Support
+## Developer Support
 
-* [Glossary](support/glossary.md)
+* [Glossary](developer-support/glossary.md)
+* [Past Hackathon Projects on Circles](developer-support/past-hackathon-projects-on-circles.md)

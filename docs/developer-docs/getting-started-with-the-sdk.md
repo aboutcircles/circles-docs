@@ -58,7 +58,7 @@ Circles is available on Gnosis Chain and Chiado Testnet. You need to specify the
     v2PathfinderUrl: "https://chiado-pathfinder.aboutcircles.com/pathfinder/",
     profileServiceUrl: "https://chiado-pathfinder.aboutcircles.com/profiles/",
     v1HubAddress: "0xdbf22d4e8962db3b2f1d9ff55be728a887e47710",
-    v2HubAddress: "0xb80feeDfEce647dDc709777D5094fACD157BA001",
+    v2HubAddress: "0xc12C1E50ABB450d6205Ea2C3Fa861b3B834d13e8",
     migrationAddress: "0x12E815963A0b910288C7256CAD0d345c8F5db08E",
     nameRegistryAddress: "0x24b3fDCdD9fef844fB3094ef43c0A6Ac23a6dF9E",
     baseGroupMintPolicy: "0xE35c66531aF28660a1CdfA3dd0b1C1C0245D2F67"
