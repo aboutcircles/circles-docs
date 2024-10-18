@@ -98,10 +98,10 @@ await adapter.init();
 
 ### 3. Initialize the Circles SDK
 
-To initialize the CirclesSDK, we will pass on the `ChainConfig` and `Adapter` to SDK instance.
+To initialize the CirclesSDK, we will pass on the `CirclesConfig` and `Adapter` to SDK instance.
 
 ```typescript
-const sdk = new Sdk(chainConfig,adapter);
+const sdk = new Sdk(adapter,CirclesConfig,);
 ```
 
 Once you have successfully created a SDK instance, you are all set to use Circles in your dApp. Let's learn more about the Circles SDK features and how you can use them on the next pages.\
