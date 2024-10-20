@@ -19,13 +19,7 @@ If you have all prerequisites in place, start by installing the Circles SDK pack
 
 {% code overflow="wrap" %}
 ```
-npm i 
-@circles-sdk/sdk
-@circles-sdk/data
-@circles-sdk/utils
-@circles-sdk/profile
-@circles-sdk/adapter-ethers
-ethers
+npm i @circles-sdk/sdk @circles-sdk/data @circles-sdk/utils @circles-sdk/profiles @circles-sdk/adapter-ethers ethers
 ```
 {% endcode %}
 
