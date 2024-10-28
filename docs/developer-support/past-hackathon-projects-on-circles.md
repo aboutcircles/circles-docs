@@ -6,7 +6,7 @@ icon: hands-holding-circle
 
 Here are some of the past hackathon projects built with Circles. You can use these as a reference  or to get inspiration of what kind of applications to build.
 
-### 1. EthGlobal  Brussels
+### 1. EthGlobal  Brussels 2024
 
 BraceBuddy allows to onboard easily and in a fun way people to the Circles ecosystem with NFC!
 
@@ -26,7 +26,7 @@ Famjam is a dapp that uses Circles to create a family currency to incentivize ki
 Runner Up
 {% endembed %}
 
-### 2. EthGlobal Singapore
+### 2. EthGlobal Singapore 2024
 
 Voting with UBI is a dapp which implements a voting mechanism for DAOs by utilizing Circles group tokens.
 

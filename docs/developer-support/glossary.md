@@ -1,13 +1,11 @@
 ---
+icon: book-atlas
 description: >-
   This glossary contains terms and definitions used throughout the Circles
   documentation.
-icon: book-atlas
 ---
 
 # Glossary
-
-### ...
 
 ### ERC-1155
 

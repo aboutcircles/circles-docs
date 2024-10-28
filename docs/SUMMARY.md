@@ -32,14 +32,20 @@
     * [Getting total supply of group tokens available](developer-docs/circles-avatars/group-avatars/getting-total-supply-of-group-tokens-available.md)
   * [Organization Avatars](developer-docs/circles-avatars/organization-avatars/README.md)
     * [Creation of Organizations](developer-docs/circles-avatars/organization-avatars/creation-of-organizations.md)
+* [Query Circles Data](developer-docs/query-data/README.md)
+  * [Subscribing to Avatar events](developer-docs/query-data/subscribing-to-avatar-events.md)
+  * [Utilising CirclesQuery Class](developer-docs/query-data/utilising-circlesquery-class.md)
 
-***
+## Tutorials and Examples
 
-* [Query Circles Data](query-data/README.md)
-  * [Subscribing to Avatar events](query-data/subscribing-to-avatar-events.md)
-  * [Utilising CirclesQuery Class](query-data/utilising-circlesquery-class.md)
-* [Circles SDK examples](circles-sdk-examples/README.md)
-  * [Setting up Circles SDK with React and javascript](circles-sdk-examples/setting-up-circles-sdk-with-react-and-javascript.md)
+* [Setting up Circles SDK with React](tutorials-and-examples/setting-up-circles-sdk-with-react-and-javascript.md)
+
+## Circles SDK Reference
+
+* [Circles SDK interface](circles-sdk-reference/circles-sdk-interface.md)
+* [SDK Methods](circles-sdk-reference/sdk-methods.md)
+* [Circles Data Methods](circles-sdk-reference/circles-data-methods.md)
+* [Circles Events Types](circles-sdk-reference/circles-events-types.md)
 
 ## Developer Support
 

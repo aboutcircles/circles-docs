@@ -72,8 +72,8 @@ Here's a list of all event types. Please refer to the [source code](https://gith
 | CrcV1_Trust
 | CrcV1_Transfer
 
-// CrcV2 Events
-
+<strong>// CrcV2 Events
+</strong>
  | CrcV2_InviteHuman
 <strong> | CrcV2_PersonalMint
 </strong><strong> | CrcV2_RegisterGroup

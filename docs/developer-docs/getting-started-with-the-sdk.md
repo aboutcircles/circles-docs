@@ -34,30 +34,27 @@ import {BrowserProviderContractRunner} from "@circles-sdk/adapter-ethers"
 
 ### 2. Add `CirclesConfig` for SDK
 
-**`CirclesConfig`**  defines the configuration settings needed to set up the SDK. You provide an object that follows this structure when initializing the SDK.&#x20;
+**`CirclesConfig`** defines the configuration settings needed to set up the SDK. You provide an object that follows this structure when initializing the SDK.
 
-
-
-Circles is available on Gnosis Chain and Chiado Testnet. You need to specify the correct contract addresses and service endpoints for each environment.&#x20;
+Circles is available on Gnosis Chain and Chiado Testnet. You need to specify the correct contract addresses and service endpoints for each environment.
 
 <table><thead><tr><th width="265">Property</th><th>Description</th></tr></thead><tbody><tr><td><code>v2PathfinderUrl?</code></td><td>The URL for the V2 Pathfinder service (if using V2).</td></tr><tr><td><code>pathfinderUrl?</code></td><td>The URL for the Pathfinder service (used in V1).</td></tr><tr><td><code>circlesRpcUrl</code></td><td>The URL for the Circles RPC service</td></tr><tr><td><code>profileServiceUrl?</code></td><td>The URL for the profile service that manages user profiles in Circles.</td></tr><tr><td><code>v1HubAddress</code></td><td>The contract address for the Circles V1 Hub.</td></tr><tr><td><code>v2HubAddress?</code></td><td>The contract address for the Circles V2 Hub.</td></tr><tr><td><code>nameRegistryAddress?</code></td><td>The address of the name registry contract.</td></tr><tr><td><code>migrationAddress?</code></td><td>The address used for migrating avatars and tokens from V1 to V2.</td></tr><tr><td><code>baseGroupMintPolicy?</code></td><td>The address of the minting policy used for group avatars in Circles.</td></tr></tbody></table>
 
 {% tabs %}
 {% tab title="Gnosis Chain " %}
-The Gnosis Chain mainnet is the production chain for Circles.&#x20;
+The Gnosis Chain mainnet is the production chain for Circles.
 
 ```typescript
 import type {CirclesConfig} from "@circles-sdk/sdk";
 
 export const GnosisChainConfig: CirclesConfig = {
-    circlesRpcUrl: "https://static.174.163.76.144.clients.your-server.de/rpc/",
+    circlesRpcUrl: "https://rpc.aboutcircles.com/",
     pathfinderUrl: "https://pathfinder.aboutcircles.com",
-    v2PathfinderUrl: "https://static.174.163.76.144.clients.your-server.de/pathfinder/",
     v1HubAddress: "0x29b9a7fbb8995b2423a71cc17cf9810798f6c543",
     v2HubAddress: "0xc12C1E50ABB450d6205Ea2C3Fa861b3B834d13e8",
     nameRegistryAddress: "0xA27566fD89162cC3D40Cb59c87AAaA49B85F3474",
     migrationAddress: "0xD44B8dcFBaDfC78EA64c55B705BFc68199B56376",
-    profileServiceUrl: "https://static.174.163.76.144.clients.your-server.de/profiles/",
+    profileServiceUrl: "https://rpc.aboutcircles.com/profiles/",
 };
 ```
 {% endtab %}
@@ -98,8 +95,7 @@ To initialize the CirclesSDK, we will pass on the `CirclesConfig` and `Adapter` 
 const sdk = new Sdk(adapter,CirclesConfig,);
 ```
 
-Once you have successfully created a SDK instance, you are all set to use Circles in your dApp. Let's learn more about the Circles SDK features and how you can use them on the next pages.\
-
+Once you have successfully created a SDK instance, you are all set to use Circles in your dApp. Let's learn more about the Circles SDK features and how you can use them on the next pages.\\
 
 ## Choose which Avatar would you like to build on
 
