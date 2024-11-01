@@ -2,7 +2,7 @@
 icon: user
 ---
 
-# Personal / Human Avatars
+# Personal/Human Avatars
 
 ## 1. Creation of personal avatars :&#x20;
 
