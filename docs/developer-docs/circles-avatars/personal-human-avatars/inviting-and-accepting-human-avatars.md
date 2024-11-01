@@ -1,6 +1,6 @@
-# Inviting and accepting human avatars
+# Inviting and accepting Personal/Humana Avatars
 
-## 1. Creation of personal avatars :&#x20;
+## 1. Creation of Persona/Human Avatars :&#x20;
 
 Circles v2.0 will allow you to join the network as a human with a token ERC 1155 standard. You would have a profile and would require to be invited to join the network and start minting personal CRC tokens.
 
