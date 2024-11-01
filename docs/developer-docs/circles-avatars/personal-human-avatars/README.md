@@ -6,7 +6,7 @@ icon: user
 
 ## 1. Creation of Personal/Human Avatars :&#x20;
 
-Circles v2.0 will allow you to join the network as a human with a token ERC 1155 standard. You would have a profile and would require to be invited to join the network and start minting personal CRC tokens.
+Circles v2.0 allows you to join the network as a human with an ERC-1155 standard token. You would have a profile and would require to be invited to join the network and start minting personal CRC tokens.
 
 The V2 Hub contract is the main smart contract that a user would interact. You would need a profile CID as well.
 
