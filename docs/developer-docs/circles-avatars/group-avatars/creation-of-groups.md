@@ -1,6 +1,6 @@
 # Creation of groups
 
-You would require to pass profile and the address of the mint policy contract while calling the function.
+You need to pass the profile and the address of the mint policy contract when calling the function.
 
 ```typescript
 
