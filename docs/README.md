@@ -20,7 +20,7 @@ layout:
 
 # Welcome to Circles
 
-Circles is a decentralized, sybil-resistant protocol designed to create and distribute fair and social money through personal currencies. At the core of the Circles project lies a simple yet powerful principle:
+Circles is a decentralized protocol designed to create and distribute fair and social money through personal currencies. At the core of the Circles project lies a simple yet powerful principle:
 
 `"Every person receives one Circle every hour, unconditionally."`
 
@@ -28,6 +28,4 @@ Circles is a decentralized, sybil-resistant protocol designed to create and dist
 
 Every person is bound to receive 1 CRC every hour, hence 24 CRC in a single day. Circles undergo daily demurrage at a rate equivalent to 7% per year. Issuance for past days accounts for this demurrage, ensuring fair distribution over time.
 
-**To learn more about Circles infrastructure, check out this** [**documentation**](https://aboutcircles.github.io/circles-contracts-v2/) **as well.**\
-\
-**This documentation will guide developers to understand about Avatars and using Circles SDK**
+**This documentation will guide developers in understanding Avatars and using the Circles SDK.**
