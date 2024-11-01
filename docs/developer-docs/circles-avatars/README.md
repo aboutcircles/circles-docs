@@ -7,7 +7,7 @@ icon: circle-user
 
 The SDK is built around the concept of avatars. An avatar is a Circles user and is used to interact with other Avatars.&#x20;
 
-* For new Circles users, you would require them to Sign up.
+* New Circles users must sign up.
 * For existing Circles users, you can simply get exisiting avatars by address.
 
 ### Creating a new avatar
