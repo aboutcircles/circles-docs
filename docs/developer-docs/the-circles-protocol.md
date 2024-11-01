@@ -26,7 +26,7 @@ Circles relies on some infrastructure components to make it work.&#x20;
 
 ### Contracts
 
-Incase, the circles SDK is not something that you can directly use in your application, you can also utilize the deployed contracts directly. In this case you can check out the source code on GitHub.
+In case the Circles SDK is not something you can directly use in your application, you can also utilize the deployed contracts.
 
 <table data-view="cards"><thead><tr><th></th><th></th></tr></thead><tbody><tr><td><strong>Circles V1 contract source code</strong></td><td><p>Review the codebase for Circles Contracts V1, including all core features and specifications related to Hub Contract and minting.</p><p></p><p><a href="https://github.com/circlesubi/circles-contracts/">Circles V1 Contract code</a></p><p></p></td></tr><tr><td><strong>Circles V2 Reference docs</strong></td><td><p>Explore the latest updates and functionalities of Circles v2.0 Contracts with detailed documentation.</p><p></p><p></p><p></p><p></p><p><a href="https://aboutcircles.github.io/circles-contracts-v2/">Circles V2 Reference docs</a></p></td></tr><tr><td><strong>Circles V2 contract source code</strong></td><td>Review the codebase for Circles contracts V2 which follows ERC1155 standard, and manages personal, group and organisation avatars.</td></tr></tbody></table>
 
