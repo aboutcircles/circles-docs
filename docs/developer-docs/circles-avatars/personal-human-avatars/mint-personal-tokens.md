@@ -5,7 +5,7 @@
 This function will allow you to get maximum amount of CRC tokens that are available to mint at that point of time. Human avatars can mint only upto 24 personal Circles per day.
 
 ```typescript
-const mintableToken = await sdk.getMintableamount();
+const mintableToken = await avatar.getMintableamount();
 ```
 
 
