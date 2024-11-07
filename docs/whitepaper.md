@@ -1,5 +1,6 @@
 ---
 icon: book-open
+hidden: true
 ---
 
 # Whitepaper
