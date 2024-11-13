@@ -1,12 +1,12 @@
 # Inviting and accepting Personal/Humana Avatars
 
-## 1. Creation of Persona/Human Avatars :&#x20;
+## 1. Creation of Personal/Human Avatars :&#x20;
 
 Circles v2.0 will allow you to join the network as a human with a token ERC 1155 standard. You would have a profile and would require to be invited to join the network and start minting personal CRC tokens.
 
 The V2 Hub contract is the main smart contract that a user would interact. You would need a profile CID as well.
 
-<pre class="language-typescript" data-overflow="wrap"><code class="lang-typescript"><strong>const avatar = await avatar.inviteHuman(inviteeAddress,"Hk.....");        //CID required
+<pre class="language-typescript" data-overflow="wrap"><code class="lang-typescript"><strong>const avatar = await avatar.inviteHuman(inviteeAddress);
 </strong><strong>
 </strong><strong>const avatar = await avatar.acceptInvitation(inviterAddress,"Qm.....");
 </strong>console.log(avatar.avatarInfo);
