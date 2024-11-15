@@ -12,14 +12,14 @@ The V2 Hub contract is the main smart contract that a user would interact. You w
 
 <pre class="language-typescript" data-overflow="wrap"><code class="lang-typescript"><strong>const avatar = await avatar.inviteHuman(inviteeAddress,"Hk.....");        //CID required
 </strong><strong>
-</strong><strong>const avatar = await avatar.acceptInvitation(inviterAddress,"Qm.....");
+</strong><strong>const avatar = await sdk.acceptInvitation(inviterAddress,"Qm.....");
 </strong>console.log(avatar.avatarInfo);
 </code></pre>
 
 Incase, you don't have CID, you can use the `Profile` object and implicitly use the Circles pinning service to pin it:
 
 ```typescript
-const avatar = await avatar.acceptInvitation(inviterAddress, {
+const avatar = await sdk.acceptInvitation(inviterAddress, {
     name: "My profile name"
 });
 console.log(avatar.avatarInfo);
