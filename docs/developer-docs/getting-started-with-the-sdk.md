@@ -10,7 +10,7 @@ description: >-
 ## Prerequisites
 
 * [Metamask Plugin](https://metamask.io/) installed in browser
-* Setup [Gnosis Chain (Mainnet)](https://docs.gnosischain.com/about/networks/mainnet) and/or [Chiado Chain (Testnet)](https://docs.gnosischain.com/about/networks/chiado). Check out Gnosis Chain docs [here](https://docs.gnosischain.com/about/networks/).
+* Setup [Gnosis Chain (Mainnet)](https://docs.gnosischain.com/about/networks/mainnet). Check out Gnosis Chain docs [here](https://docs.gnosischain.com/about/networks/).
 * xDAI as gas token, check out [Mainnet](https://faucet.gnosischain.com/) and [Testnet ](https://faucet.chiadochain.net/)Faucet
 
 ## Install packages for CirclesSDK
@@ -41,8 +41,8 @@ Circles is available on Gnosis Chain and Chiado Testnet. You need to specify the
 <table><thead><tr><th width="265">Property</th><th>Description</th></tr></thead><tbody><tr><td><code>v2PathfinderUrl?</code></td><td>The URL for the V2 Pathfinder service (if using V2).</td></tr><tr><td><code>pathfinderUrl?</code></td><td>The URL for the Pathfinder service (used in V1).</td></tr><tr><td><code>circlesRpcUrl</code></td><td>The URL for the Circles RPC service</td></tr><tr><td><code>profileServiceUrl?</code></td><td>The URL for the profile service that manages user profiles in Circles.</td></tr><tr><td><code>v1HubAddress</code></td><td>The contract address for the Circles V1 Hub.</td></tr><tr><td><code>v2HubAddress?</code></td><td>The contract address for the Circles V2 Hub.</td></tr><tr><td><code>nameRegistryAddress?</code></td><td>The address of the name registry contract.</td></tr><tr><td><code>migrationAddress?</code></td><td>The address used for migrating avatars and tokens from V1 to V2.</td></tr><tr><td><code>baseGroupMintPolicy?</code></td><td>The address of the minting policy used for group avatars in Circles.</td></tr></tbody></table>
 
 {% tabs %}
-{% tab title="Gnosis Chain " %}
-The Gnosis Chain mainnet is the production chain for Circles.
+{% tab title="RINGS contracts Gnosis Chain " %}
+You would be building using developer version of Cirlces contracts called 'RINGS'. This will allow you to self-register and receive more CRC as bonus. Please follow the below configuration: 
 
 ```typescript
 import type {CirclesConfig} from "@circles-sdk/sdk";
