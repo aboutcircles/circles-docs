@@ -48,8 +48,7 @@ You would be building using developer version of Cirlces contracts called 'RINGS
 import type {CirclesConfig} from "@circles-sdk/sdk";
 
 export const GnosisChainConfig: CirclesConfig = {
-    pathfinderUrl: "https://static.94.138.251.148.clients.your-server.de/rpc/",
-    circlesRpcUrl: "https://rpc.aboutcircles.com/",
+    circlesRpcUrl: "https://static.94.138.251.148.clients.your-server.de/rpc/",
     v1HubAddress: "0x29b9a7fbb8995b2423a71cc17cf9810798f6c543",
     v2HubAddress: "0x3D61f0A272eC69d65F5CFF097212079aaFDe8267",
     migrationAddress: "0x28141b6743c8569Ad8B20Ac09046Ba26F9Fb1c90",
