@@ -2,28 +2,19 @@
 icon: user
 ---
 
-# Personal/Human Avatars
+# Personal / Human Avatars
 
-## 1. Creation of Personal/Human Avatars :&#x20;
+## 1. Creation of Personal/Human Avatars :
 
 Circles v2.0 allows you to join the network as a human with an ERC-1155 standard token. You would have a profile and would require to be invited to join the network and start minting personal CRC tokens.
 
-The V2 Hub contract is the main smart contract that a user would interact. You would need a profile CID or a pinning service.
-
-### How to invite someone to Circles Network
+The V2 Hub contract is the main smart contract that a user would interact. You would need a profile CID as well.
 
 <pre class="language-typescript" data-overflow="wrap"><code class="lang-typescript"><strong>const avatar = await avatar.inviteHuman(inviteeAddress,"Hk.....");        //CID required
-</strong><console.log(avatar.avatarInfo);
+</strong>
+<strong>const avatar = await sdk.acceptInvitation(inviterAddress,"Qm.....");
+</strong>console.log(avatar.avatarInfo);
 </code></pre>
-
-### How to accept invitation to Circles Network
-
-<pre class="language-typescript" data-overflow="wrap"><code class="lang-typescript"><strong>const avatar = sdk.acceptInvitation(inviterAddress,"Qm.....");
-</strong><console.log(avatar.avatarInfo);
-</code></pre>
-
-#### Self Registering to Circles Network
-You can also self-register yourself if you are building using RINGS version of Contracts. In this case, you would have to pass the inviter address as `0x000..000` instead of real wallet address and pass your profile/name as intended.
 
 Incase, you don't have CID, you can use the `Profile` object and implicitly use the Circles pinning service to pin it:
 
@@ -42,7 +33,7 @@ This function will allow you to get maximum amount of CRC tokens that are availa
 const mintableToken = await avatar.getMintableamount ()
 ```
 
-## 3. Minting personal tokens :&#x20;
+## 3. Minting personal tokens :
 
 This function will allow you to mint your personal CRC tokens
 
@@ -50,6 +41,3 @@ This function will allow you to mint your personal CRC tokens
 const mintTransaction = await sdk.personalMint();
 console.log('Transaction successful, receipt:', mintTransaction);
 ```
-
-
-

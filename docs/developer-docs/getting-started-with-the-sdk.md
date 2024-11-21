@@ -10,7 +10,7 @@ description: >-
 ## Prerequisites
 
 * [Metamask Plugin](https://metamask.io/) installed in browser
-* Setup [Gnosis Chain (Mainnet)](https://docs.gnosischain.com/about/networks/mainnet). Check out Gnosis Chain docs [here](https://docs.gnosischain.com/about/networks/).
+* Setup [Gnosis Chain (Mainnet)](https://docs.gnosischain.com/about/networks/mainnet) and/or [Chiado Chain (Testnet)](https://docs.gnosischain.com/about/networks/chiado). Check out Gnosis Chain docs [here](https://docs.gnosischain.com/about/networks/).
 * xDAI as gas token, check out [Mainnet](https://faucet.gnosischain.com/) and [Testnet ](https://faucet.chiadochain.net/)Faucet
 
 ## Install packages for CirclesSDK
@@ -41,20 +41,38 @@ Circles is available on Gnosis Chain and Chiado Testnet. You need to specify the
 <table><thead><tr><th width="265">Property</th><th>Description</th></tr></thead><tbody><tr><td><code>v2PathfinderUrl?</code></td><td>The URL for the V2 Pathfinder service (if using V2).</td></tr><tr><td><code>pathfinderUrl?</code></td><td>The URL for the Pathfinder service (used in V1).</td></tr><tr><td><code>circlesRpcUrl</code></td><td>The URL for the Circles RPC service</td></tr><tr><td><code>profileServiceUrl?</code></td><td>The URL for the profile service that manages user profiles in Circles.</td></tr><tr><td><code>v1HubAddress</code></td><td>The contract address for the Circles V1 Hub.</td></tr><tr><td><code>v2HubAddress?</code></td><td>The contract address for the Circles V2 Hub.</td></tr><tr><td><code>nameRegistryAddress?</code></td><td>The address of the name registry contract.</td></tr><tr><td><code>migrationAddress?</code></td><td>The address used for migrating avatars and tokens from V1 to V2.</td></tr><tr><td><code>baseGroupMintPolicy?</code></td><td>The address of the minting policy used for group avatars in Circles.</td></tr></tbody></table>
 
 {% tabs %}
-{% tab title="RINGS contracts Gnosis Chain " %}
-You would be building using developer version of Cirlces contracts called 'RINGS'. This will allow you to self-register and receive more CRC as bonus. Please follow the below configuration: 
+{% tab title="Gnosis Chain " %}
+The Gnosis Chain mainnet is the production chain for Circles.
 
 ```typescript
 import type {CirclesConfig} from "@circles-sdk/sdk";
 
 export const GnosisChainConfig: CirclesConfig = {
-    circlesRpcUrl: "https://static.94.138.251.148.clients.your-server.de/rpc/",
+    circlesRpcUrl: "https://rpc.aboutcircles.com/",
+    pathfinderUrl: "https://pathfinder.aboutcircles.com",
     v1HubAddress: "0x29b9a7fbb8995b2423a71cc17cf9810798f6c543",
-    v2HubAddress: "0x3D61f0A272eC69d65F5CFF097212079aaFDe8267",
-    migrationAddress: "0x28141b6743c8569Ad8B20Ac09046Ba26F9Fb1c90",
-    nameRegistryAddress: "0x8D1BEBbf5b8DFCef0F7E2039e4106A76Cb66f968",
-    profileServiceUrl: "https://static.94.138.251.148.clients.your-server.de/profiles/",
-    baseGroupMintPolicy: "0x79Cbc9C7077dF161b92a745345A6Ade3fC626A60",
+    v2HubAddress: "0xc12C1E50ABB450d6205Ea2C3Fa861b3B834d13e8",
+    nameRegistryAddress: "0xA27566fD89162cC3D40Cb59c87AAaA49B85F3474",
+    migrationAddress: "0xD44B8dcFBaDfC78EA64c55B705BFc68199B56376",
+    profileServiceUrl: "https://rpc.aboutcircles.com/profiles/",
+};
+```
+{% endtab %}
+
+{% tab title="Chiado Testnet" %}
+```typescript
+import type {CirclesConfig} from "@circles-sdk/sdk";
+
+export const chiadoConfig: CirclesConfig = {
+    circlesRpcUrl: "https://chiado-rpc.aboutcircles.com",
+    pathfinderUrl: "https://chiado-pathfinder.aboutcircles.com",
+    v2PathfinderUrl: "https://chiado-pathfinder.aboutcircles.com/pathfinder/",
+    profileServiceUrl: "https://chiado-pathfinder.aboutcircles.com/profiles/",
+    v1HubAddress: "0xdbf22d4e8962db3b2f1d9ff55be728a887e47710",
+    v2HubAddress: "0xc12C1E50ABB450d6205Ea2C3Fa861b3B834d13e8",
+    migrationAddress: "0x12E815963A0b910288C7256CAD0d345c8F5db08E",
+    nameRegistryAddress: "0x24b3fDCdD9fef844fB3094ef43c0A6Ac23a6dF9E",
+    baseGroupMintPolicy: "0xE35c66531aF28660a1CdfA3dd0b1C1C0245D2F67"
 };
 ```
 {% endtab %}
