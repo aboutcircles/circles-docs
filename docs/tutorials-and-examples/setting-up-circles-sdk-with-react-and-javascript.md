@@ -16,7 +16,7 @@ export const CirclesSDK = ({ children }) => {
     const [circlesProvider, setCirclesProvider] = useState(null);
     const [circlesAddress, setCirclesAddress] = useState(null);
 
-    // Configuration for the Circles SDK on Gnosis Chain
+    // Configuration for the Circles SDK on Gnosis Chain or use the sandbox version
     const gnosisChainConfig = {
         circlesRpcUrl: "https://rpc.aboutcircles.com/",
         pathfinderUrl: "https://pathfinder.aboutcircles.com",
@@ -72,3 +72,5 @@ export const CirclesSDK = ({ children }) => {
 export default CirclesSDKContext;
 
 ```
+
+To access the entire codebase for building frontend applications using React and Circles SDK, check out the Github repo [here](https://github.com/aboutcircles/circles-vite-app/tree/circles-sdk-v0.14.0/src/circles-components).

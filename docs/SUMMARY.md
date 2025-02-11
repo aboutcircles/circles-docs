@@ -16,8 +16,8 @@
 * [The Circles Stack](developer-docs/the-circles-protocol.md)
 * [Circles SDK Overview](developer-docs/circles-sdk-overview.md)
 * [Getting started with the SDK](developer-docs/getting-started-with-the-sdk.md)
-* [Circles Avatars](developer-docs/circles-avatars/README.md)
-  * [Circles Profiles](developer-docs/circles-avatars/circles-profiles.md)
+* [Building with different Circles Avatars](developer-docs/circles-avatars/README.md)
+  * [Setting Circles Profiles](developer-docs/circles-avatars/circles-profiles.md)
   * [Personal / Human Avatars](developer-docs/circles-avatars/personal-human-avatars/README.md)
     * [Inviting and accepting human avatars](developer-docs/circles-avatars/personal-human-avatars/inviting-and-accepting-human-avatars.md)
     * [Mint personal tokens](developer-docs/circles-avatars/personal-human-avatars/mint-personal-tokens.md)
@@ -33,13 +33,17 @@
     * [Getting total supply of group tokens available](developer-docs/circles-avatars/group-avatars/getting-total-supply-of-group-tokens-available.md)
   * [Organization Avatars](developer-docs/circles-avatars/organization-avatars/README.md)
     * [Creation of Organizations](developer-docs/circles-avatars/organization-avatars/creation-of-organizations.md)
-* [Query Circles Data](developer-docs/query-data/README.md)
-  * [Subscribing to Avatar events](developer-docs/query-data/subscribing-to-avatar-events.md)
-  * [Utilising CirclesQuery Class](developer-docs/query-data/utilising-circlesquery-class.md)
 
 ## Tutorials and Examples
 
 * [Setting up Circles SDK with React](tutorials-and-examples/setting-up-circles-sdk-with-react-and-javascript.md)
+
+## Querying Circles profiles and data
+
+* [Query Circles Data](querying-circles-profiles-and-data/query-data.md)
+* [Subscribing to Avatar events](querying-circles-profiles-and-data/subscribing-to-avatar-events.md)
+* [Utilising CirclesQuery Class](querying-circles-profiles-and-data/utilising-circlesquery-class.md)
+* [Query Circles profiles](querying-circles-profiles-and-data/query-circles-profiles.md)
 
 ## Circles SDK Reference
 

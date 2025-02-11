@@ -12,10 +12,21 @@ description: >-
 
 To subscribe, you need an initialized CirclesData class.
 
+{% tabs %}
+{% tab title="Gnosis Chain" %}
 ```typescript
-const circlesRpc = new CirclesRpc("https://chiado-rpc.aboutcircles.com");
+const circlesRpc = new CirclesRpc("https://rpc.aboutcircles.com/");
 const data = new CirclesData(circlesRpc);
 ```
+{% endtab %}
+
+{% tab title="Second Tab" %}
+```typescript
+const circlesRpc = new CirclesRpc("https://static.94.138.251.148.clients.your-server.de/rpc/");
+const data = new CirclesData(circlesRpc);
+```
+{% endtab %}
+{% endtabs %}
 
 Then call the `subscribeToEvents()` method and supply the address of the avatar to subscribe to:
 

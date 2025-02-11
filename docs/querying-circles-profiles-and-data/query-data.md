@@ -17,10 +17,23 @@ const data = sdk.data;
 
 &#x20;Otherwise you can create an instance like this:
 
+{% tabs %}
+{% tab title="Gnosis Chain" %}
+{% code overflow="wrap" %}
 ```typescript
-const circlesRpc = new CirclesRpc("https://chiado-rpc.aboutcircles.com");
+const circlesRpc = new CirclesRpc("https://rpc.aboutcircles.com/");
 const data = new CirclesData(circlesRpc);
 ```
+{% endcode %}
+{% endtab %}
+
+{% tab title="RINGS" %}
+```typescript
+const circlesRpc = new CirclesRpc("https://static.94.138.251.148.clients.your-server.de/rpc/");
+const data = new CirclesData(circlesRpc);
+```
+{% endtab %}
+{% endtabs %}
 
 ### Get avatar info
 
