@@ -27,17 +27,8 @@ Circles relies on hub contracts for V1 and V2 that you can utilize directly with
 
 Here are the deployed addresses for V1 hub and V2 hub that you should consider for configuration or building tools on Circles protocol:
 
-| Contract Name        | Deployed Address                                   |
-|----------------------|----------------------------------------------------|
-| **V1 hub contract**  | 0x29b9a7fbb8995b2423a71cc17cf9810798f6c543         |
-| **V2 hub contract**  | 0xc12C1E50ABB450d6205Ea2C3Fa861b3B834d13e8         |
-| **Name registry**    | 0xA27566fD89162cC3D40Cb59c87AAaA49B85F3474         |
-| **Migration contract** | 0xD44B8dcFBaDfC78EA64c55B705BFc68199B56376       |
-| **Base mint policy**  | 0xcCa27c26CF7BAC2a9928f42201d48220F0e3a549        |
 
-<!--
 <table><thead><tr><th width="192.9765625">Contract Name</th><th width="563.39453125">Deployed addresses</th></tr></thead><tbody><tr><td>V1 hub contract</td><td>0x29b9a7fbb8995b2423a71cc17cf9810798f6c543</td></tr><tr><td>V2 hub contract</td><td>0xc12C1E50ABB450d6205Ea2C3Fa861b3B834d13e8</td></tr><tr><td>Name registry</td><td>0xA27566fD89162cC3D40Cb59c87AAaA49B85F3474</td></tr><tr><td>Migration contract</td><td>0xD44B8dcFBaDfC78EA64c55B705BFc68199B56376</td></tr><tr><td>Base mint policy</td><td>0xcCa27c26CF7BAC2a9928f42201d48220F0e3a549</td></tr></tbody></table>
--->
 
 If you want to skip directly to setting up Circles SDK in your application, you can jump to the SDK Configuration Guide which covers all the setup parameters.
 
