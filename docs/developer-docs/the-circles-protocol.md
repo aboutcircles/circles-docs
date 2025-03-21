@@ -1,6 +1,7 @@
 ---
 description: Developers Hub for building with Circles.
 icon: layer-group
+keywords: [V1 ,v1, V2, v2, hub contracts, Hub Contracts, hub addresses, Hub Addresses, deployed contracts, Deployed hub]
 ---
 
 # The Circles Stack
