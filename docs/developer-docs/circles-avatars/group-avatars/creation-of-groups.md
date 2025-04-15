@@ -36,19 +36,13 @@ There are some limits from the profile service:
 
 * The maximum allowed length for profile names is 36 characters (`config.maxNameLength`). This is enforced in the `validateProfile` function, where it checks if the name exceeds this limit.
 
-
-
 **Profile Description Length:**
 
 * The maximum allowed length for descriptions is 500 characters (`config.descriptionLength`), and the `validateProfile` function checks this.
 
-
-
 **Image URL Length:**
 
 * The maximum allowed length for image URLs is 2000 characters (`config.imageUrlLength`), validated in the same function.
-
-
 
 **Image Validation:**
 
@@ -56,13 +50,10 @@ There are some limits from the profile service:
 * The supported image formats are PNG, JPEG, and GIF.
 {% endhint %}
 
-### Circles Profile specs&#x20;
+### Circles Profile specs
 
 Incase, you want to check how to manage circles profiles, you can simply checkout this guide :
 
-{% content-ref url="../circles-profiles.md" %}
-[circles-profiles.md](../circles-profiles.md)
+{% content-ref url="../../circles-profiles.md" %}
+[circles-profiles.md](../../circles-profiles.md)
 {% endcontent-ref %}
-
-
-

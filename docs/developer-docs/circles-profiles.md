@@ -2,7 +2,7 @@
 icon: address-card
 ---
 
-# Circles Profiles
+# Setting Circles Profiles
 
 Circles is built around the ERC1155 token standard which allows tokens to have metadata. Since Circles is all about personal currency, it makes sense to utilize this metadata as a profile.&#x20;
 
@@ -83,3 +83,6 @@ These requirements are enforced by the server to ensure consistency and performa
 {% hint style="warning" %}
 Profiles that don't adhere to the spec aren't considered and won't be served by Circles' profile service.
 {% endhint %}
+
+## Choose your Avatar setup&#x20;
+

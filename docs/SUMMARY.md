@@ -15,9 +15,9 @@
 
 * [The Circles Stack](developer-docs/the-circles-protocol.md)
 * [Circles SDK Overview](developer-docs/circles-sdk-overview.md)
-* [Getting started with the SDK](developer-docs/getting-started-with-the-sdk.md)
+* [Quickstart Guide for Circles SDK](developer-docs/getting-started-with-the-sdk.md)
+* [Setting Circles Profiles](developer-docs/circles-profiles.md)
 * [Building with different Circles Avatars](developer-docs/circles-avatars/README.md)
-  * [Setting Circles Profiles](developer-docs/circles-avatars/circles-profiles.md)
   * [Personal / Human Avatars](developer-docs/circles-avatars/personal-human-avatars/README.md)
     * [Inviting and accepting human avatars](developer-docs/circles-avatars/personal-human-avatars/inviting-and-accepting-human-avatars.md)
     * [Mint personal tokens](developer-docs/circles-avatars/personal-human-avatars/mint-personal-tokens.md)

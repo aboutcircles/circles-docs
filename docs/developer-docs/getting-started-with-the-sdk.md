@@ -5,15 +5,15 @@ description: >-
 icon: rectangles-mixed
 ---
 
-# Getting started with the SDK
+# Quickstart Guide for Circles SDK
 
-## Prerequisites
+**Prerequisites**
 
-* [Metamask Plugin](https://metamask.io/) installed in browser
-* Setup [Gnosis Chain (Mainnet)](https://docs.gnosischain.com/about/networks/mainnet) and/or [Chiado Chain (Testnet)](https://docs.gnosischain.com/about/networks/chiado). Check out Gnosis Chain docs [here](https://docs.gnosischain.com/about/networks/).
-* xDAI as gas token, check out [Mainnet](https://faucet.gnosischain.com/) and [Testnet ](https://faucet.chiadochain.net/)Faucet
+* Browser wallet such as Metamask or Rabby Wallet
+* Setup or add [Gnosis Chain (Mainnet)](https://docs.gnosischain.com/about/networks/mainnet) as your **network for wallet**. Check out Gnosis Chain docs [here](https://docs.gnosischain.com/about/networks/).
+* Some xDAI token for paying gas fees. Check out [Mainnet](https://faucet.gnosischain.com/) Faucet
 
-## Install packages for CirclesSDK
+## Circles SDK Installation
 
 If you have all prerequisites in place, start by installing the Circles SDK package and ethers v6 in your project using `npm.`
 
@@ -23,20 +23,25 @@ npm i @circles-sdk/sdk @circles-sdk/data @circles-sdk/utils @circles-sdk/profile
 ```
 {% endcode %}
 
-### 1. Add imports
+## 1. Add imports
 
 Then, import the necessary interfaces from the Circles SDK and Ethers.
 
 ```typescript
-import { CirclesConfig, Sdk } from '@circles-sdk/sdk';
+import { circlesConfig, Sdk } from '@circles-sdk/sdk';
 import {BrowserProviderContractRunner} from "@circles-sdk/adapter-ethers"
 ```
 
-### 2. Add `CirclesConfig` for SDK
+* `circlesConfig`: Contains predefined configurations, such as contract addresses for different environments (production version).
+* `Sdk`: The main Circles SDK class, which provides methods to interact with the protocol, including token transfers, trust relationships, and contract interactions.
+
+Since we are using browser-based wallets like Rabby and MetaMask, we will import the `BrowserProviderContractRunner` adapter, which connects the Circles SDK with Ethers.js, enabling smart contract interactions through a browser-based Ethereum provider.
+
+## 2. Add `CirclesConfig` for SDK
 
 **`CirclesConfig`** defines the configuration settings needed to set up the SDK. You provide an object that follows this structure when initializing the SDK.
 
-Circles is available on Gnosis Chain and Chiado Testnet. You need to specify the correct contract addresses and service endpoints for each environment.
+Circles is available on Gnosis Chain for production and sandbox version. You need to specify the correct contract addresses and service endpoints for each environment.
 
 <table><thead><tr><th width="247.1796875">Property</th><th>Description</th></tr></thead><tbody><tr><td><code>v2PathfinderUrl</code></td><td>The URL for the V2 Pathfinder service (if using V2).</td></tr><tr><td><code>pathfinderUrl</code></td><td>The URL for the Pathfinder service (used in V1).</td></tr><tr><td><code>circlesRpcUrl</code></td><td>The URL for the Circles RPC service</td></tr><tr><td><code>profileServiceUrl</code></td><td>The URL for the profile service that manages user profiles in Circles.</td></tr><tr><td><code>v1HubAddress</code></td><td>The contract address for the Circles V1 Hub.</td></tr><tr><td><code>v2HubAddress?</code></td><td>The contract address for the Circles V2 Hub.</td></tr><tr><td><code>nameRegistryAddress</code></td><td>The address of the name registry contract.</td></tr><tr><td><code>migrationAddress</code></td><td>The address used for migrating avatars and tokens from V1 to V2.</td></tr><tr><td><code>baseGroupMintPolicy</code></td><td>The address of the minting policy used for group avatars in Circles.</td></tr><tr><td><code>coreMemberGroupDeployer</code></td><td></td></tr></tbody></table>
 
@@ -85,7 +90,61 @@ export const circlesConfig: CirclesConfig = {
 {% endtab %}
 {% endtabs %}
 
-### 3. Setup Provider and Signer
+## **3. Using Circles SDK Configuration**
+
+Circles contracts are deployed on the Gnosis Chain mainnet. The following configuration is intended for production-ready applications.&#x20;
+
+{% hint style="info" %}
+If you are building dApps on Circles SDK for hackathon or want to check sandbox deployments, then follow [this segment](getting-started-with-the-sdk.md#using-the-sandbox-version-of-circles-sdk-for-local-development) to setup sandbox configuration for using the SDK.&#x20;
+{% endhint %}
+
+You can seamlessly import the production-ready smart contract addresses directly from the Circles SDK, as they are already hardcoded within the SDK.
+
+```typescript
+import { circlesConfig } from '@circles-sdk/sdk';
+```
+
+The `circlesConfig` object provides predefined contract addresses and service endpoints required for seamless integration with Circles on Gnosis Chain. It adheres to the `CirclesConfig` type from the Circles SDK.
+
+#### Here's the configuration if you use `CirclesConfig` type from Circles SDK along with deployed contracts:
+
+```typescript
+import type {CirclesConfig} from "@circles-sdk/sdk";
+
+export const GnosisChainConfig: CirclesConfig = {
+    circlesRpcUrl: "https://rpc.aboutcircles.com/",
+    pathfinderUrl: "https://pathfinder.aboutcircles.com",
+    v1HubAddress: "0x29b9a7fbb8995b2423a71cc17cf9810798f6c543",
+    v2HubAddress: "0xc12C1E50ABB450d6205Ea2C3Fa861b3B834d13e8",
+    nameRegistryAddress: "0xA27566fD89162cC3D40Cb59c87AAaA49B85F3474",
+    migrationAddress: "0xD44B8dcFBaDfC78EA64c55B705BFc68199B56376",
+    profileServiceUrl: "https://rpc.aboutcircles.com/profiles/",
+};
+```
+
+### Using the sandbox version of Circles SDK for builders
+
+RINGS is a sandbox version of the Circles protocol designed for testing the Circles SDK without worrying about production requirements. If you are a builder or developer working on Circles for a hackathon and want to understand how the overall mechanics function, this is the place to start.
+
+The only change you need to make to your codebase is updating the Circles configuration addresses to the sandbox contract addresses.
+
+```typescript
+import type {CirclesConfig} from "@circles-sdk/sdk";
+
+export const circlesConfig: CirclesConfig = {
+    circlesRpcUrl: "https://static.94.138.251.148.clients.your-server.de/rpc/",
+    v1HubAddress: "0x29b9a7fbb8995b2423a71cc17cf9810798f6c543",
+    v2HubAddress: "0x3D61f0A272eC69d65F5CFF097212079aaFDe8267",
+    migrationAddress: "0x28141b6743c8569Ad8B20Ac09046Ba26F9Fb1c90",
+    nameRegistryAddress: "0x8D1BEBbf5b8DFCef0F7E2039e4106A76Cb66f968",
+    baseGroupMintPolicy: "0x79Cbc9C7077dF161b92a745345A6Ade3fC626A60",
+    profileServiceUrl: "https://static.94.138.251.148.clients.your-server.de/profiles/",
+};
+```
+
+Once you have configured the sandbox addresses in your `config.ts` ,you can proceed with setting up the provider and signer as mentioned below.
+
+## 4. Setup Provider and Signer
 
 To setup provider and signer, we would utilize the Circles Adapter that is built to support transactions via ethers. Once you have already imported the `BrowserProviderContractRunner` , you would need to initialize it.
 
@@ -94,15 +153,86 @@ const adapter = new BrowserProviderContractRunner();
 await adapter.init();
 ```
 
-### 3. Initialize the Circles SDK
+## 5. Initialize the Circles SDK
 
-To initialize the CirclesSDK, we will pass on the `CirclesConfig` and `Adapter` to SDK instance.
+To initialize the CirclesSDK, we will pass on the `circlesConfig` and `Adapter` to SDK instance.
 
 ```typescript
-const sdk = new Sdk (adapter,CirclesConfig);
+const sdk = new Sdk (adapter,circlesConfig); 
+// or GnosisChainConfig as named in config
 ```
 
-Once you have successfully created a SDK instance, you are all set to use Circles in your dApp. Let's learn more about the Circles SDK features and how you can use them on the next pages.\\
+Once you have successfully created a SDK instance, you are all set to use Circles in your dApp.
+
+## Summary for the setup of Circles SDK
+
+To quickly summarize how the entire setup of Circles SDK would look like if you are writing a script etc.
+
+#### Installation
+
+{% code overflow="wrap" %}
+```
+npm i @circles-sdk/sdk @circles-sdk/data @circles-sdk/utils @circles-sdk/profiles @circles-sdk/adapter-ethers ethers
+```
+{% endcode %}
+
+#### Import the packages and setup script
+
+```typescript
+import { circlesConfig, Sdk } from '@circles-sdk/sdk';
+// or use the type import and then set up Circles contracts in configurations
+// import type {CirclesConfig} from "@circles-sdk/sdk";
+import {BrowserProviderContractRunner} from "@circles-sdk/adapter-ethers"
+
+const adapter = new BrowserProviderContractRunner();
+await adapter.init();
+
+const sdk = new Sdk (adapter,circlesConfig); 
+// or GnosisChainConfig as named in config
+```
+
+<details>
+
+<summary>Optional : Setup deployed contracts based on production or sandbox version of Circles Protocol</summary>
+
+**Production version:**
+
+```typescript
+import type {CirclesConfig} from "@circles-sdk/sdk";
+
+export const GnosisChainConfig: CirclesConfig = {
+circlesRpcUrl: "https://rpc.aboutcircles.com/",
+pathfinderUrl: "https://pathfinder.aboutcircles.com",
+v1HubAddress: "0x29b9a7fbb8995b2423a71cc17cf9810798f6c543",
+v2HubAddress: "0xc12C1E50ABB450d6205Ea2C3Fa861b3B834d13e8",
+nameRegistryAddress: "0xA27566fD89162cC3D40Cb59c87AAaA49B85F3474",
+migrationAddress: "0xD44B8dcFBaDfC78EA64c55B705BFc68199B56376",
+profileServiceUrl: "https://rpc.aboutcircles.com/profiles/",
+};
+```
+
+**Sandbox version:**&#x20;
+
+```typescript
+// For sandbox version
+import type {CirclesConfig} from "@circles-sdk/sdk";
+
+export const circlesConfig: CirclesConfig = {
+    circlesRpcUrl: "https://static.94.138.251.148.clients.your-server.de/rpc/",
+    v1HubAddress: "0x29b9a7fbb8995b2423a71cc17cf9810798f6c543",
+    v2HubAddress: "0x3D61f0A272eC69d65F5CFF097212079aaFDe8267",
+    migrationAddress: "0x28141b6743c8569Ad8B20Ac09046Ba26F9Fb1c90",
+    nameRegistryAddress: "0x8D1BEBbf5b8DFCef0F7E2039e4106A76Cb66f968",
+    baseGroupMintPolicy: "0x79Cbc9C7077dF161b92a745345A6Ade3fC626A60",
+    profileServiceUrl: "https://static.94.138.251.148.clients.your-server.de/profiles/",
+};
+```
+
+
+
+</details>
+
+Voila :tada: you're done with Circles SDK setup. Now, you can support Circles profiles and choose the Avatars that you would like to integrate and support their additional functions.
 
 ## Choose which Avatar would you like to build on
 
