@@ -1,8 +1,8 @@
 ---
-icon: shovel
 description: >-
   The CirclesData class provides an easy-to-use selection of common queries that
   are suitable for most use cases.
+icon: shovel
 ---
 
 # Query Circles Data
@@ -38,8 +38,6 @@ const data = new CirclesData(circlesRpc);
 ### Get avatar info
 
 The `getAvatarInfo(avatar: string): Promise<AvatarRow | undefined>` method finds basic information about an avatar. This includes the signup timestamp, circles version, avatar type (human, organization or group), and token address/id as well as it's profile CID (if any).
-
-This method is useful to check if an avatar exists before using [Broken link](broken-reference "mention").
 
 ```typescript
 const avatarInfo = await data.getAvatarInfo("0x...");
