@@ -4,9 +4,9 @@ icon: yelp
 
 # Circles SDK Overview
 
-The [Circles SDK](https://www.npmjs.com/package/@circles-sdk/sdk) is a TypeScript library that allows you to integrate Circles protocol into your dApp to implement trust connections and offering the users of network to get socio-economic value.
+The [Circles SDK](https://www.npmjs.com/package/@circles-sdk/sdk) is a TypeScript library that allows you to integrate Circles protocol into your dApp to implement avatars, profiles, token transfers and build trust connections for your use-case. In backend, Circles SDK utilizes deployed hub contracts on Gnosis Chain, pathfinder for finding trust network paths and profile service.
 
-As a developer, you can start from installing the SDK and supported packages.
+As a developer, you can start from installing the core SDK and supported packages.
 
 ### Circles v2.0 SDK features :&#x20;
 
