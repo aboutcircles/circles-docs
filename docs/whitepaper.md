@@ -2,6 +2,17 @@
 hidden: true
 noIndex: true
 icon: book-open
+layout:
+  title:
+    visible: true
+  description:
+    visible: true
+  tableOfContents:
+    visible: true
+  outline:
+    visible: false
+  pagination:
+    visible: true
 ---
 
 # Whitepaper
@@ -30,7 +41,7 @@ While the creation of money out of thin air is not problematic in itself, we bel
 * Currently, newly created money ‘trickles down’ through financial institutions and enterprises into the population over time. Since prices and other nominal quantities take time to adjust to this new supply, financial institutions and other parties further ‘upstream’ benefit disproportionally from the value of new money, with workers seeing their real purchasing power increase only with severe delays. This is known as the _Cantillon effect._
 * By construction, government-issued money puts those not served by that government at a disadvantage, in a myriad of ways. At a national level, this often hits those without means the hardest and reduces their social mobility. Internationally, it can link economies without negotiation power to the domestic monetary policy of international powers, as is evident in the case of the US Dollar system. A global world should have an _impartial_ currency that serves as a reserve and whose value is not tied to the interests or world views of any particular nation or institution.
 
-The advent of blockchain technology has ushered in a wave of excitement and thinking around how to overcome these problems. Cryptocurrencies like Bitcoin are minted decentrally and participation is open to everyone. However, no cryptocurrency, Bitcoin or otherwise, has yet succeeded in becoming a money proper, for reasons we believe to be intrinsic to their design. For instance, in a thought experiment in which BTC becomes the new world currency, the existing money supply of over 90% of the total money supply is concentrated in the hands of the 2-3% of the population that hold BTC today, as Bitcoin admits a finite supply of BTC, much of which has already been minted. Switching to this monetary system is not in the economic interest of the 97+% who don’t yet hold BTC. Bitcoin may very well play a role as a global decentralized permissionless asset that can be used as a speculative store of value, but it will not have value stability against regular goods required to be attractive as a medium of exchange.(footnote: The recent paper [_The distributional consequences of Bitcoin_](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4985877) by researchers at the European Central Bank makes a similar case. In a [rebuttal paper](https://www.murrayrudd.pro/challenging-bias-in-the-ecbs-bitcoin-analysis/), Bitcoin proponents state that it is not, in fact, the goal of Bitcoin (anymore) to become a global means of exchange, which to us indicates that they’d agree with our argument above)
+The advent of blockchain technology has ushered in a wave of excitement and thinking around how to overcome these problems. Cryptocurrencies like Bitcoin are minted[ decentrally](#user-content-fn-2)[^2] and participation is open to everyone. However, no cryptocurrency, Bitcoin or otherwise, has yet succeeded in becoming a money proper, for reasons we believe to be intrinsic to their design. For instance, in a thought experiment in which BTC becomes the new world currency, the existing money supply of over 90% of the total money supply is concentrated in the hands of the 2-3% of the population that hold BTC today, as Bitcoin admits a finite supply of BTC, much of which has already been minted. Switching to this monetary system is not in the economic interest of the 97+% who don’t yet hold BTC. Bitcoin may very well play a role as a global decentralized permissionless asset that can be used as a speculative store of value, but it will not have value stability against regular goods required to be attractive as a medium of exchange.(footnote: The recent paper [_The distributional consequences of Bitcoin_](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4985877) by researchers at the European Central Bank makes a similar case. In a [rebuttal paper](https://www.murrayrudd.pro/challenging-bias-in-the-ecbs-bitcoin-analysis/), Bitcoin proponents state that it is not, in fact, the goal of Bitcoin (anymore) to become a global means of exchange, which to us indicates that they’d agree with our argument above)
 
 Still, the promise of the Web3 stack as enabling a world of decentralized governance and finance stands, and, with the ability to design sophisticated currency systems using smart contracts, the question remains: _What does a currency have to look like to be adopted by people in such a multipolar, decentralized world, not by virtue of legal obligation as today, but by virtue of its attractive properties alone?_
 
@@ -370,3 +381,5 @@ History has seen many proposals for currencies, mainstream and alternative, come
 [WP Skeleton](https://www.notion.so/WP-Skeleton-11f3b92f9cd0807e84a9cf6af8cad7d4?pvs=21)
 
 [^1]: Circles has a long history. Originally conceived of by Martin Köppelmann in 2014, it was first launched by Gnosis in 2020, and then XXX
+
+[^2]: 
