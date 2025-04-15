@@ -21,7 +21,7 @@ First you'll need to define a query. The basic structure of a query is the same 
 * `limit`: How many rows to return (max: 1000).
 
 {% hint style="info" %}
-Check out the documentation of the [circles\_query rpc method](https://github.com/CirclesUBI/circles-nethermind-plugin/tree/dev?tab=readme-ov-file#circles\_query) for a list of tables.
+Check out the documentation of the [`circles_query`rpc method](https://github.com/aboutcircles/circles-nethermind-plugin/tree/dev?tab=readme-ov-file#circles-nethermind-plug-in) for a list of tables.
 {% endhint %}
 
 Here is a query that reads all avatars with type `group`. Other avatar types you can try are `human` and `organization`.
@@ -52,7 +52,7 @@ const queryDefinition: PagedQueryParams = {
 ```
 
 {% hint style="warning" %}
-If you want to be able to load the next page (`queryNextPage()`) you must always include the following fields in your query:`blockNumber`, `transactionIndex,`` ``logIndex.`
+If you want to be able to load the next page (`queryNextPage()`) you must always include the following fields in your query:`blockNumber`, `transactionIndex, logIndex.`
 {% endhint %}
 
 ### Define a row type
