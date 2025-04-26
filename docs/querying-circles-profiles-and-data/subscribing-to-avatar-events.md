@@ -1,116 +1,129 @@
 ---
 icon: diagram-previous
 description: >-
-  The Circles SDK let's you subscribe to protocol events. Either filtered for an
-  avatar or as a complete stream. There is also a way to query all past events
-  in a block range.
+  The Circles SDK lets you subscribe to protocol events, either filtered for a
+  specific avatar or as a complete stream. You can also query past events within
+  a block range.
 ---
 
-# Subscribing to Avatar events
+# Subscribing to Avatar Events
 
-### Subscribe
+### Initialization
 
-To subscribe, you need an initialized CirclesData class.
-
-{% tabs %}
-{% tab title="Gnosis Chain" %}
-```typescript
-const circlesRpc = new CirclesRpc("https://rpc.aboutcircles.com/");
-const data = new CirclesData(circlesRpc);
-```
-{% endtab %}
-
-{% tab title="Second Tab" %}
-```typescript
-const circlesRpc = new CirclesRpc("https://static.94.138.251.148.clients.your-server.de/rpc/");
-const data = new CirclesData(circlesRpc);
-```
-{% endtab %}
-{% endtabs %}
-
-Then call the `subscribeToEvents()` method and supply the address of the avatar to subscribe to:
+Event subscription and querying are handled by the `CirclesData` class, typically accessed via `sdk.data` from your initialized SDK instance.
 
 ```typescript
-const avatarEvents = await data.subscribeToEvents("0x...");
-avatarEvents.subscribe(event => {
-    console.log(event);
-});
+// Assuming 'sdk' is your initialized SDK instance
+const data = sdk.data;
 ```
 
-If you want to subscribe to all events, call it without parameter:
+### 1. Subscribe to Events
+
+The `subscribeToEvents(avatarAddress?: string)` method establishes a subscription to Circles protocol events.
+
+**Subscribe to a specific avatar's events:** Provide the avatar's address.
 
 ```typescript
-const avatarEvents = await data.subscribeToEvents("0x...");
-avatarEvents.subscribe(event => {
-    console.log(event);
-});
+const avatarAddress = "0x..."; // Address of the avatar to monitor
+try {
+  const avatarSubscription = await data.subscribeToEvents(avatarAddress);
+  avatarSubscription.subscribe(event => {
+      console.log(`Event for ${avatarAddress}:`, event);
+  });
+  console.log(`Subscribed to events for ${avatarAddress}`);
+  // Remember to handle unsubscription when needed, e.g., avatarSubscription.unsubscribe();
+} catch (error) {
+    console.error(`Error subscribing to events for ${avatarAddress}:`, error);
+}
 ```
 
-### Query past events
-
-If your client missed some events, you can query all events for a specific avatar in a block range.
+**Subscribe to all events:** Call the method without any parameters.
 
 ```typescript
-const avatarEvents = await data.getEvents("0x..", 9000000, 10000000);
+try {
+  const allEventsSubscription = await data.subscribeToEvents(); // No address provided
+  allEventsSubscription.subscribe(event => {
+      console.log("Global Event:", event);
+  });
+  console.log("Subscribed to all Circles events.");
+  // Remember to handle unsubscription when needed, e.g., allEventsSubscription.unsubscribe();
+} catch (error) {
+    console.error("Error subscribing to all events:", error);
+}
 ```
 
-You can omit the last parameter (`toBlock`)  to query from `fromBlock` to the latest block:
+### 2. Query Past Events
+
+If your client missed events (e.g., due to being offline), you can query historical events for a specific avatar within a given block range using `getEvents(avatarAddress: string, fromBlock: number, toBlock?: number)`.
 
 ```typescript
-const avatarEvents = await data.getEvents("0x..", 10000000);
+const avatarAddress = "0x...";
+const fromBlock = 9000000;
+const toBlock = 10000000; // Optional: If omitted, queries up to the latest block
+
+try {
+  // Query events within the specified block range
+  const pastEvents = await data.getEvents(avatarAddress, fromBlock, toBlock);
+  console.log(`Found ${pastEvents.length} events for ${avatarAddress} between blocks ${fromBlock} and ${toBlock || 'latest'}:`);
+  pastEvents.forEach(event => console.log(event));
+
+  // Query events from a specific block up to the latest
+  // const recentEvents = await data.getEvents(avatarAddress, 10000000);
+  // console.log(`Found ${recentEvents.length} recent events for ${avatarAddress}:`);
+  // recentEvents.forEach(event => console.log(event));
+
+} catch (error) {
+    console.error("Error querying past events:", error);
+}
 ```
 
-### Event types
+### 3. Event Types
 
-The above methods yield `CirclesEvent`s. All events have at least the following base properties:
+The subscription and query methods return `CirclesEvent` objects. All events share these base properties:
 
-* `$event: CirclesEventType` One of the event types listed below
-* `blockNumber: number` In which block the event occurred
-* `timestamp?: number` When the event occurred
-* `transactionIndex: number` The index of the transaction in the block
-* `logIndex: number` The index of the log entry in the transaction
-* `transactionHash?: string` The transaction hash
+*   `$event: CirclesEventType`: The specific type of event (see list below).
+*   `blockNumber: number`: The block number where the event occurred.
+*   `timestamp?: number`: The approximate timestamp of the block.
+*   `transactionIndex: number`: The index of the transaction within the block.
+*   `logIndex: number`: The index of the event log within the transaction.
+*   `transactionHash?: string`: The hash of the transaction that emitted the event.
 
-Here's a list of all event types. Please refer to the [source code](https://github.com/aboutcircles/circles-sdk/blob/34160858798e3ec197e405a06d6a199a0bf73412/packages/data/src/events/events.ts) for the event properties.
+Here is a list of possible event types (`CirclesEventType`). For details on the specific properties of each event type, refer to the [SDK source code](https://github.com/aboutcircles/circles-sdk/blob/main/packages/data/src/events/events.ts).
 
-<pre class="language-typescript"><code class="lang-typescript">export type CirclesEvent =
-
-// CrcV1 Events
-
-<strong>| CrcV1_HubTransfer
-</strong>| CrcV1_Signup
-| CrcV1_OrganizationSignup
-| CrcV1_Trust
-| CrcV1_Transfer
-
-<strong>// CrcV2 Events
-</strong>
- | CrcV2_InviteHuman
-<strong> | CrcV2_PersonalMint
-</strong><strong> | CrcV2_RegisterGroup
-</strong><strong> | CrcV2_RegisterHuman
-</strong><strong> | CrcV2_RegisterOrganization
-</strong> | CrcV2_Stopped
-<strong> | CrcV2_Trust
-</strong> | CrcV2_TransferSingle
- | CrcV2_Erc20WrapperTransfer
- | CrcV2_Erc20WrapperDeployed
- | CrcV2_URI
- | CrcV2_ApprovalForAll
- | CrcV2_TransferBatch
- | CrcV2_RegisterShortName
- | CrcV2_UpdateMetadataDigest
- | CrcV2_CidV0
- | CrcV2_StreamCompleted
- | CrcV2_CreateVault
- | CrcV2_GroupMintSingle
- | CrcV2_GroupMintBatch
- | CrcV2_GroupRedeem
- | CrcV2_GroupRedeemCollateralReturn
- | CrcV2_GroupRedeemCollateralBurn
- | CrcV2_DepositDemurraged
- | CrcV2_DepositInflationary
- | CrcV2_WithdrawDemurraged
-<strong> | CrcV2_WithdrawInflationary
-</strong>
+<pre class="language-typescript"><code class="lang-typescript">// Base type for all events
+export type CirclesEvent =
+  // CrcV1 Events
+  | CrcV1_HubTransfer
+  | CrcV1_Signup
+  | CrcV1_OrganizationSignup
+  | CrcV1_Trust
+  | CrcV1_Transfer
+  // CrcV2 Events
+  | CrcV2_InviteHuman
+  | CrcV2_PersonalMint
+  | CrcV2_RegisterGroup
+  | CrcV2_RegisterHuman
+  | CrcV2_RegisterOrganization
+  | CrcV2_Stopped
+  | CrcV2_Trust
+  | CrcV2_TransferSingle
+  | CrcV2_Erc20WrapperTransfer
+  | CrcV2_Erc20WrapperDeployed
+  | CrcV2_URI
+  | CrcV2_ApprovalForAll
+  | CrcV2_TransferBatch
+  | CrcV2_RegisterShortName
+  | CrcV2_UpdateMetadataDigest
+  | CrcV2_CidV0
+  | CrcV2_StreamCompleted
+  | CrcV2_CreateVault
+  | CrcV2_GroupMintSingle
+  | CrcV2_GroupMintBatch
+  | CrcV2_GroupRedeem
+  | CrcV2_GroupRedeemCollateralReturn
+  | CrcV2_GroupRedeemCollateralBurn
+  | CrcV2_DepositDemurraged
+  | CrcV2_DepositInflationary
+  | CrcV2_WithdrawDemurraged
+  | CrcV2_WithdrawInflationary;
 </code></pre>

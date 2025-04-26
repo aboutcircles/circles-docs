@@ -1,30 +1,30 @@
 ---
 description: >-
   The CirclesQuery class allows you to execute custom queries against the
-  Circles RPC api.
+  Circles RPC API.
 icon: diagram-previous
 ---
 
-# Utilising CirclesQuery Class
+# Using the CirclesQuery Class
 
-The previously shown `CirclesData` class returns `CirclesQuery<T>` objects for all paged query results. You can execute custom queries against all tables in the Circles index and filter with them.
+The `CirclesData` class (typically accessed via `sdk.data`) returns `CirclesQuery<T>` objects for paged query results. This allows you to execute custom queries against the indexed tables provided by the Circles RPC API and apply filters.
 
-### Write a query
+### 1. Write a Query Definition
 
-First you'll need to define a query. The basic structure of a query is the same as for a basic SQL select. It has the following fields:
+First, define your query using the `PagedQueryParams` structure, similar to a basic SQL SELECT statement. Key fields include:
 
-* `namespace`: Used to distinguish between tables and views as well and to tell the tables of the two Circles version apart from each other.
-* `table`: The name of the table you want to query.
-* `columns`: A list of column names you want to select.
-* `filter`: A list of filter conditions that must be met.
-* `sortOrder`: Can be 'asc' or 'desc'.
-* `limit`: How many rows to return (max: 1000).
+*   `namespace`: Distinguishes between tables/views and different Circles versions (e.g., `V_Crc` for V2).
+*   `table`: The name of the table to query (e.g., `Avatars`).
+*   `columns`: An array of column names to select.
+*   `filter`: An array of filter conditions.
+*   `sortOrder`: `'ASC'` or `'DESC'`.
+*   `limit`: Maximum rows per page (up to 1000).
 
 {% hint style="info" %}
-Check out the documentation of the [`circles_query`rpc method](https://github.com/aboutcircles/circles-nethermind-plugin/tree/dev?tab=readme-ov-file#circles-nethermind-plug-in) for a list of tables.
+Refer to the [`circles_query` RPC method documentation](https://github.com/aboutcircles/circles-nethermind-plugin/tree/dev?tab=readme-ov-file#circles_query) for a list of available tables and detailed filter options.
 {% endhint %}
 
-Here is a query that reads all avatars with type `group`. Other avatar types you can try are `human` and `organization`.
+Here is an example query that reads all avatars of type `group`. You can also filter for `human` or `organization`.
 
 ```typescript
 const queryDefinition: PagedQueryParams = {
@@ -52,14 +52,12 @@ const queryDefinition: PagedQueryParams = {
 ```
 
 {% hint style="warning" %}
-If you want to be able to load the next page (`queryNextPage()`) you must always include the following fields in your query:`blockNumber`, `transactionIndex, logIndex.`
+For pagination using `queryNextPage()`, you **must** always include `blockNumber`, `transactionIndex`, and `logIndex` in your selected `columns`.
 {% endhint %}
 
-### Define a row type
+### 2. Define a Row Type (Optional)
 
-You can define a type for the rows of your query, or just go with `any` if the type doesn't matter.&#x20;
-
-If you want to specify a custom type, it must extend the `EventRow` type. The `EventRow` type contains the `blockNumber`, `transactionIndex` and `logIndex` fields which are required for pagination.
+You can define a TypeScript interface for the expected row structure to get type safety, or use `any`. If defining a custom type, it should extend the `EventRow` type from `@circles-sdk/data` to include the necessary pagination fields (`blockNumber`, `transactionIndex`, `logIndex`).
 
 ```typescript
 interface MyGroupType extends EventRow {
@@ -69,71 +67,98 @@ interface MyGroupType extends EventRow {
 }
 ```
 
-### Execute the query
+### 3. Execute the Query
 
-To execute the query definition, you'll need a `CirclesRpc` instance. Create one and pass the Circles rpc url to the constructor.
-
-```typescript
-const circlesRpc = new CirclesRpc('https://chiado-rpc.aboutcircles.com');
-```
-
-Then create a `CirclesQuery<MyGroupType>` instance.
+To execute the query, you need a `CirclesRpc` instance (usually obtained via `sdk.data.circlesRpc` or created manually). Pass this and your query definition to the `CirclesQuery` constructor.
 
 ```typescript
+// Assuming 'sdk' is initialized
+const circlesRpc = sdk.data.circlesRpc;
+// Or create manually:
+// import { CirclesRpc } from '@circles-sdk/data';
+// const circlesRpc = new CirclesRpc('https://rpc.aboutcircles.com/'); // Use appropriate RPC URL
+
+// Create the query instance with your defined type (or <any>)
 const query = new CirclesQuery<MyGroupType>(circlesRpc, queryDefinition);
 ```
 
-Call `getNextPage()` to retrieve the first page of the result set. You can then access the results through the `currentPage` property. This property includes the `results` themselves, along with `firstCursor`, `lastCursor`, `limit`, `size`, and `sortOrder`.
+Call `queryNextPage()` repeatedly to fetch pages of results. The results for the current page are available via the `currentPage.results` property. The `currentPage` object also contains pagination details (`firstCursor`, `lastCursor`, `limit`, `size`, `sortOrder`).
 
 ```typescript
-const hasResults = await query.queryNextPage();
-if (!hasResults) {
-  console.log("The query yielded no results.");
-} else {
-  const rows = query.currentPage.results;
-  rows.forEach(row => console.log(row));
+try {
+  let hasMore = true;
+  while(hasMore) {
+    const hasResultsOnPage = await query.queryNextPage();
+    if (!hasResultsOnPage) {
+      console.log("No more results found.");
+      hasMore = false;
+    } else {
+      const rows = query.currentPage.results;
+      console.log(`Fetched page with ${rows.length} results.`);
+      rows.forEach(row => console.log(row));
+      // Check if there might be more pages based on limit vs size, or specific API response
+      if (rows.length < queryDefinition.limit) {
+          hasMore = false;
+      }
+    }
+  }
+} catch (error) {
+    console.error("Error executing query:", error);
 }
 ```
 
-### Add computed columns
+### 4. Add Computed Columns (Optional)
 
-You can extend the CirclesQuery with computed columns. Computed columns are defined by a callback that takes in the row and returns a new value. Here we convert the value of the previously queried `cidV0Digest` field (which is originally a hex-string) to a CID in `Qm..` format.
+You can extend `CirclesQuery` with computed columns. These are generated client-side based on the retrieved row data. Define a `CalculatedColumn` array where each object has a `name` and a `generator` function.
+
+This example converts the `cidV0Digest` hex string (retrieved from the query) into a standard Base58 CIDv0 string (`Qm...`).
 
 ```typescript
-const calculatedColumns = [{
-  name: 'cidV0',
+// Assuming utility functions hexStringToUint8Array and uint8ArrayToCidV0 are available
+// import { hexStringToUint8Array, uint8ArrayToCidV0 } from './your-utils'; // Example import
+
+const calculatedColumns: CalculatedColumn<MyGroupType>[] = [{
+  name: 'cidV0', // Name of the new computed column
   generator: async (row: MyGroupType) => {
     if (!row.cidV0Digest) {
       return undefined;
     }
-
-    const dataFromHexString = hexStringToUint8Array(row.cidV0Digest.substring(2));
+    // Remove '0x' prefix if present and convert hex to bytes, then to CIDv0
+    const dataFromHexString = hexStringToUint8Array(row.cidV0Digest.startsWith('0x') ? row.cidV0Digest.substring(2) : row.cidV0Digest);
     return uint8ArrayToCidV0(dataFromHexString);
   }
 }];
 ```
 
-The new column should be added to the custom type.
+Add the new column name (`cidV0`) to your custom row type:
 
 ```typescript
 interface MyGroupType extends EventRow {
   avatar: string;
   name: string;
   cidV0Digest?: string;
-  cidV0?: string
+  cidV0?: string; // Added computed column
 }
 ```
 
-Then you can execute the query just like you did before. The calculated column function will be executed for each row in a page.
+Then, pass the `calculatedColumns` array when creating the `CirclesQuery` instance. The generator function will run for each row retrieved.
 
 ```typescript
-const query = new CirclesQuery<MyGroupType>(circlesRpc, queryDefinition, calculatedColumns);
+// Assuming 'circlesRpc', 'queryDefinition', and 'calculatedColumns' are defined
 
-const hasResults = await query.queryNextPage();
-if (!hasResults) {
-  console.log("The query yielded no results.");
-} else {
-  const rows = query.currentPage.results;
-  rows.forEach(row => console.log(row));
+const queryWithComputed = new CirclesQuery<MyGroupType>(circlesRpc, queryDefinition, calculatedColumns);
+
+// Execute the query as shown in Step 3
+try {
+    const hasResults = await queryWithComputed.queryNextPage();
+    if (!hasResults) {
+      console.log("The query yielded no results.");
+    } else {
+      const rows = queryWithComputed.currentPage.results;
+      // Each 'row' object will now potentially have the 'cidV0' property
+      rows.forEach(row => console.log(row));
+    }
+} catch (error) {
+    console.error("Error executing query with computed columns:", error);
 }
 ```

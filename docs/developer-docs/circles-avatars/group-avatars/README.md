@@ -4,6 +4,8 @@ icon: users-medical
 
 # Group Avatars
 
-&#x20;To create a group following the ERC1155 standard, which allows you to utilize personal tokens as a collateral and mint group tokens, you would require to call the following function.
+Group Avatars, introduced in Circles v2, represent collective entities like communities or organizations. They follow the ERC1155 standard and allow for the creation of a shared Group Currency. Unlike personal tokens, Group Currency is not minted over time but is created by members providing their personal CRC tokens as collateral.
 
-Your wallet should not have been signed up as a different avatar and once connected to SDK would be registered as s a group avatar in Circles v2.
+To create a new Group Avatar, you will use a specific function within the SDK (detailed in the next section).
+
+**Important Prerequisite:** The wallet address used to create the Group Avatar must *not* already be registered as any other type of avatar (Human, Group, or Organization) within the Circles v2 Hub Contract. When the creation function is called via the SDK using this address, it will be registered as a Group Avatar.

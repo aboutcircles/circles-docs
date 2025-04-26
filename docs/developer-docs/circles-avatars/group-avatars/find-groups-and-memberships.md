@@ -1,58 +1,60 @@
-# Find groups and memberships
+# Finding Groups and Memberships
 
-You would be requiring to initialize the Circles data property to find groups and get memberships.
-
-```typescript
-const data = sdk.data
-```
-
-&#x20;Otherwise you can create an instance like this:
+To find groups and retrieve membership information, you typically use the `data` module accessible via your initialized SDK instance (`sdk.data`). This module interacts with the Circles RPC Query API.
 
 ```typescript
-const circlesRpc = new CirclesRpc("https://chiado-rpc.aboutcircles.com");
-const data = new CirclesData(circlesRpc);
+// Assuming 'sdk' is your initialized SDK instance
+const data = sdk.data;
 ```
 
-## Find Groups
+Alternatively, if you are not using the main SDK instance, you can instantiate `CirclesData` directly using `CirclesRpc` from the `@circles-sdk/data` package (ensure you have it installed):
 
-* **Functionality**: This method allows you to fetch a list of groups from the Circles system, with options for pagination and filtering. This is useful for applications that need to display groups or for querying specific groups based on certain criteria.
+```typescript
+// Example using direct instantiation (less common if using the main SDK)
+// import { CirclesRpc, CirclesData } from '@circles-sdk/data';
+// const circlesRpc = new CirclesRpc("https://rpc.aboutcircles.com/"); // Use appropriate RPC URL
+// const data = new CirclesData(circlesRpc);
+```
+
+## 1. Find Groups
+
+This method fetches a list of registered Group Avatars from the Circles system, supporting pagination and filtering.
+
 *   **Parameters**:
-
-    * `pageSize`: A number specifying how many groups should be returned in the response.
-    * `params`: An optional parameter that can include various filters for the query, such as group types or statuses.
-
-
+    *   `pageSize` (number): Specifies the maximum number of groups to return per page.
+    *   `params` (object, optional): An object containing filter criteria. The available filter options depend on the RPC Query API implementation (e.g., filtering by name, owner, etc.). Consult the API documentation for specific filter possibilities.
 
 ```typescript
-const groupsPageSize = 10; // Define the maximum number of groups to return
-const queryParams = { /* Example filter parameters */ };
+// Assuming 'data' is your initialized data module instance (e.g., sdk.data)
+const groupsPageSize = 10; // Max groups per page
+const queryParams = { /* owner: '0x...' */ }; // Example: Filter by owner address (verify actual filter keys)
 
 try {
-    const groupsQueryResult = await circles.data.findGroups(groupsPageSize, queryParams);
+    const groupsQueryResult = await data.findGroups(groupsPageSize, queryParams);
     console.log('Retrieved groups:', groupsQueryResult);
+    // groupsQueryResult likely contains an array of group details and pagination info
 } catch (error) {
     console.error('Error fetching groups:', error);
 }
 ```
 
-## Get group memberships
+## 2. Get Group Memberships
 
-This method is designed to fetch all group memberships associated with a specific avatar. This is useful for applications that want to display or manage the groups that a user belongs to.
+This method fetches all group memberships associated with a specific avatar address, useful for displaying the groups a user belongs to.
 
-**Parameters**:
-
-* `avatar`: A string representing the address of the avatar for which group memberships are being requested.
-* `pageSize`: A number that specifies the maximum number of group memberships to return.
+*   **Parameters**:
+    *   `avatarAddress` (string): The address of the avatar whose memberships you want to retrieve.
+    *   `pageSize` (number): Specifies the maximum number of memberships to return per page.
 
 ```typescript
-const avatarAddress = '0xYourAvatarAddress'; 
-// The address of the avatar
-const membershipsPageSize = 5; 
-// Define the maximum number of memberships to return
+// Assuming 'data' is your initialized data module instance (e.g., sdk.data)
+const avatarAddress = '0xYourAvatarAddress'; // The address of the avatar
+const membershipsPageSize = 5; // Max memberships per page
 
 try {
-    const membershipsQueryResult = await circles.getGroupMemberships(avatarAddress, membershipsPageSize);
+    const membershipsQueryResult = await data.getGroupMemberships(avatarAddress, membershipsPageSize);
     console.log('Retrieved group memberships:', membershipsQueryResult);
+    // membershipsQueryResult likely contains an array of membership details and pagination info
 } catch (error) {
     console.error('Error fetching group memberships:', error);
 }

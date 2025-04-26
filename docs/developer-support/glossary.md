@@ -7,102 +7,82 @@ description: >-
 
 # Glossary
 
+### Avatar
+
+The representation of a user or entity within the Circles network. Avatars are associated with a wallet address and a profile. There are three types in Circles v2:
+
+*   **Human Avatar:** Represents an individual person. Can mint personal CRC tokens over time and establish trust connections. Requires an invitation to join.
+*   **Group Avatar:** Represents a collective entity (community, DAO, etc.). Does not mint tokens based on time but issues its own Group Currency backed by collateral (personal CRC) provided by its members.
+*   **Organization Avatar:** Represents a formal entity (business, NGO). Cannot mint tokens and relies on receiving tokens through the trust network. Subject to demurrage.
+
+### Demurrage
+
+A mechanism applied to Circles tokens (CRC) where their value decreases over time at a set rate (equivalent to 7% per year, applied daily). This encourages circulation and spending rather than hoarding. For Human Avatars, demurrage is typically offset by the continuous minting of new personal CRC.
+
 ### ERC-1155
 
-ERC-1155 is an Ethereum token standard that enables the efficient transfer and bundling of multiple fungible and non-fungible tokens in a single transaction. This multi-token standard allows for the creation of complex token systems, such as those used in gaming or supply chain management, where different types of tokens need to be managed simultaneously.
-
-The standard introduces a new set of functions, including `safeTransferFrom`, `safeBatchTransferFrom`, and `balanceOfBatch`, which allow for the transfer and querying of multiple token balances in a single call. This reduces gas costs and simplifies token management compared to using multiple ERC-20 or ERC-721 contracts.
-
-ERC-1155 tokens are identified by a unique combination of an address and an ID, allowing for the creation of an unlimited number of token types within a single contract. The standard also includes an optional metadata extension, enabling developers to associate additional information, such as images or descriptions, with each token type.
-
-See also:&#x20;
-
-* [ERC-1155 Multi Token Standard on Ethereum.org](https://ethereum.org/en/developers/docs/standards/tokens/erc-1155/)
-
-### Externally-Owned Account <a href="#externally-owned-account" id="externally-owned-account"></a>
-
-An externally-owned account (also known as EOA) is one of the two types of Ethereum accounts. A private key controls it; it has no code, and users can send messages by creating and signing Ethereum transactions.
+An Ethereum token standard that allows a single smart contract to manage multiple token types, including both fungible (like CRC) and non-fungible tokens. Circles v2 uses ERC-1155 for its avatars and tokens, enabling efficient management of personal and group currencies.
 
 See also:
 
-* [Ethereum Accounts](https://ethereum.org/en/developers/docs/accounts) on ethereum.org
-* [Ethereum Whitepaper](https://ethereum.org/en/whitepaper/#ethereum-accounts) on ethereum.org
+*   [ERC-1155 Multi Token Standard on Ethereum.org](https://ethereum.org/en/developers/docs/standards/tokens/erc-1155/)
 
-### Gasless Transaction <a href="#gasless-transaction" id="gasless-transaction"></a>
+### Externally-Owned Account (EOA)
 
-Gasless transactions (also known as meta-transactions) are Ethereum transactions that are executed by a third party called [relayer](https://docs.safe.global/glossary#relayer) on behalf of a [smart account](https://docs.safe.global/glossary#smart-account) to abstract the use of gas. Users must sign a message (instead of the transaction itself) with information about the transaction they want to execute. A relayer will create the Ethereum transaction, sign and execute it, and pay for the gas costs. The main benefit is that users can interact with the blockchain without holding the native token in their account.
-
-See also:
-
-* [Relay Kit documentation](https://docs.safe.global/sdk/relay-kit) on docs.safe.global
-
-### Network <a href="#network" id="network"></a>
-
-A blockchain network is a collection of interconnected computers that utilize a blockchain protocol for communication. Decentralized networks allow users to send transactions, that are processed on a distributed ledger with a consensus mechanism ensuring the batching, verification, and acceptance of data into blocks. This structure enables the development of applications without the need for a central authority or server.
+One of the two main types of Ethereum accounts, controlled directly by a private key. EOAs can initiate transactions (like sending ETH or interacting with contracts) by signing them. Most user wallets (like MetaMask) manage EOAs.
 
 See also:
 
-* [Networks](https://ethereum.org/en/developers/docs/networks) on ethereum.org
+*   [Ethereum Accounts on ethereum.org](https://ethereum.org/en/developers/docs/accounts)
 
-### Owner <a href="#owner" id="owner"></a>
+### Gasless Transaction (Meta-Transaction)
 
-A Safe owner is one of the accounts that control a given Safe. Only owners can manage the configuration of a Safe and approve transactions. They can be either [externally-owned accounts](https://docs.safe.global/glossary#externally-owned-account) or [smart accounts](https://docs.safe.global/glossary#smart-account). The [threshold](https://docs.safe.global/glossary#threshold) of a Safe defines how many owners need to approve a Safe transaction to make it executable.
+An Ethereum transaction where the gas fee is paid by a third party (a "relayer") instead of the user initiating the action. The user signs a message authorizing the action, and the relayer submits the actual transaction to the blockchain. This allows users to interact with dApps without needing ETH in their wallet for gas fees.
 
-See also:
+### Group Currency
 
-* [OwnerManager.sol](https://github.com/safe-global/safe-smart-account/blob/main/contracts/base/OwnerManager.sol) on github.com
+A type of currency specific to a Group Avatar in Circles v2. It is minted by members who collateralize their personal CRC tokens in the group's vault. Group Currencies facilitate economic activity within the group.
 
-### Relayer <a href="#relayer" id="relayer"></a>
+### Hub Contract
 
-A relayer is a third-party service acting as an intermediary between users' accounts and [blockchain networks](https://docs.safe.global/glossary#network). It executes transactions on behalf of users and covers the associated execution costs, which may or may not be claimed.
+The core smart contract(s) in Circles responsible for managing avatar registration, token minting (personal CRC), trust relationships, and transfers. Circles has distinct Hub Contracts for V1 and V2. The SDK interacts with these contracts.
 
-See also:
+### Network (Blockchain Network)
 
-* [What's Relaying?](https://docs.gelato.network/developer-services/relay/what-is-relaying) on docs.gelato.network
-
-### Safe Wallet <a href="#safe-apps" id="safe-apps"></a>
-
-Safe is a smart contract wallet that requires a minimum number of people to approve a transaction before it can occur (M-of-N). If for example you have 3 main stakeholders in your business, you are able to set up the wallet to require approval from 2 out of 3 (2/3) or all 3 people before the transaction is sent. This assures that no single person could compromise the funds.
+A system of interconnected computers (nodes) that maintain and update a shared, distributed ledger (the blockchain) according to a specific protocol (e.g., Ethereum, Gnosis Chain). Circles operates on the Gnosis Chain network.
 
 See also:
 
-* [What is Safe?](https://help.safe.global/en/articles/40869-what-is-safe)
+*   [Networks on ethereum.org](https://ethereum.org/en/developers/docs/networks)
 
-### Smart Account <a href="#smart-account" id="smart-account"></a>
+### Pathfinder
 
-A smart account (also known as a smart contract account) leverages the programmability of smart contracts to extend its functionality and improve its security in comparison with [externally-owned accounts](https://docs.safe.global/glossary#externally-owned-account). Smart accounts are controlled by one or multiple externally-owned accounts or other smart accounts, and all transactions have to be initiated by one of those.
+A service used by Circles to find optimal paths through the Trust Network for transferring tokens between avatars who may not directly trust each other. It calculates routes based on existing trust connections and available balances.
 
-Some common features that smart accounts offer to their users are:
+### Personal Currency (CRC)
 
-* Multi-signature scheme
-* Transaction batching
-* Account recovery
-* [Gasless transactions](https://docs.safe.global/glossary#gasless-transaction)
+The native token type for Human Avatars in Circles. Each Human Avatar continuously mints their own personal CRC tokens over time (1 CRC per hour). These tokens are subject to demurrage. Transfers rely on the Trust Network.
 
-Safe is one of the most trusted implementations of a smart account.
+### Smart Account (Smart Contract Account)
 
-### Transaction <a href="#transaction" id="transaction"></a>
+An Ethereum account implemented as a smart contract, controlled by code rather than directly by a private key (though usually managed by one or more EOAs). Smart accounts can enable features like multi-signature requirements, account recovery, batch transactions, and gasless transactions. Safe{Wallet} is a popular example.
 
-A transaction is an action initiated by an [externally-owned account](https://docs.safe.global/glossary#externally-owned-account) to update the state of the EVM network. Transaction objects must be signed using the sender's private key, require a fee, and be included in a validated block.
+### Transaction
 
-A Safe transaction is a transaction sent to a Safe Proxy contract calling the [execTransaction](https://github.com/safe-global/safe-smart-account/blob/main/contracts/Safe.sol#L104) method.
+An action initiated on the blockchain, typically signed by an EOA, that aims to change the state of the network (e.g., transferring tokens, interacting with a smart contract). Transactions require a gas fee and must be included in a validated block.
 
 See also:
 
-* [Transactions](https://ethereum.org/developers/docs/transactions) on ethereum.org
+*   [Transactions on ethereum.org](https://ethereum.org/developers/docs/transactions)
 
-### Threshold <a href="#threshold" id="threshold"></a>
+### Trust Connection / Trust Network
 
-The threshold of a Safe account is a crucial configuration element that enables using Safe as a multi-signature smart account. It defines the number of required confirmations from the Safe owners a (Safe) transaction must have to be executable.
+The core social graph mechanism in Circles. An avatar "trusts" another avatar to indicate willingness to accept their personal CRC tokens. These bidirectional or unidirectional connections form a network, enabling tokens to flow between users, even indirectly, via the Pathfinder. Trust is essential for making different personal CRC tokens effectively fungible within the network.
 
-See also:
+### Wallet
 
-* [Get the threshold](https://docs.safe.global/sdk/protocol-kit/reference#getthreshold) and [change the threshold](https://docs.safe.global/sdk/protocol-kit/reference#createchangethresholdtx) of a Safe with the Safe{Core} SDK on docs.safe.global
-
-### Wallet <a href="#wallet" id="wallet"></a>
-
-A wallet is an interface or application that gives users control over their blockchain account. Wallets allow users to sign in to applications, read their account balance, send transactions, and verify their identity.
+An application or interface (like MetaMask, Rabby Wallet) that allows users to manage their blockchain accounts (EOAs or Smart Accounts). Wallets hold private keys securely, enabling users to sign transactions, view balances, and interact with dApps.
 
 See also:
 
-* [Ethereum Wallets](https://ethereum.org/wallets) on ethereum.org
+*   [Ethereum Wallets on ethereum.org](https://ethereum.org/wallets)

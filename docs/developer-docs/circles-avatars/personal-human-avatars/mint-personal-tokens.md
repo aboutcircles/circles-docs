@@ -1,20 +1,29 @@
-# Mint personal tokens
+# Minting Personal Tokens
 
-## Get mintable amount for an avatar
+## 1. Get Mintable Amount
 
-This function will allow you to get maximum amount of CRC tokens that are available to mint at that point of time. Human avatars can mint only upto 24 personal Circles per day.
+This function allows you to check the maximum amount of personal CRC tokens available for the avatar instance (`avatar`) to mint at the current time. Human avatars can mint up to 24 personal Circles per day, adjusted for demurrage based on the minting period.
 
 ```typescript
-const mintableToken = await avatar.getMintableamount();
+// Assuming 'avatar' is an instance representing your human avatar
+try {
+  const mintableTokens = await avatar.getMintableAmount();
+  console.log(`Available to mint: ${mintableTokens}`);
+} catch (error) {
+  console.error("Error getting mintable amount:", error);
+}
 ```
 
+## 2. Mint Personal Tokens
 
-
-## Mint personal tokens :&#x20;
-
-This function will allow you to mint your personal CRC tokens
+This function allows the avatar instance (`avatar`) to mint its available personal CRC tokens.
 
 ```typescript
-const mintTransaction = await avatar.personalMint();
-console.log('Transaction successful, receipt:', mintTransaction);
+// Assuming 'avatar' is an instance representing your human avatar
+try {
+  const mintReceipt = await avatar.personalMint();
+  console.log('Minting transaction successful, receipt:', mintReceipt);
+} catch (error) {
+  console.error("Error minting personal tokens:", error);
+}
 ```

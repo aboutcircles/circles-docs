@@ -2,245 +2,282 @@
 icon: calendar-users
 ---
 
-# Circles Events Types
+# Circles Event Types
 
-### Base Event: `CirclesBaseEvent`
+This document lists the event types emitted by the Circles V1 and V2 protocols, as captured by the SDK.
 
-This is the base type for all Circles events. It contains common metadata for all events.
+{% hint style="info" %}
+The exact properties available for each event type should be verified by consulting the [SDK source code](https://github.com/aboutcircles/circles-sdk/blob/main/packages/data/src/events/events.ts) or the specific contract ABIs. Properties listed here are based on common patterns but might not be exhaustive or universally present. Properties typed as `Uint8Array` are often represented as hex strings in API responses.
+{% endhint %}
 
-* **$event**: `CirclesEventType` — The event type, defining which event occurred.
-* **blockNumber**: `number` — The block number in which the event was logged.
-* **timestamp**: `number` (optional) — The timestamp when the event occurred.
-* **transactionIndex**: `number` — Index of the transaction in the block.
-* **logIndex**: `number` — Index of the log within the transaction.
-* **transactionHash**: `string` (optional) — The hash of the transaction that emitted this event.
+### Base Event Properties (`CirclesBaseEvent`)
+
+All Circles events include these common metadata properties:
+
+*   `$event` (`CirclesEventType`): The specific event type name (e.g., `'CrcV2_Trust'`).
+*   `blockNumber` (`number`): The block number where the event was logged.
+*   `timestamp` (`number`): The approximate timestamp of the block.
+*   `transactionIndex` (`number`): Index of the transaction within the block.
+*   `logIndex` (`number`): Index of the log entry within the transaction.
+*   `transactionHash` (`string`): The hash of the transaction that emitted the event.
 
 ***
 
+### V1 Events (`CrcV1_...`)
+
 #### `CrcV1_HubTransfer`
 
-Triggered when a transfer of Circles tokens happens via the Circles Hub.
+Emitted for token transfers via the V1 Hub (path payments).
 
-* **$event**: `'CrcV1_HubTransfer'`
-* **from**: `string` (optional) — Address sending the tokens.
-* **to**: `string` (optional) — Address receiving the tokens.
-* **amount**: `bigint` (optional) — Amount of tokens transferred.
+*   `from` (`string`): Sender address.
+*   `to` (`string`): Receiver address.
+*   `amount` (`bigint`): Amount transferred.
 
 ***
 
 #### `CrcV1_Signup`
 
-Triggered when a new user signs up in the Circles system.
+Emitted when a new human user signs up in V1.
 
-* **$event**: `'CrcV1_Signup'`
-* **user**: `string` (optional) — Address of the new user.
-* **token**: `string` (optional) — The token assigned to the user.
+*   `user` (`string`): Address of the new user.
+*   `token` (`string`): Address of the personal token created for the user.
 
 ***
 
 #### `CrcV1_OrganizationSignup`
 
-Triggered when an organization signs up.
+Emitted when an organization signs up in V1.
 
-* **$event**: `'CrcV1_OrganizationSignup'`
-* **organization**: `string` (optional) — Address of the organization.
+*   `organization` (`string`): Address of the organization.
 
 ***
 
 #### `CrcV1_Trust`
 
-Emitted when a trust relationship is created.
+Emitted when a V1 trust relationship is established or updated.
 
-* **$event**: `'CrcV1_Trust'`
-* **canSendTo**: `string` (optional) — The address that can receive tokens from the user.
-* **user**: `string` (optional) — The user creating the trust.
-* **limit**: `bigint` (optional) — The limit up to which the user can send tokens.
+*   `user` (`string`): Address establishing the trust.
+*   `canSendTo` (`string`): Address being trusted.
+*   `limit` (`bigint`): Trust limit (typically 100 in V1).
 
 ***
 
 #### `CrcV1_Transfer`
 
-Triggered when a token transfer occurs in the Circles V1 system.
+Emitted for direct ERC-20 token transfers in V1 (not path payments).
 
-* **$event**: `'CrcV1_Transfer'`
-* **tokenAddress**: `string` (optional) — Address of the token.
-* **from**: `string` (optional) — Address sending the tokens.
-* **to**: `string` (optional) — Address receiving the tokens.
-* **amount**: `bigint` (optional) — Amount of tokens transferred.
+*   `tokenAddress` (`string`): Address of the token contract.
+*   `from` (`string`): Sender address.
+*   `to` (`string`): Receiver address.
+*   `amount` (`bigint`): Amount transferred.
 
 ***
 
+### V2 Events (`CrcV2_...`)
+
 #### `CrcV2_InviteHuman`
 
-Triggered when a human is invited to Circles.
+Emitted when a V2 avatar invites a human address.
 
-* **$event**: `'CrcV2_InviteHuman'`
-* **inviter**: `string` (optional) — Address of the inviter.
-* **invited**: `string` (optional) — Address of the invited human.
+*   `inviter` (`string`): Address of the inviter.
+*   `invited` (`string`): Address of the invited human.
 
 ***
 
 #### `CrcV2_PersonalMint`
 
-Triggered when a personal minting event occurs.
+Emitted when a human avatar mints personal CRC tokens.
 
-* **$event**: `'CrcV2_PersonalMint'`
-* **human**: `string` (optional) — Address of the human minting tokens.
-* **amount**: `bigint` (optional) — Amount of tokens minted.
-* **startPeriod**: `bigint` (optional) — Start of the minting period.
-* **endPeriod**: `bigint` (optional) — End of the minting period.
+*   `human` (`string`): Address of the human minting tokens.
+*   `amount` (`bigint`): Amount of tokens minted.
+*   `startPeriod` (`bigint`): Start timestamp of the minting period.
+*   `endPeriod` (`bigint`): End timestamp of the minting period.
 
 ***
 
 #### `CrcV2_RegisterGroup`
 
-Triggered when a group is registered.
+Emitted when a new group is registered.
 
-* **$event**: `'CrcV2_RegisterGroup'`
-* **group**: `string` (optional) — Address of the group.
-* **mint**: `string` (optional) — Address of the mint.
-* **treasury**: `string` (optional) — Address of the treasury.
-* **name**: `string` (optional) — Name of the group.
-* **symbol**: `string` (optional) — Symbol for the group.
+*   `group` (`string`): Address of the new group avatar.
+*   `mint` (`string`): Address of the group's mint policy contract.
+*   `treasury` (`string`): Address of the group's treasury contract.
+*   `name` (`string`): Name of the group (from profile).
+*   `symbol` (`string`): Symbol of the group's token (from profile).
 
 ***
 
 #### `CrcV2_RegisterHuman`
 
-Triggered when a human registers in Circles.
+Emitted when a human accepts an invitation and registers in V2.
 
-* **$event**: `'CrcV2_RegisterHuman'`
-* **avatar**: `string` (optional) — Avatar of the registered human.
-* **inviter**: `string` (optional) — Address of the inviter.
+*   `avatar` (`string`): Address of the newly registered human avatar.
+*   `inviter` (`string`): Address of the inviter.
 
 ***
 
 #### `CrcV2_RegisterOrganization`
 
-Triggered when an organization is registered.
+Emitted when an organization is registered in V2.
 
-* **$event**: `'CrcV2_RegisterOrganization'`
-* **organization**: `string` (optional) — Address of the organization.
-* **name**: `string` (optional) — Name of the organization.
+*   `organization` (`string`): Address of the new organization avatar.
+*   `name` (`string`): Name of the organization (from profile).
 
 ***
 
 #### `CrcV2_Stopped`
 
-Triggered when an avatar stops its activity.
+Emitted when an avatar manually stops minting (V2).
 
-* **$event**: `'CrcV2_Stopped'`
-* **avatar**: `string` (optional) — Avatar that stopped.
+*   `avatar` (`string`): Address of the avatar that stopped.
 
 ***
 
 #### `CrcV2_Trust`
 
-Triggered when a trust relationship is established in Circles V2.
+Emitted when a V2 trust relationship is established or updated.
 
-* **$event**: `'CrcV2_Trust'`
-* **truster**: `string` (optional) — The address of the truster.
-* **trustee**: `string` (optional) — The address of the trustee.
-* **expiryTime**: `bigint` (optional) — Expiry time of the trust relationship.
+*   `truster` (`string`): Address establishing or updating the trust.
+*   `trustee` (`string`): Address being trusted.
+*   `expiryTime` (`bigint`): Expiry timestamp of the trust relationship (0 for untrust).
 
 ***
 
 #### `CrcV2_TransferSingle`
 
-Triggered during a single token transfer in Circles V2.
+Emitted for a single ERC-1155 token transfer (V2).
 
-* **$event**: `'CrcV2_TransferSingle'`
-* **operator**: `string` (optional) — Address of the operator.
-* **from**: `string` (optional) — Address sending the token.
-* **to**: `string` (optional) — Address receiving the token.
-* **id**: `bigint` (optional) — ID of the token being transferred.
-* **value**: `bigint` (optional) — Value of the token transferred.
+*   `operator` (`string`): Address initiating the transfer (can be `from` or approved operator).
+*   `from` (`string`): Sender address.
+*   `to` (`string`): Receiver address.
+*   `id` (`bigint`): ID of the token being transferred.
+*   `value` (`bigint`): Amount of the token transferred.
 
 ***
 
 #### `CrcV2_URI`
 
-Triggered when a token's URI is updated.
+Emitted when the URI for an ERC-1155 token ID changes (relevant for metadata updates).
 
-* **$event**: `'CrcV2_URI'`
-* **value**: `string` (optional) — The new URI value.
-* **id**: `bigint` (optional) — ID of the token with the updated URI.
+*   `value` (`string`): The new URI string.
+*   `id` (`bigint`): ID of the token whose URI was updated.
 
 ***
 
 #### `CrcV2_ApprovalForAll`
 
-Triggered when an account gives or revokes permission to an operator.
+Emitted when an owner grants or revokes approval for an operator to manage all their tokens (ERC-1155 standard).
 
-* **$event**: `'CrcV2_ApprovalForAll'`
-* **account**: `string` (optional) — The account giving or revoking permission.
-* **operator**: `string` (optional) — The operator being granted or revoked permission.
-* **approved**: `boolean` (optional) — Whether the approval was granted (`true`) or revoked (`false`).
+*   `account` (`string`): Address of the token owner.
+*   `operator` (`string`): Address of the operator.
+*   `approved` (`boolean`): `true` if approved, `false` if revoked.
 
 ***
 
 #### `CrcV2_TransferBatch`
 
-Triggered during a batch transfer in Circles V2.
+Emitted for a batch ERC-1155 token transfer (V2).
 
-* **$event**: `'CrcV2_TransferBatch'`
-* **batchIndex**: `number` — Index of the batch.
-* **operator**: `string` (optional) — Address of the operator.
-* **from**: `string` (optional) — Address sending the tokens.
-* **to**: `string` (optional) — Address receiving the tokens.
-* **id**: `bigint` (optional) — ID of the token being transferred.
-* **value**: `bigint` (optional) — Value of the tokens transferred.
+*   `batchIndex` (`number`): Index within the batch operation.
+*   `operator` (`string`): Address initiating the transfer.
+*   `from` (`string`): Sender address.
+*   `to` (`string`): Receiver address.
+*   `id` (`bigint`): ID of the token being transferred in this part of the batch.
+*   `value` (`bigint`): Amount of the token transferred in this part of the batch.
 
 ***
 
 #### `CrcV2_RegisterShortName`
 
-Triggered when a short name is registered to an avatar.
+Emitted when a short name is registered via the Name Registry.
 
-* **$event**: `'CrcV2_RegisterShortName'`
-* **avatar**: `string` (optional) — Avatar registering the short name.
-* **shortName**: `bigint` (optional) — The registered short name.
-* **nonce**: `bigint` (optional) — The nonce of the registration.
+*   `avatar` (`string`): Avatar registering the short name.
+*   `shortName` (`bigint`): The registered short name.
+*   `nonce` (`bigint`): Nonce used for registration.
 
 ***
 
 #### `CrcV2_UpdateMetadataDigest`
 
-Triggered when an avatar's metadata digest is updated.
+Emitted when an avatar's metadata digest is updated in the Name Registry (legacy method).
 
-* **$event**: `'CrcV2_UpdateMetadataDigest'`
-* **avatar**: `string` (optional) — Avatar updating the metadata.
-* **metadataDigest**: `Uint8Array` (optional) — The new metadata digest.
+*   `avatar` (`string`): Avatar updating the metadata.
+*   `metadataDigest` (`Uint8Array`): The new metadata digest (bytes, often hex string).
 
 ***
 
 #### `CrcV2_CidV0`
 
-Triggered when an avatar's CID (Content Identifier) for metadata is updated.
+Emitted when an avatar's profile CIDv0 is updated in the Name Registry.
 
-* **$event**: `'CrcV2_CidV0'`
-* **avatar**: `string` (optional) — Avatar updating the CID.
-* **cidV0Digest**: `Uint8Array` (optional) — The new CID v0 digest.
+*   `avatar` (`string`): Avatar updating the CID.
+*   `cidV0Digest` (`Uint8Array`): The new CIDv0 digest (bytes, often hex string).
 
 ***
 
 #### `CrcV2_StreamCompleted`
 
-Triggered when a streaming payment or data transfer is completed.
+(Potentially related to future streaming payment features)
 
-* **$event**: `'CrcV2_StreamCompleted'`
-* **operator**: `string` (optional) — Address of the operator.
-* **from**: `string` (optional) — Address sending the streamed payment.
-* **to**: `string` (optional) — Address receiving the streamed payment.
-* **id**: `bigint` (optional) — ID of the streamed token.
-* **amount**: `bigint` (optional) — Total amount streamed.
+*   `operator` (`string`): Operator address.
+*   `from` (`string`): Stream sender.
+*   `to` (`string`): Stream receiver.
+*   `id` (`bigint`): Token ID.
+*   `amount` (`bigint`): Total amount streamed.
 
 ***
 
 #### `CrcV2_CreateVault`
 
-Triggered when a vault is created.
+Emitted when a new vault contract is created for a group.
 
-* **$event**: `'CrcV2_CreateVault'`
-* **vault**: `string` (optional) — Address of the vault.
-* **token**: `string` (optional) — Address of the token stored in the vault.
+*   `vault` (`string`): Address of the new vault contract.
+*   `token` (`string`): Address of the group token this vault is associated with.
+
+***
+
+#### `CrcV2_GroupMintSingle` / `CrcV2_GroupMintBatch`
+
+Emitted when a member mints group tokens by providing collateral.
+
+*   (Properties likely include member, group, collateral amount, minted amount - check source)
+
+***
+
+#### `CrcV2_GroupRedeem`
+
+Emitted when a member redeems group tokens to get back collateral.
+
+*   (Properties likely include member, group, redeemed amount, collateral returned - check source)
+
+***
+
+#### `CrcV2_GroupRedeemCollateralReturn` / `CrcV2_GroupRedeemCollateralBurn`
+
+Related to the collateral handling during group token redemption.
+
+*   (Check source for specific properties)
+
+***
+
+#### `CrcV2_DepositDemurraged` / `CrcV2_DepositInflationary`
+
+Related to ERC-20 wrapper interactions (depositing).
+
+*   (Check source for specific properties)
+
+***
+
+#### `CrcV2_WithdrawDemurraged` / `CrcV2_WithdrawInflationary`
+
+Related to ERC-20 wrapper interactions (withdrawing).
+
+*   (Check source for specific properties)
+
+***
+
+#### `CrcV2_Erc20WrapperTransfer` / `CrcV2_Erc20WrapperDeployed`
+
+Related to the deployment and usage of ERC-20 wrapper contracts.
+
+*   (Check source for specific properties)

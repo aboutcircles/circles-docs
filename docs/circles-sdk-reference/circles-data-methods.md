@@ -2,384 +2,479 @@
 icon: plug-circle-check
 ---
 
-# Circles Data Methods
+# Circles Data Methods (`CirclesData` Class)
 
-Circles Data class provides various methods to query and interact with Circles' data, such as balances, transaction history, trust relations, group memberships, and avatar information. It is built around the **Circles RPC** to facilitate communication with the blockchain and retrieve relevant data. The `CirclesData` class exposes methods for both CRCv1 and CRCv2 tokens, trust events, and group information, as well as subscriptions to events.
+The `CirclesData` class provides convenient methods to query data indexed by the Circles RPC API, such as balances, transaction history, trust relationships, group memberships, and avatar information. It's typically accessed via `sdk.data`.
 
-## 1. **`getTotalBalance`**
+## 1. `getTotalBalance`
 
-Gets the total CRC V1 balance of an address.
+Gets the total balance of an avatar's *own personal CRC tokens*, checking the appropriate V1 or V2 Hub contract.
 
 ```typescript
-getTotalBalance(avatar: string, asTimeCircles?: boolean): Promise<string>
+getTotalBalance(avatarAddress: string, asTimeCircles?: boolean): Promise<string>
 ```
 
-**Parameters**:
-
-* `avatar`: The address to get the CRC balance for.
-* `asTimeCircles` (optional): Return the balance as TimeCircles or not (default is `true`).
-
-**Returns**:\
-A `Promise<string>` representing the total balance.
+*   **Parameters**:
+    *   `avatarAddress` (string): The address of the avatar.
+    *   `asTimeCircles` (boolean, optional): If `true` (default), returns the balance formatted as a floating-point "TimeCircles" string for display. If `false`, returns the raw `bigint` balance as a string for calculations.
+*   **Returns**: `Promise<string>` - The total personal balance.
 
 **Usage Example**:
 
 ```typescript
-const balance = await circlesData.getTotalBalance("0xAvatarAddress");
+// Assuming 'data' is sdk.data
+const avatarAddress = "0xAvatarAddress";
+try {
+  const balance = await data.getTotalBalance(avatarAddress); // TimeCircles format
+  const rawBalanceStr = await data.getTotalBalance(avatarAddress, false); // Raw bigint format
+  console.log(`Balance (TimeCircles): ${balance}`);
+  console.log(`Balance (Raw): ${rawBalanceStr}`);
+  // const rawBalanceBigInt = BigInt(rawBalanceStr); // For calculations
+} catch (error) {
+  console.error("Error getting total balance:", error);
+}
 ```
 
 ***
 
-## 2. **`getTotalBalanceV2`**
+## 2. `getTokenBalances`
 
-Gets the total CRC V2 balance of an address.
+Gets a detailed list of *all* token balances held by an avatar, including their own personal CRC and tokens from other avatars they trust. Checks the appropriate V1 or V2 Hub contract.
 
 ```typescript
-getTotalBalanceV2(avatar: string, asTimeCircles?: boolean): Promise<string>
+getTokenBalances(avatarAddress: string, asTimeCircles?: boolean): Promise<TokenBalanceRow[]>
 ```
 
-**Parameters**:
-
-* `avatar`: The address to get the CRC balance for.
-* `asTimeCircles` (optional): Return the balance as TimeCircles or not (default is `true`).
-
-**Returns**:\
-A `Promise<string>` representing the total balance.
+*   **Parameters**:
+    *   `avatarAddress` (string): The address of the avatar.
+    *   `asTimeCircles` (boolean, optional): Controls the format of the `balance` field in the returned rows (default `true` for TimeCircles string, `false` for raw `bigint` string).
+*   **Returns**: `Promise<TokenBalanceRow[]>` - An array containing balance details (e.g., `token`, `balance`, `tokenOwner`).
 
 **Usage Example**:
 
 ```typescript
-const balanceV2 = await circlesData.getTotalBalanceV2("0xAvatarAddress");
+// Assuming 'data' is sdk.data
+const avatarAddress = "0xAvatarAddress";
+try {
+  const balances = await data.getTokenBalances(avatarAddress); // TimeCircles format
+  console.log("Detailed Balances:", balances);
+  // balances.forEach(b => console.log(`${b.tokenOwner}'s token (${b.token}): ${b.balance}`));
+} catch (error) {
+  console.error("Error getting token balances:", error);
+}
 ```
 
 ***
 
-## 3. **`getTokenBalances`**
+## 3. `getTransactionHistory`
 
-Gets the detailed token balances of an address.
+Returns a query object to fetch the transaction history for an avatar (incoming/outgoing transfers, minting) across V1 and V2.
 
 ```typescript
-getTokenBalances(avatar: string): Promise<TokenBalanceRow[]>
+getTransactionHistory(avatarAddress: string, pageSize: number): CirclesQuery<TransactionHistoryRow>
 ```
 
-**Parameters**:
-
-* `avatar`: The address to get the token balances for.
-
-**Returns**:\
-A `Promise<TokenBalanceRow[]>` containing the token balances.
+*   **Parameters**:
+    *   `avatarAddress` (string): The address of the avatar.
+    *   `pageSize` (number): Maximum number of transactions per page.
+*   **Returns**: `CirclesQuery<TransactionHistoryRow>` - A query object to fetch pages of results.
 
 **Usage Example**:
 
 ```typescript
-const balances = await circlesData.getTokenBalances("0xAvatarAddress");
+// Assuming 'data' is sdk.data
+const avatarAddress = "0xAvatarAddress";
+const pageSize = 10;
+try {
+  const historyQuery = data.getTransactionHistory(avatarAddress, pageSize);
+  // Use historyQuery.queryNextPage() to fetch pages
+  const hasResults = await historyQuery.queryNextPage();
+  if (hasResults) {
+    console.log("First page of history:", historyQuery.currentPage.results);
+  } else {
+    console.log("No transaction history found.");
+  }
+} catch (error) {
+  console.error("Error getting transaction history:", error);
+}
 ```
 
 ***
 
-## 4. **`getTransactionHistory`**
+## 4. `getTrustRelations` (Events)
 
-Gets the transaction history of an address (incoming/outgoing transactions and CRC minting).
+Returns a query object to fetch the history of trust *events* (trust/untrust actions) involving an avatar.
 
 ```typescript
-getTransactionHistory(avatar: string, pageSize: number): CirclesQuery<TransactionHistoryRow>
+getTrustRelations(avatarAddress: string, pageSize: number): CirclesQuery<TrustListRow>
 ```
 
-**Parameters**:
-
-* `avatar`: The address to get the transaction history for.
-* `pageSize`: The maximum number of transactions per page.
-
-**Returns**:\
-A `CirclesQuery<TransactionHistoryRow>` object.
+*   **Parameters**:
+    *   `avatarAddress` (string): The address of the avatar.
+    *   `pageSize` (number): Maximum number of events per page.
+*   **Returns**: `CirclesQuery<TrustListRow>` - A query object to fetch pages of trust events.
 
 **Usage Example**:
 
 ```typescript
-const history = await circlesData.getTransactionHistory("0xAvatarAddress", 10);
+// Assuming 'data' is sdk.data
+const avatarAddress = "0xAvatarAddress";
+const pageSize = 10;
+try {
+  const trustEventsQuery = data.getTrustRelations(avatarAddress, pageSize);
+  // Use trustEventsQuery.queryNextPage() to fetch pages
+  const hasResults = await trustEventsQuery.queryNextPage();
+  if (hasResults) {
+    console.log("First page of trust events:", trustEventsQuery.currentPage.results);
+  } else {
+    console.log("No trust events found.");
+  }
+} catch (error) {
+  console.error("Error getting trust events:", error);
+}
 ```
 
 ***
 
-## 5. **`getTrustRelations`**
+## 5. `getAggregatedTrustRelations` (Current State)
 
-Gets the current incoming and outgoing trust relations of an address.
-
-```typescript
-getTrustRelations(avatar: string, pageSize: number): CirclesQuery<TrustListRow>
-```
-
-**Parameters**:
-
-* `avatar`: The address to get the trust list for.
-* `pageSize`: The maximum number of trust relations per page.
-
-**Returns**:\
-A `CirclesQuery<TrustListRow>` object.
-
-**Usage Example**:
-
-```typescript
-const trustRelations = await circlesData.getTrustRelations("0xAvatarAddress", 10);
-```
-
-***
-
-## 6. **`getAggregatedTrustRelations`**
-
-Gets all trust relations of an avatar and groups mutual trust relations together.
+Gets the *current* state of all trust relationships for an avatar, aggregating mutual trust.
 
 ```typescript
 getAggregatedTrustRelations(avatarAddress: string): Promise<TrustRelationRow[]>
 ```
 
-**Parameters**:
-
-* `avatarAddress`: The address to get the trust relations for.
-
-**Returns**:\
-A `Promise<TrustRelationRow[]>` representing the trust relations.
+*   **Parameters**:
+    *   `avatarAddress` (string): The address of the avatar.
+*   **Returns**: `Promise<TrustRelationRow[]>` - An array representing the current trust relationships (e.g., `subjectAvatar`, `relation`, `objectAvatar`).
 
 **Usage Example**:
 
 ```typescript
-const aggregatedTrust = await circlesData.getAggregatedTrustRelations("0xAvatarAddress");
+// Assuming 'data' is sdk.data
+const avatarAddress = "0xAvatarAddress";
+try {
+  const aggregatedTrust = await data.getAggregatedTrustRelations(avatarAddress);
+  console.log("Current trust state:", aggregatedTrust);
+} catch (error) {
+  console.error("Error getting aggregated trust relations:", error);
+}
 ```
 
 ***
 
-## 7. **`getAvatarInfo`**
+## 6. `getAvatarInfo`
 
-Gets basic information about an avatar.
+Gets basic information about a single avatar.
 
 ```typescript
-getAvatarInfo(avatar: string): Promise<AvatarRow | undefined>
+getAvatarInfo(avatarAddress: string): Promise<AvatarRow | undefined>
 ```
 
-**Parameters**:
-
-* `avatar`: The address to check.
-
-**Returns**:\
-A `Promise<AvatarRow | undefined>` with the avatar info or `undefined` if not found.
+*   **Parameters**:
+    *   `avatarAddress` (string): The address to check.
+*   **Returns**: `Promise<AvatarRow | undefined>` - Avatar info or `undefined` if not registered.
 
 **Usage Example**:
 
 ```typescript
-const avatarInfo = await circlesData.getAvatarInfo("0xAvatarAddress");
+// Assuming 'data' is sdk.data
+const avatarAddress = "0xAvatarAddress";
+try {
+  const avatarInfo = await data.getAvatarInfo(avatarAddress);
+  if (avatarInfo) {
+    console.log("Avatar Info:", avatarInfo);
+  } else {
+    console.log("Avatar not found.");
+  }
+} catch (error) {
+  console.error("Error getting avatar info:", error);
+}
 ```
 
 ***
 
-## 8. **`getAvatarInfos`**
+## 7. `getAvatarInfos`
 
-Gets basic information about multiple avatars.
+Gets basic information for multiple avatar addresses.
 
 ```typescript
-getAvatarInfos(avatars: string[]): Promise<AvatarRow[]>
+getAvatarInfos(avatarAddresses: string[]): Promise<AvatarRow[]>
 ```
 
-**Parameters**:
-
-* `avatars`: The addresses to check.
-
-**Returns**:\
-A `Promise<AvatarRow[]>` containing avatar information.
+*   **Parameters**:
+    *   `avatarAddresses` (string[]): An array of addresses to check.
+*   **Returns**: `Promise<AvatarRow[]>` - An array containing information for found avatars.
 
 **Usage Example**:
 
 ```typescript
-const avatarInfos = await circlesData.getAvatarInfos(["0xAvatar1", "0xAvatar2"]);
+// Assuming 'data' is sdk.data
+const addresses = ["0xAvatar1", "0xAvatar2", "0xNonExistent"];
+try {
+  const avatarInfos = await data.getAvatarInfos(addresses);
+  console.log("Avatar Infos:", avatarInfos); // Only returns info for registered avatars
+} catch (error) {
+  console.error("Error getting multiple avatar infos:", error);
+}
 ```
 
 ***
 
-## 9. **`getTokenInfo`**
+## 8. `getTokenInfo`
 
-Gets the token info for a given token address.
+Gets information for a specific Circles token (V1 address or V2 ID).
 
 ```typescript
-getTokenInfo(address: string): Promise<TokenInfoRow | undefined>
+getTokenInfo(tokenIdOrAddress: string): Promise<TokenInfoRow | undefined>
 ```
 
-**Parameters**:
-
-* `address`: The address of the token.
-
-**Returns**:\
-A `Promise<TokenInfoRow | undefined>` with the token info or `undefined` if not found.
+*   **Parameters**:
+    *   `tokenIdOrAddress` (string): The V1 token address or V2 token ID.
+*   **Returns**: `Promise<TokenInfoRow | undefined>` - Token info or `undefined` if not found.
 
 **Usage Example**:
 
 ```typescript
-const tokenInfo = await circlesData.getTokenInfo("0xTokenAddress");
+// Assuming 'data' is sdk.data
+const tokenIdentifier = "0xTokenAddressOrId";
+try {
+  const tokenInfo = await data.getTokenInfo(tokenIdentifier);
+  if (tokenInfo) {
+    console.log("Token Info:", tokenInfo);
+  } else {
+    console.log("Token not found.");
+  }
+} catch (error) {
+  console.error("Error getting token info:", error);
+}
 ```
 
 ***
 
-## 10. **`subscribeToEvents`**
+## 9. `subscribeToEvents`
 
-Subscribes to Circles events.
+Subscribes to real-time Circles events, optionally filtered by avatar address.
 
 ```typescript
-subscribeToEvents(avatar?: string): Promise<Observable<CirclesEvent>>
+subscribeToEvents(avatarAddress?: string): Promise<Observable<CirclesEvent>>
 ```
 
-**Parameters**:
-
-* `avatar` (optional): The avatar to subscribe to. If not provided, all events are subscribed to.
-
-**Returns**:\
-A `Promise<Observable<CirclesEvent>>` representing the event stream.
+*   **Parameters**:
+    *   `avatarAddress` (string, optional): If provided, subscribes only to events involving this avatar. If omitted, subscribes to all events.
+*   **Returns**: `Promise<Observable<CirclesEvent>>` - An RxJS Observable stream of events.
 
 **Usage Example**:
 
 ```typescript
-const eventStream = await circlesData.subscribeToEvents("0xAvatarAddress");
+// Assuming 'data' is sdk.data
+const avatarAddress = "0xAvatarAddress"; // Optional
+try {
+  const eventStream = await data.subscribeToEvents(avatarAddress);
+  const subscription = eventStream.subscribe(event => {
+    console.log("Received event:", event);
+  });
+  // subscription.unsubscribe(); // Call when done listening
+} catch (error) {
+  console.error("Error subscribing to events:", error);
+}
 ```
 
 ***
 
-## 11. **`getEvents`**
+## 10. `getEvents`
 
-Gets the events for a given avatar in a block range.
+Queries historical events within a block range, with optional filters.
 
 ```typescript
-getEvents(avatar?: string, fromBlock?: number, toBlock?: number, eventTypes?: string[], filters?: FilterPredicate[], sortAscending?: boolean): Promise<CirclesEvent[]>
+getEvents(avatarAddress?: string, fromBlock?: number, toBlock?: number, eventTypes?: string[], filters?: FilterPredicate[], sortAscending?: boolean): Promise<CirclesEvent[]>
 ```
 
-**Parameters**:
-
-* `avatar` (optional): The avatar to get the events for.
-* `fromBlock` (optional): The starting block number.
-* `toBlock` (optional): The ending block number.
-* `eventTypes` (optional): Types of events to filter.
-* `filters` (optional): Additional filter criteria.
-* `sortAscending` (optional): Whether to sort events in ascending order.
-
-**Returns**:\
-A `Promise<CirclesEvent[]>` representing the events.
+*   **Parameters**:
+    *   `avatarAddress` (string, optional): Filter events involving this avatar.
+    *   `fromBlock` (number, optional): Start block number.
+    *   `toBlock` (number, optional): End block number (defaults to latest if omitted).
+    *   `eventTypes` (string[], optional): Array of event type names (e.g., `"CrcV2_Trust"`) to include.
+    *   `filters` (`FilterPredicate[]`, optional): Additional filter criteria (see `CirclesQuery` documentation).
+    *   `sortAscending` (boolean, optional): Sort order (default is likely descending).
+*   **Returns**: `Promise<CirclesEvent[]>` - An array of matching historical events.
 
 **Usage Example**:
 
 ```typescript
-const events = await circlesData.getEvents("0xAvatarAddress", 0, 100, ["Transfer"], [], true);
+// Assuming 'data' is sdk.data
+const avatarAddress = "0xAvatarAddress";
+const startBlock = 1000000;
+try {
+  const events = await data.getEvents(avatarAddress, startBlock, undefined, ["CrcV2_Trust", "CrcV2_TransferSingle"]);
+  console.log(`Found ${events.length} Trust/Transfer events since block ${startBlock}:`, events);
+} catch (error) {
+  console.error("Error getting events:", error);
+}
 ```
 
 ***
 
-## 12. **`getInvitations`**
+## 11. `getInvitations`
 
-Gets the invitations sent by an avatar.
+Returns a query object to fetch invitations sent *by* a specific avatar.
 
 ```typescript
-getInvitations(avatar: string, pageSize: number): CirclesQuery<InvitationRow>
+getInvitations(avatarAddress: string, pageSize: number): CirclesQuery<InvitationRow>
 ```
 
-**Parameters**:
-
-* `avatar`: The avatar to get the invitations for.
-* `pageSize`: The maximum number of invitations per page.
-
-**Returns**:\
-A `CirclesQuery<InvitationRow>` object.
+*   **Parameters**:
+    *   `avatarAddress` (string): The address of the inviter avatar.
+    *   `pageSize` (number): Maximum number of invitations per page.
+*   **Returns**: `CirclesQuery<InvitationRow>` - A query object to fetch pages of invitation events.
 
 **Usage Example**:
 
 ```typescript
-const invitations = await circlesData.getInvitations("0xAvatarAddress", 10);
+// Assuming 'data' is sdk.data
+const inviterAddress = "0xInviterAddress";
+const pageSize = 10;
+try {
+  const invitationsQuery = data.getInvitations(inviterAddress, pageSize);
+  // Use invitationsQuery.queryNextPage() to fetch pages
+  const hasResults = await invitationsQuery.queryNextPage();
+  if (hasResults) {
+    console.log("First page of sent invitations:", invitationsQuery.currentPage.results);
+  } else {
+    console.log("No invitations sent by this avatar.");
+  }
+} catch (error) {
+  console.error("Error getting invitations:", error);
+}
 ```
 
 ***
 
-## 13. **`getInvitedBy`**
+## 12. `getInvitedBy`
 
-Gets the avatar that invited the given avatar.
+Finds the address of the avatar that invited the given avatar.
 
 ```typescript
-getInvitedBy(avatar: string): Promise<string | undefined>
+getInvitedBy(avatarAddress: string): Promise<string | undefined>
 ```
 
-**Parameters**:
-
-* `avatar`: The address of the invited avatar.
-
-**Returns**:\
-A `Promise<string | undefined>` with the address of the inviting avatar or `undefined` if not found.
+*   **Parameters**:
+    *   `avatarAddress` (string): The address of the invited avatar.
+*   **Returns**: `Promise<string | undefined>` - The inviter's address or `undefined`.
 
 **Usage Example**:
 
 ```typescript
-const inviter = await circlesData.getInvitedBy("0xAvatarAddress");
+// Assuming 'data' is sdk.data
+const invitedAvatarAddress = "0xInvitedAvatarAddress";
+try {
+  const inviter = await data.getInvitedBy(invitedAvatarAddress);
+  if (inviter) {
+    console.log(`${invitedAvatarAddress} was invited by ${inviter}`);
+  } else {
+    console.log(`Inviter not found for ${invitedAvatarAddress}.`);
+  }
+} catch (error) {
+  console.error("Error getting inviter:", error);
+}
 ```
 
 ***
 
-## 14. **`findGroups`**
+## 13. `findGroups`
 
-Gets the list of groups.
+Returns a query object to find Group Avatars, supporting filtering and sorting.
 
 ```typescript
 findGroups(pageSize: number, params?: GroupQueryParams): CirclesQuery<GroupRow>
 ```
 
-**Parameters**:
-
-* `pageSize`: The maximum number of groups per page.
-* `params` (optional): Query parameters to filter groups.
-
-**Returns**:\
-A `CirclesQuery<GroupRow>` object.
+*   **Parameters**:
+    *   `pageSize` (number): Maximum number of groups per page.
+    *   `params` (`GroupQueryParams`, optional): Filter/sort criteria (e.g., `nameStartsWith`, `sortBy`).
+*   **Returns**: `CirclesQuery<GroupRow>` - A query object to fetch pages of groups.
 
 **Usage Example**:
 
 ```typescript
-const groups = await circlesData.findGroups(10, { name: "ExampleGroup" });
+// Assuming 'data' is sdk.data
+const pageSize = 10;
+try {
+  const groupsQuery = data.findGroups(pageSize, { nameStartsWith: "Example", sortBy: 'name_asc' });
+  // Use groupsQuery.queryNextPage() to fetch pages
+  const hasResults = await groupsQuery.queryNextPage();
+  if (hasResults) {
+    console.log("First page of found groups:", groupsQuery.currentPage.results);
+  } else {
+    console.log("No groups found matching criteria.");
+  }
+} catch (error) {
+  console.error("Error finding groups:", error);
+}
 ```
 
 ***
 
-## 15. **`getGroupMemberships`**
+## 14. `getGroupMemberships`
 
-Gets the group memberships of an avatar.
+Returns a query object to list the groups a specific avatar is a member of.
 
 ```typescript
-getGroupMemberships(avatar: string, pageSize: number): CirclesQuery<GroupMembershipRow>
+getGroupMemberships(avatarAddress: string, pageSize: number): CirclesQuery<GroupMembershipRow>
 ```
 
-**Parameters**:
-
-* `avatar`: The avatar to get the group memberships for.
-* `pageSize`: The maximum number of group memberships per page.
-
-**Returns**:\
-A `CirclesQuery<GroupMembershipRow>` object.
+*   **Parameters**:
+    *   `avatarAddress` (string): The address of the potential member avatar.
+    *   `pageSize` (number): Maximum number of memberships per page.
+*   **Returns**: `CirclesQuery<GroupMembershipRow>` - A query object to fetch pages of membership details.
 
 **Usage Example**:
 
 ```typescript
-const memberships = await circlesData.getGroupMemberships("0xAvatarAddress", 10);
+// Assuming 'data' is sdk.data
+const memberAddress = "0xMemberAddress";
+const pageSize = 10;
+try {
+  const membershipsQuery = data.getGroupMemberships(memberAddress, pageSize);
+  // Use membershipsQuery.queryNextPage() to fetch pages
+  const hasResults = await membershipsQuery.queryNextPage();
+  if (hasResults) {
+    console.log("First page of group memberships:", membershipsQuery.currentPage.results);
+  } else {
+    console.log("Avatar is not a member of any groups.");
+  }
+} catch (error) {
+  console.error("Error getting group memberships:", error);
+}
 ```
 
 ***
 
-## 16. **`getMetadataCidForAddress`**
+## 15. `getMetadataCidForAddress`
 
-Gets the metadata CID for an address.
+Gets the currently registered profile metadata CID (from Name Registry) for a specific address.
 
 ```typescript
 getMetadataCidForAddress(address: string): Promise<string | undefined>
 ```
 
-**Parameters**:
-
-* `address`: The address to get the metadata CID for.
-
-**Returns**:\
-A `Promise<string | undefined>` with the CID or `undefined` if not found.
+*   **Parameters**:
+    *   `address` (string): The avatar address.
+*   **Returns**: `Promise<string | undefined>` - The CIDv0 string or `undefined` if none is set.
 
 **Usage Example**:
 
 ```typescript
-const metadataCid = await circlesData.getMetadataCidForAddress("0xAddress");
+// Assuming 'data' is sdk.data
+const avatarAddress = "0xAddress";
+try {
+  const metadataCid = await data.getMetadataCidForAddress(avatarAddress);
+  if (metadataCid) {
+    console.log(`Metadata CID for ${avatarAddress}: ${metadataCid}`);
+  } else {
+    console.log(`No metadata CID found for ${avatarAddress}.`);
+  }
+} catch (error) {
+  console.error("Error getting metadata CID:", error);
+}
 ```

@@ -1,12 +1,12 @@
 ---
-description: This section is dedicated to handling the profiles of an avatar
+description: This section covers retrieving and updating avatar profile information.
 ---
 
-# Handle profile of an avatar
+# Handling Avatar Profiles
 
-## Get a profile for the avatar
+## 1. Get Avatar Profile
 
-This function fetches the current profile associated with the avatar. If no profile exists, it will return `undefined`.
+This function fetches the profile data associated with the avatar from IPFS, using the CID stored on-chain. If no profile CID is set or the data cannot be retrieved, it may return `undefined` or throw an error depending on the implementation.
 
 ```typescript
 try {
@@ -22,9 +22,9 @@ try {
 
 ```
 
-## Update metadata of the profile
+## 2. Update Profile Metadata (CID)
 
-This function updates the avatar's metadata by uploading a new content identifier (CID) to IPFS. The CID represents the new metadata for the avatar.
+This function directly updates the avatar's on-chain profile reference to a new IPFS Content Identifier (CID). You must ensure the provided CID points to valid profile data adhering to the schema, as this method does not handle data pinning itself.
 
 ```typescript
 // IPFS CID for the new metadata
@@ -38,19 +38,24 @@ try {
 }
 ```
 
-## Update profile of the avatar
+## 3. Update Profile Data
 
-This function updates the avatar’s profile and returns the IPFS CID of the newly updated profile.
+This function simplifies updating the avatar's profile. You provide a `Profile` object containing the new data. The SDK handles pinning this data to IPFS via the profile service and then updates the avatar's on-chain reference to the new CID. It returns the new CID.
 
 ```typescript
-const newProfile: Profile = {
-  name: "Avatar Name",
-  description: "Updated description for the avatar.",
-  image: "ipfs://QmYourImageCIDHere", // Example IPFS image CID
+// Import the Profile type if needed
+// import type { Profile } from '@circles-sdk/profiles';
+
+const newProfileData: Profile = {
+  name: "Updated Avatar Name", // Required
+  description: "A new description for the avatar.", // Optional
+  imageUrl: "https://example.com/new_image.png", // Optional, URL to full image
+  previewImageUrl: "data:image/jpeg;base64,/9j/4AAQSk..." // Optional, base64 data URL for preview (must meet size/dimension requirements)
 };
 
 try {
-  const newCid = await avatar.updateProfile(newProfile);
+  // The SDK pins the newProfileData to IPFS and updates the avatar's metadata reference
+  const newCid = await avatar.updateProfile(newProfileData);
   console.log("Profile updated successfully. New CID:", newCid);
 } catch (error) {
   console.error("Error updating profile:", error);

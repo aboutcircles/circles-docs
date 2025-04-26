@@ -1,0 +1,112 @@
+# Circles Ecosystem Overview for LLMs (V2 Focus)
+
+This file provides a concise overview of the Circles V2 ecosystem, designed for LLM understanding. It covers core concepts, key contracts, SDK usage, and important notes.
+
+## 1. Project Overview
+
+Circles is a decentralized protocol on the Gnosis Chain for creating fair, social money through personal and group currencies. It utilizes trust networks to enable value transfer and community-based economies. The primary interaction layer for developers is the Circles SDK.
+
+## 2. Core Concepts
+
+*   **Avatar:** Represents users (Human, Group, Organization) via ERC-1155 tokens linked to wallet addresses and profiles.
+*   **Personal Currency (CRC):** Unique token minted hourly by Human Avatars, subject to demurrage.
+*   **Group Currency:** Issued by Group Avatars, backed by collateral (personal CRC) from members.
+*   **Trust Network:** Social graph where avatars "trust" each other, enabling token flow via the Pathfinder service.
+*   **Demurrage:** ~7% annual value decay on CRC balances, applied daily, encouraging circulation.
+*   **Hub Contract (V2):** Core smart contract managing V2 avatar registration, trust, personal minting, etc.
+*   **Circles SDK:** TypeScript library for interacting with the protocol (contracts, profiles, data querying).
+*   **Circles RPC Indexer:** Provides indexed blockchain data and events for efficient querying via the SDK (`sdk.data`).
+*   **Profile Service:** Handles storing and retrieving avatar profile metadata (linked via Name Registry).
+
+## 3. Gnosis Chain Mainnet Details
+
+*   **Network Name:** Gnosis Chain
+*   **Chain ID:** 100
+*   **RPC Endpoints:** `https://rpc.gnosischain.com`, `https://rpc.ankr.com/gnosis`
+*   **Block Explorers:** `https://gnosis.blockscout.com`, `https://gnosisscan.io`
+*   **Gas Token:** xDAI
+
+## 4. Key V2 Contract Addresses (Gnosis Chain)
+
+*   **Hub Contract (V2):** `0xc12C1E50ABB450d6205Ea2C3Fa861b3B834d13e8`
+*   **Migration Contract:** `0xD44B8dcFBaDfC78EA64c55B705BFc68199B56376`
+*   **Name Registry:** `0xA27566fD89162cC3D40Cb59c87AAaA49B85F3474`
+
+## 5. Circles SDK Overview
+
+**Installation:**
+
+```bash
+npm i @circles-sdk/sdk @circles-sdk/adapter-ethers ethers
+```
+
+**Configuration (Gnosis Chain - Default):**
+
+```typescript
+import { circlesConfig as productionConfig } from "@circles-sdk/sdk";
+// productionConfig contains URLs and V1/V2 contract addresses for Gnosis Chain.
+```
+
+**Initialization:**
+
+```typescript
+import { Sdk } from '@circles-sdk/sdk';
+import { BrowserProviderContractRunner } from "@circles-sdk/adapter-ethers";
+
+// Requires user interaction (e.g., button click) to connect wallet
+const adapter = new BrowserProviderContractRunner();
+await adapter.init(); // Connects wallet via browser prompt
+const sdk = new Sdk(adapter, productionConfig); // Use default config
+```
+
+**Key `Sdk` Methods:**
+
+*   `getAvatar(address)`: Get an `Avatar` instance for interaction.
+*   `acceptInvitation(inviter, profileOrCid)`: Register the connected wallet as a V2 Human Avatar.
+*   `registerGroupV2(mintPolicy, profile)`: Register the connected wallet as a V2 Group Avatar.
+*   `registerOrganizationV2(profile)`: Register the connected wallet as a V2 Organization Avatar.
+*   `createOrUpdateProfile(profileOrCid)`: Update the avatar's profile CID in the Name Registry.
+
+**Key `Avatar` Instance Methods:**
+
+*   `trust(trusteeAddress)`: Establish trust with another avatar.
+*   `untrust(trusteeAddress)`: Revoke trust.
+*   `transfer(recipientAddress, amount)`: Transfer tokens via the trust network (uses Pathfinder).
+*   `personalMint()`: Mint available personal CRC (Human Avatars only).
+*   `getProfile()`: Retrieve the avatar's profile data.
+*   `getTotalBalance()`: Get the avatar's own personal CRC balance.
+*   `getBalances()`: Get balances of all tokens held by the avatar.
+
+**Key `sdk.data` Methods:**
+
+*   `getTotalBalance(address)`: Get personal CRC balance for any avatar.
+*   `getTokenBalances(address)`: Get all held balances for any avatar.
+*   `getTransactionHistory(address, pageSize)`: Query transaction history.
+*   `getAggregatedTrustRelations(address)`: Get current trust state.
+*   `getAvatarInfo(address)`: Get basic registration info.
+*   `getEvents(...)`: Query historical events.
+*   `subscribeToEvents(...)`: Subscribe to real-time events.
+
+## 6. Key V2 Event Types
+
+*(Accessed via `sdk.data.getEvents` or `sdk.data.subscribeToEvents`)*
+
+*   **CrcV2_RegisterHuman:** New V2 Human Avatar registered.
+*   **CrcV2_RegisterGroup:** New V2 Group Avatar registered.
+*   **CrcV2_RegisterOrganization:** New V2 Organization Avatar registered.
+*   **CrcV2_Trust:** Trust relationship created/updated.
+*   **CrcV2_PersonalMint:** Human Avatar minted personal CRC.
+*   **CrcV2_TransferSingle:** ERC-1155 token transfer occurred.
+*   **CrcV2_CidV0:** Profile CID updated in Name Registry.
+*   **CrcV2_GroupMintSingle / CrcV2_GroupMintBatch:** Group tokens minted.
+
+**Base Event Properties:** `$event`, `blockNumber`, `timestamp`, `transactionIndex`, `logIndex`, `transactionHash`.
+
+## 7. Important Notes
+
+*   **V2 Focus:** Development primarily targets Circles V2. V1 interactions are supported but migration is encouraged.
+*   **Demurrage:** Balances decrease over time (~7% annually).
+*   **Gnosis Chain Gas:** Transactions require xDAI for gas fees.
+*   **SDK & Ethers v6:** The SDK relies on Ethers.js v6.
+*   **RPC Indexer:** Querying data (`sdk.data`) relies on the Circles RPC Indexer service.
+*   **Full Documentation:** Refer to the main Circles developer documentation for comprehensive details.

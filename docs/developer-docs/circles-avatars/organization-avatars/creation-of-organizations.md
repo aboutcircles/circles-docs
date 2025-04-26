@@ -1,35 +1,35 @@
-# Creation of Organizations
+# Creating Organization Avatars
 
-Organizations are different from groups as you can't mint an organization token, use profiles and trust other avatars to receive tokens from them.
+To create an Organization Avatar in Circles v2, you use the `registerOrganizationV2` method from the SDK. This registers the calling wallet address as an Organization Avatar, provided the address is not already registered as another avatar type (Human, Group, or Organization).
 
-{% tabs %}
-{% tab title="Circles v2.0" %}
-<pre class="language-typescript"><code class="lang-typescript"><strong>const registerV2Organization = async (sdk, profile) => {
-</strong>    try {
-        const avatar = await sdk.registerOrganizationV2(profile); // Call the V2 method
-        console.log('V2 Organization Avatar:', avatar);
-    } catch (error) {
-        console.error('Error registering organization V2:', error);
-    }
-};
-</code></pre>
-{% endtab %}
+Organization Avatars cannot mint tokens but use profiles for identification and can trust other avatars to receive tokens.
 
-{% tab title="Legacy Circles" %}
+You need to provide the organization's profile data when calling the function.
+
 ```typescript
-const registerLegacyOrganization = async (sdk) => {
-    try {
-        const avatar = await sdk.registerOrganization(); // Call the legacy method
-        console.log('Legacy Organization Avatar:', avatar);
-    } catch (error) {
-        console.error('Error registering legacy organization:', error);
-    }
+// Import the Profile type if needed
+// import type { Profile } from '@circles-sdk/profiles';
+
+// Define the organization's profile data
+const orgProfileData: Profile = {
+    name: "My Organization Name", // Required
+    description: "Official profile for My Organization.", // Optional
+    // imageUrl: "...", // Optional
+    // previewImageUrl: "..." // Optional
 };
+
+try {
+    // Assuming 'sdk' is your initialized SDK instance
+    // The SDK uses the connected wallet address to register the organization
+    const newOrgAvatar = await sdk.registerOrganizationV2(orgProfileData);
+
+    console.log('New Organization Avatar created:', newOrgAvatar);
+    // You can access info like newOrgAvatar.avatarInfo.address
+} catch (error) {
+    console.error('Error registering organization:', error);
+}
 ```
 
-
-{% endtab %}
-{% endtabs %}
-
-
-
+{% hint style="info" %}
+Ensure the profile data adheres to the required schema and limits outlined in the [Setting Up Circles Profiles](../circles-profiles.md) section.
+{% endhint %}

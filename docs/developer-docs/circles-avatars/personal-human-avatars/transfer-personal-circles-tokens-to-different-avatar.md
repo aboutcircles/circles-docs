@@ -1,22 +1,35 @@
-# Transfer personal Circles tokens to different avatar
+# Transferring Personal Circles Tokens
 
-## Get Maximum amount of transferrable token
+## 1. Get Maximum Transferable Amount
 
-Utilizes the pathfinder to find the maximum Circles amount that can be transferred from this Avatar to the specified avatar. The address of the avatar passed would be the one to which the Circles will be transferred.
-
-```typescript
-const maxTransferable = await avatar.getMaxTransferableAmount(toAvatarAddress)
-console.log(`Maximum transferable amount: ${maxTransferable}`);
-```
-
-
-
-## Transfer CRC tokens
-
-This function will allow you to transfer CRC tokens to the avatars with a valid trust path. The maximum transferable amount can be lower than the avatar's balance depending on its trust relations and token holdings.
+This function utilizes the Pathfinder service to determine the maximum amount of Circles (CRC) that the current avatar instance (`avatar`) can transfer to a specified recipient avatar (`toAvatarAddress`) through the existing trust network paths. This amount may be less than the avatar's total balance due to the capacity limits of the trust paths between the sender and receiver.
 
 ```typescript
-const transferReceipt = await avatar.transfer(recipientAddress, amountToTransfer);
-console.log(`Transfer successful! Transaction receipt: ${transferReceipt}`);
+// Assuming 'avatar' is an instance representing the sender's human avatar
+const recipientAddress = "0xabc..."; // Address of the recipient avatar
+
+try {
+  const maxTransferable = await avatar.getMaxTransferableAmount(recipientAddress);
+  console.log(`Maximum transferable amount to ${recipientAddress}: ${maxTransferable}`);
+} catch (error) {
+  console.error("Error getting maximum transferable amount:", error);
+}
 ```
 
+## 2. Transfer CRC Tokens
+
+This function initiates a transfer of CRC tokens from the current avatar instance (`avatar`) to the specified recipient avatar. The transfer relies on finding a valid trust path via the Pathfinder. Ensure the `amountToTransfer` does not exceed the maximum transferable amount determined by `getMaxTransferableAmount`.
+
+```typescript
+// Assuming 'avatar' is an instance representing the sender's human avatar
+const recipientAddress = "0xabc..."; // Address of the recipient avatar
+const amountToTransfer = 10; // Example amount
+
+try {
+  // Ensure amountToTransfer <= maxTransferable before calling transfer
+  const transferReceipt = await avatar.transfer(recipientAddress, amountToTransfer);
+  console.log(`Transfer successful! Transaction receipt:`, transferReceipt);
+} catch (error) {
+  console.error("Error transferring tokens:", error);
+}
+```

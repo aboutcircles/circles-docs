@@ -4,11 +4,10 @@ icon: user-group
 
 # Group Currencies
 
-In addition to individual CRC currencies, Circles has introduced the concept of Group Avatars and Currencies. The idea behind Group currencies is to social-economic value amongst groups, without the geographical bounds of where groups are generated or created. Group avatar tokens can't be minted based on time, rather depends on personal collateral.&#x20;
+In addition to individual CRC currencies, Circles v2 introduces Group Avatars and their associated Group Currencies. The purpose of Group Currencies is to foster socio-economic value among groups, regardless of geographical location. Unlike personal tokens, Group Currency tokens cannot be minted based on time; instead, their creation depends on personal token collateral provided by group members.
 
-If you want to become a part of group, you would require to be invited to the group itself by the group admin. Invitation to groups would be that you are simply trusting a human avatar. Now, in order to mint the group tokens, as a group member (human avatar in the group) you would require to trust the group address so that you can start accepting the tokens. When you are trusting a human, you are also trusting their personal tokens. You can currently mint group tokens based on the quantity of total personal tokens (CRC).
+**Joining a Group:** To become part of a group, a human avatar typically needs an invitation from the group's administrator.
 
-The current mint policy allows you to mint group tokens based on your total personal CRC tokens quantity that you hold as a human. In other words, your personal tokens would be swapped for your group tokens.
+**Minting Group Tokens:** Once a member, to mint the group's tokens, the human avatar must trust the *group's address*. This trust signifies readiness to interact with the group currency. The current standard mint policy allows members to mint group tokens by effectively swapping their personal CRC tokens, which serve as collateral held in a vault. The amount of group tokens minted is based on the quantity of personal CRC provided as collateral.
 
-
-
+This mechanism allows personal value (individual CRC) to be pooled into a collective currency, simplifying transactions within the group and potentially integrating with other DeFi protocols.

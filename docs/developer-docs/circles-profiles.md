@@ -2,13 +2,13 @@
 icon: address-card
 ---
 
-# Setting Circles Profiles
+# Setting Up Circles Profiles
 
-Circles is built around the ERC1155 token standard which allows tokens to have metadata. Since Circles is all about personal currency, it makes sense to utilize this metadata as a profile.&#x20;
+Circles is built around the ERC1155 token standard, which allows tokens to have associated metadata. Since Circles focuses on personal currency and identity, it uses this metadata capability to store profile information.
 
-The profile data is stored in IPFS and the Circles avatar references the CIDv0 of the profile on-chain.
+The profile data itself is stored off-chain in IPFS, and the Circles avatar contract references the IPFS Content Identifier (CIDv0) of the profile data on-chain.
 
-### Profile schema
+### Profile Schema
 
 The schema is very simple and only has one required attribute:
 
@@ -44,20 +44,22 @@ The schema is very simple and only has one required attribute:
 }
 ```
 
-### Profile picture
+### Profile Picture
 
-You can include a profile picture in the profile document (the `previewImageUrl`). If you choose to do so, make sure the picture you are using has the following properties:
+You can include a profile picture within the profile document using the `previewImageUrl` field. If you choose to do so, ensure the picture used meets the following requirements:
 
-1. **Format**: The image must be in PNG, JPEG, or GIF format.
-2. **Dimensions**: The image must be exactly 256x256 pixels.
-3. **File size**: The image must not exceed 150KB.
-4. **Encoding**: The image must be base64 encoded and included as a data URL in the `previewImageUrl` field.
+1.  **Format**: PNG, JPEG, or GIF.
+2.  **Dimensions**: Exactly 256x256 pixels.
+3.  **File Size**: Must not exceed 150KB.
+4.  **Encoding**: Must be base64 encoded and provided as a data URL in the `previewImageUrl` field.
 
-These requirements are enforced by the server to ensure consistency and performance across the platform.
+These requirements are enforced by the profile service to ensure consistency and performance.
+
+Below is a TypeScript example demonstrating how to resize an image using a canvas, compress it to JPEG format, and check its size before potentially using it as a `previewImageUrl`.
 
 ```typescript
   const img = new Image();
-        img.src = reader.result as string;
+        img.src = reader.result as string; // Assuming reader.result contains the initial image data URL
         img.onload = () => {
           const canvas = document.createElement('canvas');
           const ctx = canvas.getContext('2d');
@@ -70,19 +72,18 @@ These requirements are enforced by the server to ensure consistency and performa
 
             ctx.drawImage(img, 0, 0, cropWidth, cropHeight);
 
-            const imageDataUrl = canvas.toDataURL('image/jpeg', 0.5);
+            const imageDataUrl = canvas.toDataURL('image/jpeg', 0.5); // Compress to JPEG with 50% quality
 
             if (imageDataUrl.length > 150 * 1024) {
+              // Handle cases where the compressed image is still too large
               console.warn('Image size exceeds 150 KB after compression');
+            } else {
+              // Use imageDataUrl for the previewImageUrl field
             }
-
 ```
 
-&#x20;[Here](https://github.com/aboutcircles/5ecret-garden/blob/06da3e5d472b487fa8e1bc726561eddbc97fdd30/circles-app/src/lib/components/ImageUpload.svelte#L33) is a code example (Browser; TypeScript) that shows how you can prepare the previewImageUrl.
+You can find a more complete example within the [5ecret Garden codebase](https://github.com/aboutcircles/5ecret-garden/blob/06da3e5d472b487fa8e1bc726561eddbc97fdd30/circles-app/src/lib/components/ImageUpload.svelte#L33) (Browser; Svelte/TypeScript).
 
 {% hint style="warning" %}
-Profiles that don't adhere to the spec aren't considered and won't be served by Circles' profile service.
+Profiles that do not adhere to the schema and image requirements will not be processed or served by the Circles profile service.
 {% endhint %}
-
-## Choose your Avatar setup&#x20;
-

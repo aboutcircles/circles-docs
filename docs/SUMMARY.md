@@ -1,7 +1,6 @@
 # Table of contents
 
 * [Welcome to Circles](README.md)
-* [Whitepaper](whitepaper.md)
 
 ## Overview
 
@@ -13,44 +12,44 @@
 
 ## Developer Docs
 
-* [The Circles Stack](developer-docs/the-circles-protocol.md)
+* [The Circles Protocol](developer-docs/the-circles-protocol.md)
 * [Circles SDK Overview](developer-docs/circles-sdk-overview.md)
-* [Quickstart Guide for Circles SDK](developer-docs/getting-started-with-the-sdk.md)
-* [Setting Circles Profiles](developer-docs/circles-profiles.md)
-* [Building with different Circles Avatars](developer-docs/circles-avatars/README.md)
-  * [Personal / Human Avatars](developer-docs/circles-avatars/personal-human-avatars/README.md)
-    * [Inviting and accepting human avatars](developer-docs/circles-avatars/personal-human-avatars/inviting-and-accepting-human-avatars.md)
-    * [Mint personal tokens](developer-docs/circles-avatars/personal-human-avatars/mint-personal-tokens.md)
-    * [Handle profile of an avatar](developer-docs/circles-avatars/personal-human-avatars/handle-profile-of-an-avatar.md)
-    * [Manage trust connections](developer-docs/circles-avatars/personal-human-avatars/manage-trust-connections.md)
-    * [Get token balances of an avatar](developer-docs/circles-avatars/personal-human-avatars/get-token-balances-of-an-avatar.md)
-    * [Transfer personal Circles tokens to different avatar](developer-docs/circles-avatars/personal-human-avatars/transfer-personal-circles-tokens-to-different-avatar.md)
+* [Getting Started with the SDK](developer-docs/getting-started-with-the-sdk.md)
+* [Setting Up Circles Profiles](developer-docs/circles-profiles.md)
+* [Building with Circles Avatars](developer-docs/circles-avatars/README.md)
+  * [Personal (Human) Avatars](developer-docs/circles-avatars/personal-human-avatars/README.md)
+    * [Handling Avatar Profiles](developer-docs/circles-avatars/personal-human-avatars/handle-profile-of-an-avatar.md)
+    * [Inviting and Accepting Human Avatars](developer-docs/circles-avatars/personal-human-avatars/inviting-and-accepting-human-avatars.md)
+    * [Managing Trust Connections](developer-docs/circles-avatars/personal-human-avatars/manage-trust-connections.md)
+    * [Minting Personal Tokens](developer-docs/circles-avatars/personal-human-avatars/mint-personal-tokens.md)
+    * [Getting Token Balances](developer-docs/circles-avatars/personal-human-avatars/get-token-balances-of-an-avatar.md)
+    * [Transferring Personal Circles Tokens](developer-docs/circles-avatars/personal-human-avatars/transfer-personal-circles-tokens-to-different-avatar.md)
   * [Group Avatars](developer-docs/circles-avatars/group-avatars/README.md)
-    * [Creation of groups](developer-docs/circles-avatars/group-avatars/creation-of-groups.md)
-    * [Mint group tokens](developer-docs/circles-avatars/group-avatars/mint-group-tokens.md)
-    * [Managing group invites](developer-docs/circles-avatars/group-avatars/managing-group-invites.md)
-    * [Find groups and memberships](developer-docs/circles-avatars/group-avatars/find-groups-and-memberships.md)
-    * [Getting total supply of group tokens available](developer-docs/circles-avatars/group-avatars/getting-total-supply-of-group-tokens-available.md)
+    * [Creating Group Avatars](developer-docs/circles-avatars/group-avatars/creation-of-groups.md)
+    * [Finding Groups and Memberships](developer-docs/circles-avatars/group-avatars/find-groups-and-memberships.md)
+    * [Getting Total Supply of Group Tokens](developer-docs/circles-avatars/group-avatars/getting-total-supply-of-group-tokens-available.md)
+    * [Managing Group Membership (Invites)](developer-docs/circles-avatars/group-avatars/managing-group-invites.md)
+    * [Minting Group Tokens](developer-docs/circles-avatars/group-avatars/mint-group-tokens.md)
   * [Organization Avatars](developer-docs/circles-avatars/organization-avatars/README.md)
-    * [Creation of Organizations](developer-docs/circles-avatars/organization-avatars/creation-of-organizations.md)
+    * [Creating Organization Avatars](developer-docs/circles-avatars/organization-avatars/creation-of-organizations.md)
 
-## Tutorials and Examples
+## Querying Circles Profiles and Data
 
-* [Setting up Circles SDK with React](tutorials-and-examples/setting-up-circles-sdk-with-react-and-javascript.md)
-
-## Querying Circles profiles and data
-
-* [Query Circles Data](querying-circles-profiles-and-data/query-data.md)
-* [Subscribing to Avatar events](querying-circles-profiles-and-data/subscribing-to-avatar-events.md)
-* [Utilising CirclesQuery Class](querying-circles-profiles-and-data/utilising-circlesquery-class.md)
-* [Query Circles profiles](querying-circles-profiles-and-data/query-circles-profiles.md)
+* [Querying Circles Profiles (Direct API)](querying-circles-profiles-and-data/query-circles-profiles.md)
+* [Querying Circles Data (`CirclesData` Class)](querying-circles-profiles-and-data/query-data.md)
+* [Subscribing to Avatar Events](querying-circles-profiles-and-data/subscribing-to-avatar-events.md)
+* [Using the CirclesQuery Class](querying-circles-profiles-and-data/utilising-circlesquery-class.md)
 
 ## Circles SDK Reference
 
-* [Circles SDK interface](circles-sdk-reference/circles-sdk-interface.md)
-* [SDK Methods](circles-sdk-reference/sdk-methods.md)
-* [Circles Data Methods](circles-sdk-reference/circles-data-methods.md)
-* [Circles Events Types](circles-sdk-reference/circles-events-types.md)
+* [Circles SDK Interface (`Sdk` Class)](circles-sdk-reference/circles-sdk-interface.md)
+* [SDK Methods (`Sdk` Class)](circles-sdk-reference/sdk-methods.md)
+* [Circles Data Methods (`CirclesData` Class)](circles-sdk-reference/circles-data-methods.md)
+* [Circles Event Types](circles-sdk-reference/circles-events-types.md)
+
+## Tutorials and Examples
+
+* [Setting Up Circles SDK with React](tutorials-and-examples/setting-up-circles-sdk-with-react-and-javascript.md)
 
 ## Developer Support
 

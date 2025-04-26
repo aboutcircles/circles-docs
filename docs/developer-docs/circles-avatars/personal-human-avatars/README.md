@@ -2,42 +2,52 @@
 icon: user
 ---
 
-# Personal / Human Avatars
+# Personal (Human) Avatars
 
-## 1. Creation of Personal/Human Avatars :
+## 1. Creating Personal (Human) Avatars
 
-Circles v2.0 allows you to join the network as a human with an ERC-1155 standard token. You would have a profile and would require to be invited to join the network and start minting personal CRC tokens.
+Circles v2.0 allows you to join the network as a human avatar using an ERC-1155 standard token. You will have a profile and require an invitation to join the network and start minting personal CRC tokens.
 
-The V2 Hub contract is the main smart contract that a user would interact. You would need a profile CID as well.
+The V2 Hub Contract is the main smart contract a user interacts with for these operations. A profile CID (Content Identifier for IPFS) is also required when accepting an invitation.
 
-<pre class="language-typescript" data-overflow="wrap"><code class="lang-typescript"><strong>const avatar = await avatar.inviteHuman(inviteeAddress,"Hk.....");        //CID required
+To accept an invitation and create your human avatar:
+
+<pre class="language-typescript" data-overflow="wrap"><code class="lang-typescript">// Use the SDK's acceptInvitation method, providing the inviter's address and your profile CID.
+<strong>const avatar = await sdk.acceptInvitation(inviterAddress, "Qm....."); // Replace "Qm..." with actual profile CID
 </strong>
-<strong>const avatar = await sdk.acceptInvitation(inviterAddress,"Qm.....");
-</strong>console.log(avatar.avatarInfo);
+// The 'avatar' object now represents your newly created human avatar.
+console.log(avatar.avatarInfo);
 </code></pre>
 
-Incase, you don't have CID, you can use the `Profile` object and implicitly use the Circles pinning service to pin it:
+In case you don't have a pre-pinned profile CID, you can provide a `Profile` object directly. The SDK will implicitly use the Circles profile service to pin the profile data to IPFS and get the CID:
 
 ```typescript
+// Provide profile data directly; the SDK handles pinning to IPFS.
 const avatar = await sdk.acceptInvitation(inviterAddress, {
-    name: "My profile name"
+    name: "My profile name" // 'name' is the minimum required field
+    // description: "Optional description",
+    // imageUrl: "Optional image URL",
+    // previewImageUrl: "Optional base64 preview image data URL"
 });
 console.log(avatar.avatarInfo);
 ```
 
-## 2. Getting mintable amount for an avatar
+## 2. Getting Mintable Amount
 
-This function will allow you to get maximum amount of CRC tokens that are available to mint at that point of time. Human avatars can mint only upto 24 personal Circles per day.
+This function allows you to check the maximum amount of personal CRC tokens available for your avatar to mint at the current time. Human avatars can mint up to 24 personal Circles per day, minus any demurrage effects if applicable based on the minting period.
 
 ```typescript
-const mintableToken = await avatar.getMintableamount ()
+// Assuming 'avatar' is an instance representing your human avatar
+const mintableTokens = await avatar.getMintableAmount();
+console.log(`Available to mint: ${mintableTokens}`);
 ```
 
-## 3. Minting personal tokens :
+## 3. Minting Personal Tokens
 
-This function will allow you to mint your personal CRC tokens
+This function allows your avatar to mint its available personal CRC tokens.
 
 ```typescript
+// Assuming 'sdk' is your initialized SDK instance
 const mintTransaction = await sdk.personalMint();
-console.log('Transaction successful, receipt:', mintTransaction);
+console.log('Minting transaction successful, receipt:', mintTransaction);
 ```

@@ -1,33 +1,40 @@
-# Get token balances of an avatar
+# Getting Token Balances
 
-## Get total balance of an avatar
+## 1. Get Total Personal Balance
 
-This function fetches the total Circles balance of the avatar. It checks the balance from either the v1 or v2 versions of Circles, depending on which version the avatar is using.&#x20;
+This function fetches the total balance of the avatar's *own* personal Circles (CRC) tokens from the appropriate Hub contract (v1 or v2, depending on the avatar's version).
 
 {% hint style="info" %}
-To determine the version, you can refer to the `avatarInfo` property.
+You can check the avatar's version using the `avatar.avatarInfo` property.
 {% endhint %}
 
 ```typescript
-const totalBalance = await avatar.getTotalBalance();
-console.log(`Total Circles balance: ${totalBalance}`);
+// Assuming 'avatar' is an instance representing your human avatar
+try {
+  const totalBalance = await avatar.getTotalBalance();
+  console.log(`Total Personal CRC balance: ${totalBalance}`);
+} catch (error) {
+  console.error("Error getting total balance:", error);
+}
 ```
 
+## 2. Get All Held Balances
 
-
-## Get balances for an avatar
-
-This function retrieves the avatar's token balances. Before calling this function, ensure that the system is initialized. It returns a promise that resolves to an array of `TokenBalanceRow` objects, each representing the balances for different tokens associated with the avatar in the current context.
+This function retrieves the balances of *all* different tokens held by the avatar instance (`avatar`). This includes not only the avatar's own personal CRC but also the tokens of other avatars that this avatar trusts and currently holds. It returns an array of `TokenBalanceRow` objects (structure may vary; consult SDK types), each detailing the token address and the amount held.
 
 ```typescript
-const tokenBalances = await avatar.getBalances();
-tokenBalances.forEach((balance) => {
-  console.log(`Token: ${balance.token}, Balance: ${balance.amount}`);
-});
-
+// Assuming 'avatar' is an instance representing your human avatar
+try {
+  const allBalances = await avatar.getBalances();
+  if (allBalances.length > 0) {
+    allBalances.forEach((balance) => {
+      // Assuming 'balance' has properties like 'tokenAddress' and 'amount'
+      console.log(`Token Address: ${balance.tokenAddress}, Amount Held: ${balance.amount}`);
+    });
+  } else {
+    console.log("Avatar holds no token balances (including its own).");
+  }
+} catch (error) {
+  console.error("Error getting all balances:", error);
+}
 ```
-
-
-
-
-
