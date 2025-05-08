@@ -21,7 +21,7 @@
   * [Personal / Human Avatars](developer-docs/circles-avatars/personal-human-avatars/README.md)
     * [Inviting and accepting human avatars](developer-docs/circles-avatars/personal-human-avatars/inviting-and-accepting-human-avatars.md)
     * [Mint personal tokens](developer-docs/circles-avatars/personal-human-avatars/mint-personal-tokens.md)
-    * [Handle profile of an avatar](developer-docs/circles-avatars/personal-human-avatars/handle-profile-of-an-avatar.md)
+    * [Fetching profile of an human avatar](developer-docs/circles-avatars/personal-human-avatars/handle-profile-of-an-avatar.md)
     * [Manage trust connections](developer-docs/circles-avatars/personal-human-avatars/manage-trust-connections.md)
     * [Get token balances of an avatar](developer-docs/circles-avatars/personal-human-avatars/get-token-balances-of-an-avatar.md)
     * [Transfer personal Circles tokens to different avatar](developer-docs/circles-avatars/personal-human-avatars/transfer-personal-circles-tokens-to-different-avatar.md)

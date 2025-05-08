@@ -13,8 +13,6 @@ const totalBalance = await avatar.getTotalBalance();
 console.log(`Total Circles balance: ${totalBalance}`);
 ```
 
-
-
 ## Get balances for an avatar
 
 This function retrieves the avatar's token balances. Before calling this function, ensure that the system is initialized. It returns a promise that resolves to an array of `TokenBalanceRow` objects, each representing the balances for different tokens associated with the avatar in the current context.
@@ -24,10 +22,4 @@ const tokenBalances = await avatar.getBalances();
 tokenBalances.forEach((balance) => {
   console.log(`Token: ${balance.token}, Balance: ${balance.amount}`);
 });
-
 ```
-
-
-
-
-

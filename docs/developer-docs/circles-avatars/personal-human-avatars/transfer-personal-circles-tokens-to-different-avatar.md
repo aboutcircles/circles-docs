@@ -20,3 +20,9 @@ const transferReceipt = await avatar.transfer(recipientAddress, amountToTransfer
 console.log(`Transfer successful! Transaction receipt: ${transferReceipt}`);
 ```
 
+**Direct token transfer (specific token)**:
+
+```typescript
+// Transfer specific token
+await avatar.transfer(recipientAddress, amount, specificTokenAddress);
+```

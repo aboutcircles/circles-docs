@@ -2,24 +2,15 @@
 description: This section is dedicated to handling the profiles of an avatar
 ---
 
-# Handle profile of an avatar
+# Fetching profile of an human avatar
 
 ## Get a profile for the avatar
 
 This function fetches the current profile associated with the avatar. If no profile exists, it will return `undefined`.
 
 ```typescript
-try {
   const profile = await avatar.getProfile();
-  if (profile) {
-    console.log("Avatar Profile:", profile);
-  } else {
-    console.log("No profile associated with this avatar.");
-  }
-} catch (error) {
-  console.error("Error retrieving profile:", error);
-}
-
+  console.log("Avatar Profile:", profile);
 ```
 
 ## Update metadata of the profile
@@ -56,3 +47,21 @@ try {
   console.error("Error updating profile:", error);
 }
 ```
+
+### Creating profile without an Avatar instance
+
+```typescript
+const newProfile: Profile = {  
+  name: "Avatar Name",  
+  description: "Updated description for the avatar.",  
+  imageUrl: "ipfs://QmYourImageCIDHere", // Note: changed from image to imageUrl  
+};  
+  
+try {  
+  const receipt = await sdk.createOrUpdateProfile(newProfile);  
+  console.log("Profile created/updated successfully");  
+} catch (error) {  
+  console.error("Failed to create/update profile:", error);  
+}
+```
+
