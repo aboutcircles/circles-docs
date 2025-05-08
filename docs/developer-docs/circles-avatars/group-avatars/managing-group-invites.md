@@ -9,10 +9,9 @@ const trustReceipt = await groupAvatar.trust("AvatarAddress");
 console.log(receipt);
 ```
 
-### Removal of the member from the group
+### Revoke group member from the group
 
 ```typescript
 const trustReceipt = await groupAvatar.untrust("AvatarAddress");
 console.log(receipt);
 ```
-

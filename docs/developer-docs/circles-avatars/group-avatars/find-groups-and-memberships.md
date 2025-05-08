@@ -9,7 +9,9 @@ const data = sdk.data
 &#x20;Otherwise you can create an instance like this:
 
 ```typescript
-const circlesRpc = new CirclesRpc("https://chiado-rpc.aboutcircles.com");
+const circlesRpc = new CirclesRpc("https://rpc.aboutcircles.com");
+//or add RINGS rpc if you are building with RINGS
+
 const data = new CirclesData(circlesRpc);
 ```
 
@@ -56,4 +58,30 @@ try {
 } catch (error) {
     console.error('Error fetching group memberships:', error);
 }
+```
+
+#### Example Usage
+
+Here's how you might use these methods in your code:
+
+```typescript
+// Initialize the SDK  
+const sdk = new Sdk(contractRunner, config);  
+  
+// Find all groups with names starting with "Community"  
+const groupsQuery = sdk.data.findGroups(10, {  
+  nameStartsWith: "Community"  
+});  
+  
+// Fetch the first page of results  
+await groupsQuery.queryNextPage();  
+console.log("Found groups:", groupsQuery.currentPage?.results);  
+  
+// Find all groups that a specific avatar is a member of  
+const avatarAddress = "0x123..."; // Replace with actual address  
+const membershipsQuery = sdk.data.getGroupMemberships(avatarAddress, 10);  
+  
+// Fetch the first page of results  
+await membershipsQuery.queryNextPage();  
+console.log("Group memberships:", membershipsQuery.currentPage?.results);
 ```

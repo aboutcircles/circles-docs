@@ -1,6 +1,6 @@
-# Creation of groups
+# Vanilla groups with V2 hub
 
-You need to pass the profile and the address of the mint policy contract when calling the function.
+Vanilla groups are also valid groups but are a basic version of groups created using v2 Hub contract.
 
 ```typescript
 
@@ -51,6 +51,6 @@ There are some limits from the profile service:
 
 Incase, you want to check how to manage circles profiles, you can simply checkout this guide :
 
-{% content-ref url="../../circles-profiles.md" %}
-[circles-profiles.md](../../circles-profiles.md)
+{% content-ref url="../../../circles-profiles.md" %}
+[circles-profiles.md](../../../circles-profiles.md)
 {% endcontent-ref %}
