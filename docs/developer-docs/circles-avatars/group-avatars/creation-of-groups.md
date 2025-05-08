@@ -9,9 +9,6 @@ import { GroupProfile, Profile, Profiles } from '@circles-sdk/profiles';
 // When on Gnosis Chain use this ..
 // const standardMintPolicy = "0x5Ea08c967C69255d82a4d26e36823a720E7D0317";
 
-// When on Chiado use that ..
-// const standardMintPolicy = "0xaD49f877021c73d00bE142b135c9AA67f0D8e9c6";
-
 const mintPolicy = '0xYourMintPolicyContractAddress';
 const groupProfile: GroupProfile = {
     name: 'Group Namw',

@@ -4,43 +4,117 @@ icon: address-card
 
 # Setting Circles Profiles
 
-Circles is built around the ERC1155 token standard which allows tokens to have metadata. Since Circles is all about personal currency, it makes sense to utilize this metadata as a profile.&#x20;
+**Circles** is built around the **ERC-1155 token standard**, which allows tokens to include metadata. Since Circles is all about personal currency, it makes sense to use this metadata to define a profile.
 
-The profile data is stored in IPFS and the Circles avatar references the CIDv0 of the profile on-chain.
+The profile data is stored on **IPFS**, and the Circles avatar references the **CIDv0** of the profile on-chain. Using the profile interface from the **Circles SDK**, you can create user profiles for all avatars.
+
+**Required Field:**
+
+* `name`: A string representing the user's name
+
+**Optional Fields:**
+
+* `description`: A string for additional user information
+* `previewImageUrl`: A string URL for a preview/thumbnail image
+* `imageUrl`: A string URL for a full-size profile image
+* `location`: A string representing the user's location (e.g., "Berlin, Germany")
+* `geoLocation`: A tuple of two numbers representing coordinates `[latitude, longitude]`
+* `extensions`: A flexible `Record` type for storing additional custom data
+
+### Example for creating user profile:
+
+
+
+1. Let's create a test profile object.
+
+```typescript
+const profile = {  
+  name: 'John Doe',  
+  description: 'Web3 Developer',  
+  imageUrl: 'https://example.com/image.jpg',  
+  previewImageUrl: 'https://example.com/preview.jpg',  
+  location: 'Berlin, Germany',  
+  geoLocation: [52.5200, 13.4050]  
+};  
+```
+
+2. You should already have circles SDK initialized to create profile.&#x20;
+
+```typescript
+//Accessing profiles through the SDK  
+const profileCID = await sdk.profiles.create(profile);
+```
+
+### Creating profile for your groups
+
+**The Group profile** is used for groups created using Circles, each of which has its own token symbol. The `GroupProfile` inherits all fields from the base `Profile`—such as `name`, `description`, images, `location`, etc.—and adds a required `symbol` field representing the group's token symbol.
+
+```typescript
+import { Sdk } from '@circles-sdk/sdk';  
+import { GroupProfile } from '@circles-sdk/profiles';  
+  
+// Initialize the SDK - if not already
+const sdk = new Sdk(contractRunner, config);  
+  
+// Create a group profile  
+const groupProfile: GroupProfile = {  
+  name: 'My Community Group',  
+  symbol: 'MCG',  
+  description: 'A community group for local initiatives',  
+  imageUrl: 'https://example.com/group-image.jpg',  
+  location: 'Berlin, Germany'  
+};  
+  
+// Register the group with a mint policy address  
+const mintPolicyAddress = '0x1234...'; // The address of the minting policy to use  
+const groupAvatar = await sdk.registerGroupV2(mintPolicyAddress, groupProfile);
+```
 
 ### Profile schema
 
-The schema is very simple and only has one required attribute:
-
 ```json
-{
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "type": "object",
-  "properties": {
-    "name": {
-      "type": "string",
-      "maxLength": 36,
-      "description": "The name of the profile owner"
-    },
-    "description": {
-      "type": "string",
-      "maxLength": 500,
-      "description": "A description of the profile"
-    },
-    "previewImageUrl": {
-      "type": "string",
-      "format": "data-url",
-      "pattern": "^data:image\\/(png|jpeg|jpg|gif);base64,",
-      "description": "A base64-encoded image data URL for the profile preview"
-    },
-    "imageUrl": {
-      "type": "string",
-      "maxLength": 2000,
-      "description": "A URL pointing to the profile image"
-    }
-  },
-  "required": ["name"],
-  "additionalProperties": false
+{  
+  "$schema": "http://json-schema.org/draft-07/schema#",  
+  "title": "Circles Profile Schema",  
+  "type": "object",  
+  "required": ["name"],  
+  "properties": {  
+    "name": {  
+      "type": "string",  
+      "description": "The user's name (required)"  
+    },  
+    "description": {  
+      "type": "string",  
+      "description": "Additional information about the user"  
+    },  
+    "previewImageUrl": {  
+      "type": "string",  
+      "format": "uri",  
+      "description": "URL for a preview/thumbnail image"  
+    },  
+    "imageUrl": {  
+      "type": "string",  
+      "format": "uri",  
+      "description": "URL for a full-size profile image"  
+    },  
+    "location": {  
+      "type": "string",  
+      "description": "Text representation of the user's location (e.g., 'Berlin, Germany')"  
+    },  
+    "geoLocation": {  
+      "type": "array",  
+      "minItems": 2,  
+      "maxItems": 2,  
+      "items": {  
+        "type": "number"  
+      },  
+      "description": "Coordinates as [latitude, longitude]"  
+    },  
+    "extensions": {  
+      "type": "object",  
+      "description": "Additional custom data as key-value pairs"  
+    }  
+  }  
 }
 ```
 
@@ -83,6 +157,4 @@ These requirements are enforced by the server to ensure consistency and performa
 {% hint style="warning" %}
 Profiles that don't adhere to the spec aren't considered and won't be served by Circles' profile service.
 {% endhint %}
-
-## Choose your Avatar setup&#x20;
 
