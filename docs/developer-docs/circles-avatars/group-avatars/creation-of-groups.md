@@ -51,6 +51,6 @@ There are some limits from the profile service:
 
 Incase, you want to check how to manage circles profiles, you can simply checkout this guide :
 
-{% content-ref url="../../../circles-profiles.md" %}
-[circles-profiles.md](../../../circles-profiles.md)
+{% content-ref url="../../circles-profiles.md" %}
+[circles-profiles.md](../../circles-profiles.md)
 {% endcontent-ref %}

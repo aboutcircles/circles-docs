@@ -4,15 +4,15 @@ Organizations are different from groups as you can't mint an organization token,
 
 {% tabs %}
 {% tab title="Circles v2.0" %}
-<pre class="language-typescript"><code class="lang-typescript"><strong>const registerV2Organization = async (sdk, profile) => {
-</strong>    try {
-        const avatar = await sdk.registerOrganizationV2(profile); // Call the V2 method
-        console.log('V2 Organization Avatar:', avatar);
-    } catch (error) {
-        console.error('Error registering organization V2:', error);
-    }
-};
-</code></pre>
+```typescript
+const profile = {  
+  name: "Organization Name",  
+  description: "About the organization"  
+};  
+  
+// Register a V2 organization avatar with the profile  
+const orgAvatarV2 = await sdk.registerOrganizationV2(profile);
+```
 {% endtab %}
 
 {% tab title="Legacy Circles" %}

@@ -27,13 +27,14 @@
     * [Transfer personal Circles tokens to different avatar](developer-docs/circles-avatars/personal-human-avatars/transfer-personal-circles-tokens-to-different-avatar.md)
   * [Group Avatars](developer-docs/circles-avatars/group-avatars/README.md)
     * [Create Base Groups for your community.](developer-docs/circles-avatars/group-avatars/create-base-groups-for-your-community./README.md)
-      * [Vanilla groups with V2 hub](developer-docs/circles-avatars/group-avatars/create-base-groups-for-your-community./creation-of-groups.md)
+      * [Vanilla groups with V2 hub](developer-docs/circles-avatars/group-avatars/creation-of-groups.md)
     * [Mint group tokens](developer-docs/circles-avatars/group-avatars/mint-group-tokens.md)
     * [Managing group invites](developer-docs/circles-avatars/group-avatars/managing-group-invites.md)
     * [Find groups and memberships](developer-docs/circles-avatars/group-avatars/find-groups-and-memberships.md)
     * [Getting total supply of group tokens available](developer-docs/circles-avatars/group-avatars/getting-total-supply-of-group-tokens-available.md)
   * [Organization Avatars](developer-docs/circles-avatars/organization-avatars/README.md)
     * [Creation of Organizations](developer-docs/circles-avatars/organization-avatars/creation-of-organizations.md)
+    * [Managing trust connections via Org avatar account](developer-docs/circles-avatars/organization-avatars/managing-trust-connections-via-org-avatar-account.md)
 
 ## Tutorials and Examples
 
