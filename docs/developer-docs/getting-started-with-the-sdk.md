@@ -43,8 +43,6 @@ Since we are using browser-based wallets like Rabby and MetaMask, we will import
 
 Circles is available on Gnosis Chain for production and sandbox version. You need to specify the correct contract addresses and service endpoints for each environment.
 
-<table><thead><tr><th width="247.1796875">Property</th><th>Description</th></tr></thead><tbody><tr><td><code>v2PathfinderUrl</code></td><td>The URL for the V2 Pathfinder service (if using V2).</td></tr><tr><td><code>pathfinderUrl</code></td><td>The URL for the Pathfinder service (used in V1).</td></tr><tr><td><code>circlesRpcUrl</code></td><td>The URL for the Circles RPC service</td></tr><tr><td><code>profileServiceUrl</code></td><td>The URL for the profile service that manages user profiles in Circles.</td></tr><tr><td><code>v1HubAddress</code></td><td>The contract address for the Circles V1 Hub.</td></tr><tr><td><code>v2HubAddress?</code></td><td>The contract address for the Circles V2 Hub.</td></tr><tr><td><code>nameRegistryAddress</code></td><td>The address of the name registry contract.</td></tr><tr><td><code>migrationAddress</code></td><td>The address used for migrating avatars and tokens from V1 to V2.</td></tr><tr><td><code>baseGroupMintPolicy</code></td><td>The address of the minting policy used for group avatars in Circles.</td></tr><tr><td><code>coreMemberGroupDeployer</code></td><td></td></tr></tbody></table>
-
 {% tabs %}
 {% tab title="Gnosis Chain " %}
 Circles contracts are deployed on Gnosis Chain mainnet. The below config is for applications that would be built in production environment.
@@ -62,7 +60,8 @@ export const GnosisChainConfig: CirclesConfig = {
     migrationAddress: "0xD44B8dcFBaDfC78EA64c55B705BFc68199B56376",
     standardTreasury: "0x08F90aB73A515308f03A718257ff9887ED330C6e",
     baseGroupMintPolicy: "0xcCa27c26CF7BAC2a9928f42201d48220F0e3a549",
-    coreMembersGroupDeployer: "0xFEca40Eb02FB1f4F5F795fC7a03c1A27819B1Ded"
+    coreMembersGroupDeployer: "0xFEca40Eb02FB1f4F5F795fC7a03c1A27819B1Ded",
+    baseGroupFactory: "0xD0B5Bd9962197BEaC4cbA24244ec3587f19Bd06d"
 };
 ```
 {% endtab %}
@@ -70,29 +69,27 @@ export const GnosisChainConfig: CirclesConfig = {
 {% tab title="RINGS - sandbox version of Circles" %}
 RINGS is a sandbox version of Circles protocol. If you are a builder or developer who is building on Circles for fun and want to see how the overall mechanics work - then this would be your place to begin.
 
-{% code overflow="wrap" %}
-```typescript
-
+<pre class="language-typescript"><code class="lang-typescript">
 import type {CirclesConfig} from "@circles-sdk/sdk";
 
 export const circlesConfig: CirclesConfig = {
     circlesRpcUrl: 'https://static.94.138.251.148.clients.your-server.de/rpc/',
     pathfinderUrl: 'https://pathfinder.aboutcircles.com',
-    profileServiceUrl: 'https://static.94.138.251.148.clients.your-server.de/profiles/',
-    v1HubAddress: '0x29b9a7fbb8995b2423a71cc17cf9810798f6c543',
+<strong>    profileServiceUrl: 'https://static.94.138.251.148.clients.your-server.de/profiles/',
+</strong>    v1HubAddress: '0x29b9a7fbb8995b2423a71cc17cf9810798f6c543',
     v2HubAddress: '0x3D61f0A272eC69d65F5CFF097212079aaFDe8267',
     nameRegistryAddress: '0x8D1BEBbf5b8DFCef0F7E2039e4106A76Cb66f968',
     migrationAddress: '0x28141b6743c8569Ad8B20Ac09046Ba26F9Fb1c90',
     baseGroupMintPolicy: '0x79Cbc9C7077dF161b92a745345A6Ade3fC626A60',
     standardTreasury: '0x3545955Bc3900bda704261e4991f239BBd99ecE5',
     coreMembersGroupDeployer: '0x7aD59c08A065738e34f13Ac94542867528a1D328',
-    baseGroupFactory: '0x452C116060cBB484eeDD70F32F08aD4F0685B5D2'
+    baseGroupFactory:'0x452C116060cBB484eeDD70F32F08aD4F0685B5D2'
 };
-
-```
-{% endcode %}
+</code></pre>
 {% endtab %}
 {% endtabs %}
+
+<table><thead><tr><th width="247.1796875">Property</th><th>Description</th></tr></thead><tbody><tr><td><code>v2PathfinderUrl</code></td><td>The URL for the V2 Pathfinder service (if using V2).</td></tr><tr><td><code>pathfinderUrl</code></td><td>The URL for the Pathfinder service (used in V1).</td></tr><tr><td><code>circlesRpcUrl</code></td><td>The URL for the Circles RPC service</td></tr><tr><td><code>profileServiceUrl</code></td><td>The URL for the profile service that manages user profiles in Circles.</td></tr><tr><td><code>v1HubAddress</code></td><td>The contract address for the Circles V1 Hub.</td></tr><tr><td><code>v2HubAddress?</code></td><td>The contract address for the Circles V2 Hub.</td></tr><tr><td><code>nameRegistryAddress</code></td><td>The address of the name registry contract.</td></tr><tr><td><code>migrationAddress</code></td><td>The address used for migrating avatars and tokens from V1 to V2.</td></tr><tr><td><code>baseGroupMintPolicy</code></td><td>The address of the minting policy used for group avatars in Circles.</td></tr><tr><td><code>coreMemberGroupDeployer</code></td><td>The address for groups that are deployed using core members instance</td></tr><tr><td><code>baseGroupFactory</code></td><td>The address for factory contract that will be used for groups deployment</td></tr></tbody></table>
 
 ## **3. Using Circles SDK Configuration**
 
@@ -122,11 +119,13 @@ export const GnosisChainConfig: CirclesConfig = {
     v1HubAddress: "0x29b9a7fbb8995b2423a71cc17cf9810798f6c543",
     v2HubAddress: "0xc12C1E50ABB450d6205Ea2C3Fa861b3B834d13e8",
     nameRegistryAddress: "0xA27566fD89162cC3D40Cb59c87AAaA49B85F3474",
+    v1NameRegistryAddress: "0x1eaD7F904F6fFC619c58B85e04F890b394E08172",
     migrationAddress: "0xD44B8dcFBaDfC78EA64c55B705BFc68199B56376",
-    standardTreasury: "0x08F90aB73A515308f03A718257ff9887ED330C6e",
     baseGroupMintPolicy: "0xcCa27c26CF7BAC2a9928f42201d48220F0e3a549",
-    coreMembersGroupDeployer: "0xFEca40Eb02FB1f4F5F795fC7a03c1A27819B1Ded"
-};
+    standardTreasury: "0x08F90aB73A515308f03A718257ff9887ED330C6e",
+    coreMembersGroupDeployer: "0xFEca40Eb02FB1f4F5F795fC7a03c1A27819B1Ded",
+    baseGroupFactory: "0xD0B5Bd9962197BEaC4cbA24244ec3587f19Bd06d"
+    };
 ```
 
 ### Using the sandbox version of Circles SDK for builders
@@ -149,8 +148,7 @@ export const circlesConfig: CirclesConfig = {
     baseGroupMintPolicy: '0x79Cbc9C7077dF161b92a745345A6Ade3fC626A60',
     standardTreasury: '0x3545955Bc3900bda704261e4991f239BBd99ecE5',
     coreMembersGroupDeployer: '0x7aD59c08A065738e34f13Ac94542867528a1D328',
-    baseGroupFactory: '0x452C116060cBB484eeDD70F32F08aD4F0685B5D2'
-   
+    baseGroupFactory:'0x452C116060cBB484eeDD70F32F08aD4F0685B5D2'
 };
 ```
 
