@@ -1,7 +1,6 @@
 # Table of contents
 
 * [Welcome to Circles](README.md)
-* [Whitepaper](whitepaper.md)
 
 ## Overview
 
