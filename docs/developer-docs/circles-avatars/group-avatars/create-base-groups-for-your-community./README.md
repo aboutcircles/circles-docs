@@ -1,4 +1,4 @@
-# Create Base Groups for your community.
+# Create Base Groups for your community
 
 #### Base Groups are capable of following:
 
