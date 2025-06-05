@@ -1,3 +1,7 @@
+---
+icon: people-group
+---
+
 # Create Base Groups for your community
 
 #### Base Groups are capable of following:
