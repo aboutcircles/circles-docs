@@ -19,32 +19,58 @@ To create a base group, you would:
 3. After creation, get the base group avatar using `sdk.getAvatar()`
 
 ```typescript
-// Initialize the SDK  
-const sdk = new Sdk(contractRunner, config);  
-  
-// Create a group profile (with required symbol field)  
-const groupProfile: GroupProfile = {  
-  name: "My Base Group",  
-  symbol: "MBG",  
-  description: "A base group for community coordination"  
-};  
-  
-// Create the base group using the factory  
-// Note: The exact method name and parameters would depend on the BaseGroupFactory contract interface  
-const tx = await sdk.baseGroupFactory.createBaseGroup(  
-  mintHandlerAddress,  // Address of the mint handler  
-  treasuryAddress,     // Address of the treasury  
-  groupProfile.name,  
-  groupProfile.symbol,  
-  await sdk.createProfileIfNecessary(groupProfile)  
-);  
-const receipt = await tx.wait();  
-  
-// Get the group address from the event  
-const groupAddress = /* extract from receipt events */;  
-  
-// Get the avatar instance for the new group  
-const baseGroupAvatar = await sdk.getAvatar(groupAddress);
+import { Sdk } from '@circles-sdk/sdk';
+import { cidV0ToUint8Array } from '@circles-sdk/utils';
+import { ethers } from 'ethers';
+
+// Initialize the SDK
+const sdk = new Sdk(contractRunner, config);
+
+// Define the group profile (symbol is required)
+const groupProfile = {
+  name: "My Base Group",
+  symbol: "MBG",
+  description: "A base group for community coordination",
+  imageUrl: "",             // optional, can be uploaded via SDK
+  previewImageUrl: "",      // optional, used for previews
+};
+
+// Define base group setup options
+const serviceAddress = "0xService...";      // Replace with actual service address
+const feeCollection = "0xFeeCollection..."; // Replace with actual treasury address
+const initialConditions = [
+  "0xAddress1...",
+  "0xAddress2..."
+  // Add more addresses if needed
+];
+
+// Step 1: Create the group profile (CID will be returned)
+const profileCID = await sdk.profiles.create(groupProfile);
+if (!profileCID) throw new Error("Failed to create profile CID");
+
+// Step 2: Create the base group using the factory
+const tx = await sdk.baseGroupFactory.createBaseGroup(
+  senderAddress,           // Usually wallet address of the sender
+  serviceAddress,
+  feeCollection,
+  initialConditions,
+  groupProfile.name,
+  groupProfile.symbol,
+  cidV0ToUint8Array(profileCID)  // Convert CID to bytes
+);
+
+// Wait for transaction confirmation
+const receipt = await tx.wait();
+
+// Step 3: Extract the group address from emitted events
+const groupAddress = ethers.stripZerosLeft(receipt.logs[9].topics[1]);
+
+// Step 4: Get the avatar for the created group
+const baseGroupAvatar = await sdk.getAvatar(groupAddress.toLowerCase());
+
+console.log("Base group created at:", groupAddress);
+console.log("Group avatar:", baseGroupAvatar);
+
 ```
 
 ### Working with Base Groups
