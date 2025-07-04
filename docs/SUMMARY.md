@@ -40,6 +40,7 @@
 
 ## Querying Circles profiles and data
 
+* [Circles API Specifications](querying-circles-profiles-and-data/circles-api-specifications.md)
 * [Query Circles Data](querying-circles-profiles-and-data/query-data.md)
 * [Subscribing to Avatar events](querying-circles-profiles-and-data/subscribing-to-avatar-events.md)
 * [Utilising CirclesQuery Class](querying-circles-profiles-and-data/utilising-circlesquery-class.md)
