@@ -38,10 +38,6 @@
 
 * [Setting up Circles SDK with React](tutorials-and-examples/setting-up-circles-sdk-with-react-and-javascript.md)
 
-***
-
-* [Circles Tools](circles-tools.md)
-
 ## Querying Circles profiles and data
 
 * [Query Circles Data](querying-circles-profiles-and-data/query-data.md)
@@ -59,4 +55,5 @@
 ## Developer Support
 
 * [Glossary](developer-support/glossary.md)
+* [Circles Tools](developer-support/circles-tools.md)
 * [Past Hackathon Projects on Circles](developer-support/past-hackathon-projects-on-circles.md)

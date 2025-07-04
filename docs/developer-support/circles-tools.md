@@ -1,3 +1,7 @@
+---
+icon: toolbox
+---
+
 # Circles Tools
 
 **Circles Tools** is a collection of useful tooling for the community. These tools can be used as an extension to the circles core app for niche, specific and advanced usecases.
