@@ -58,3 +58,7 @@
 * [Glossary](developer-support/glossary.md)
 * [Circles Tools](developer-support/circles-tools.md)
 * [Past Hackathon Projects on Circles](developer-support/past-hackathon-projects-on-circles.md)
+
+## User Guides
+
+* [Contributing Guide](user-guides/contributing-guide.md)
