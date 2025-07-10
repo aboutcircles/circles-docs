@@ -18,6 +18,8 @@ Thanks for your interest in contributing! Follow these quick steps to open a pul
 
 #### &#x20;1. Fork & Clone
 
+Fork the repo - [https://github.com/aboutcircles/circles-docs](https://github.com/aboutcircles/circles-docs)
+
 ```
 git clone https://github.com/your-username/circles-docs.git
 cd circles-docs
