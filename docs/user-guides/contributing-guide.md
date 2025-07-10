@@ -1,3 +1,7 @@
+---
+icon: file-lines
+---
+
 # Contributing Guide
 
 Thanks for your interest in contributing! Follow these quick steps to open a pull request. We would encourage both technical and non-technical contributions. Technical contributions may include improvisations and addition of new details for the Circles SDK while non-technical contributions can be creating detailed user oriented guides on various Circles features. All on-technical guides should be created under the **User Guides** folder.
