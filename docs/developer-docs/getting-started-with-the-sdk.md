@@ -114,7 +114,7 @@ export const circlesConfig: CirclesConfig = {
 
 Once you have configured the sandbox addresses in your `config.ts` ,you can proceed with setting up the provider and signer as mentioned below.
 
-## 4. Setup Provider and Signer
+## 3. Setup Provider and Signer
 
 To setup provider and signer, we would utilize the Circles Adapter that is built to support transactions via ethers. Once you have already imported the `BrowserProviderContractRunner` , you would need to initialize it.
 
@@ -123,7 +123,7 @@ const adapter = new BrowserProviderContractRunner();
 await adapter.init();
 ```
 
-## 5. Initialize the Circles SDK
+## 4. Initialize the Circles SDK
 
 To initialize the CirclesSDK, we will pass on the `Adapter` to SDK instance.
 
