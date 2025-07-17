@@ -62,3 +62,10 @@
 ## User Guides
 
 * [Contributing Guide](user-guides/contributing-guide.md)
+
+## Groups Docs
+
+* [Circles Groups](groups-docs/circles-groups/README.md)
+  * [Create a Circles Group](groups-docs/circles-groups/create-a-circles-group.md)
+  * [Technical Group Details](groups-docs/circles-groups/technical-group-details.md)
+  * [Validation and Use Cases](groups-docs/circles-groups/validation-and-use-cases.md)
