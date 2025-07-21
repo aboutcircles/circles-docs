@@ -15,19 +15,15 @@ Every group has its own CRC–token. Groups have members (defined as accounts th
 
 ![](https://hackmd.io/_uploads/By5lRFGIlx.png)
 
-### **Minting**
+### **Minting & Redemption**
 
-If account A is a member of group G, then any account that holds A-CRC can turn them into G-CRC, at a rate 1:1.
+**Minting**: If account A is a member of group G, then any account that holds A-CRC can turn them into G-CRC, at a rate 1:1.
 
 The A-CRC enter the “vault” of the group.
 
+**Redemption**: In turn, anybody in the network in possession of G-CRC can redeem them, at a 1:1 rate, against any CRC currently present in the vault.
+
 ![](https://hackmd.io/_uploads/r1_mRFfUle.png)
-
-### **Redemption**
-
-In turn, anybody in the network in possession of G-CRC can redeem them, at a 1:1 rate, against any CRC currently present in the vault.
-
-![](https://hackmd.io/_uploads/HyrHAKGIxx.png)
 
 ### **Groups (protocol) - Custom Policies**
 
@@ -72,8 +68,7 @@ There are also the following “auxiliary” contracts deployed for every group,
 
 ### Base Treasury
 
-* All funds from the minting of group tokens are
-* Forwarded to this treasury. It trusts the group.
+* All funds from the minting of group tokens are forwarded to this treasury. It trusts the group.
 
 ### Base Mint Handler
 
