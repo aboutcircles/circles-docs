@@ -6,12 +6,37 @@ coverY: 0
 
 # Welcome to Circles
 
-Circles is a decentralized protocol designed to create and distribute fair and social money through personal currencies. At the core of the Circles project lies a simple yet powerful principle:
+> We introduce Circles, a new currency framework that leverages modern cryptography to build trust without centralized gatekeepers. By decentralizing money creation, Circles distributes the privilege of issuing currency to every individual, fostering a more inclusive and resilient monetary system.
+>
+> Circles is built on a few powerful principles that make money creation fair, efficient, and resilient. By moving money creation from centralized institutions to individuals—and by harnessing real-life trust—Circles reimagines currency.
 
-`"Every person receives one Circle every hour, unconditionally."`
+### Build on the Circles Protocol
 
-**Circles** uses smart contracts, deployed on Gnosis Chain, for creation of personal and group Avatars and their currencies (CRC). Circles as a network works via trust connection. To join Circles 2.0, you would require an invitation from a human/personal avatar. The pathfinder service is deployed to find the optimal path between trust connections to exchange personal and group currencies. Circles smart contracts are based on ERC1155 multi-token standard for both personal avatars and group avatars.
+{% content-ref url="developer-docs/circles-sdk-overview.md" %}
+[circles-sdk-overview.md](developer-docs/circles-sdk-overview.md)
+{% endcontent-ref %}
 
-Every person receives 1 CRC every hour, hence 24 CRC per single day. Circles undergo daily demurrage at a rate equivalent to 7% per year. Issuance for past days accounts for this demurrage, ensuring fair distribution over time.
+{% content-ref url="developer-docs/getting-started-with-the-sdk.md" %}
+[getting-started-with-the-sdk.md](developer-docs/getting-started-with-the-sdk.md)
+{% endcontent-ref %}
 
-**This documentation will guide developers in understanding Avatars and using the Circles SDK.**
+{% content-ref url="querying-circles-profiles-and-data/circles-api-specifications.md" %}
+[circles-api-specifications.md](querying-circles-profiles-and-data/circles-api-specifications.md)
+{% endcontent-ref %}
+
+### About Circles
+
+Under the hood, Circles relies on five simple rules:
+
+* **Universal access** allows anyone to open an account.
+* Distributed issuance grants each account the right to mint **1 CRC per hour.**
+* Demurrage applies a **7 % yearly decay** to every CRC, preventing early adopters from dominating the supply.&#x20;
+* A **Rule of Trust** lets users swap CRC 1:1 along their social trust graph, so individual non-fungible “personal monies” converge into a commonly spendable currency.&#x20;
+* **Members of a Circles Groups** can mint a shared CRC backed by members’ coins, giving communities their own monetary layer.&#x20;
+
+Together these rules guarantee fair access to new money while deterring Sybil attacks and other abuses.
+
+Because payments flow along real-world social links, Circles is both resilient and versatile. Trust can be revoked at any time, shielding honest users from malicious actors, yet the transitive nature of swaps means you can still pay strangers seamlessly. Groups and Organizations add a “fast lane” for adoption: they pool liquidity, act as local or thematic currencies, and let communities balance efficiency against security. The result is a self-governing monetary network in which issuance, security and economic coordination rest with the people who use it.\
+
+
+This documentation helps developers explore Circles’ capabilities and delve into the Circles SDK and its various components.
