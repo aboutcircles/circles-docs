@@ -33,6 +33,9 @@
   * [Organization Avatars](developer-docs/circles-avatars/organization-avatars/README.md)
     * [Creation of Organizations](developer-docs/circles-avatars/organization-avatars/creation-of-organizations.md)
     * [Managing trust connections via Org avatar account](developer-docs/circles-avatars/organization-avatars/managing-trust-connections-via-org-avatar-account.md)
+* [Working with Circles Adapters](developer-docs/working-with-circles-adapters/README.md)
+  * [Ethers Adapter](developer-docs/working-with-circles-adapters/ethers-adapter.md)
+  * [Safe Adapter](developer-docs/working-with-circles-adapters/safe-adapter.md)
 
 ## Tutorials and Examples
 

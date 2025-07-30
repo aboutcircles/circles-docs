@@ -125,7 +125,7 @@ await adapter.init();
 
 ## 4. Initialize the Circles SDK
 
-To initialize the CirclesSDK, we will pass on the `Adapter` to SDK instance.
+To initialize the CirclesSDK, we will pass on the [`Adapter`](working-with-circles-adapters/) to SDK instance.
 
 ```typescript
 const sdk = new Sdk (adapter); 
