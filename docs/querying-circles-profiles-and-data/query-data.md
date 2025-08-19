@@ -15,7 +15,7 @@ Most of the previously shown avatar methods internally use the `CirclesData` cla
 const data = sdk.data;
 ```
 
-&#x20;Otherwise you can create an instance like this:
+&#x20;Otherwise you can also create an instance like this:
 
 {% tabs %}
 {% tab title="Gnosis Chain" %}

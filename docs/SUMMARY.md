@@ -36,6 +36,7 @@
 * [Working with Circles Adapters](developer-docs/working-with-circles-adapters/README.md)
   * [Ethers Adapter](developer-docs/working-with-circles-adapters/ethers-adapter.md)
   * [Safe Adapter](developer-docs/working-with-circles-adapters/safe-adapter.md)
+* [Wrapping and Unwrapping](developer-docs/wrapping-and-unwrapping.md)
 
 ## Tutorials and Examples
 
@@ -64,11 +65,8 @@
 
 ## User Guides
 
+* [Circles Groups](user-guides/circles-groups/README.md)
+  * [Create a Circles Group](user-guides/circles-groups/create-a-circles-group.md)
+  * [Technical Group Details](user-guides/circles-groups/technical-group-details.md)
+  * [Validation and Use Cases](user-guides/circles-groups/validation-and-use-cases.md)
 * [Contributing Guide](user-guides/contributing-guide.md)
-
-## Groups Docs
-
-* [Circles Groups](groups-docs/circles-groups/README.md)
-  * [Create a Circles Group](groups-docs/circles-groups/create-a-circles-group.md)
-  * [Technical Group Details](groups-docs/circles-groups/technical-group-details.md)
-  * [Validation and Use Cases](groups-docs/circles-groups/validation-and-use-cases.md)
