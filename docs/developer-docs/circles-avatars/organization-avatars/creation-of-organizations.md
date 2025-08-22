@@ -14,21 +14,6 @@ const profile = {
 const orgAvatarV2 = await sdk.registerOrganizationV2(profile);
 ```
 {% endtab %}
-
-{% tab title="Legacy Circles" %}
-```typescript
-const registerLegacyOrganization = async (sdk) => {
-    try {
-        const avatar = await sdk.registerOrganization(); // Call the legacy method
-        console.log('Legacy Organization Avatar:', avatar);
-    } catch (error) {
-        console.error('Error registering legacy organization:', error);
-    }
-};
-```
-
-
-{% endtab %}
 {% endtabs %}
 
 

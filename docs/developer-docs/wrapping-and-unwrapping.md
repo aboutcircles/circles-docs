@@ -143,7 +143,7 @@ const unwrapReceipt = await avatar.unwrapDemurrageErc20(
 
 #### Static Token Unwrapping
 
-**Functionality**: Converts static ERC-20 wrapper tokens back to native ERC-1155 Circles tokens. Since no demurrage was applied, the conversion is 1:1.
+**Functionality**: Converts static ERC-20 wrapper tokens back to native ERC-1155 Circles tokens.&#x20;
 
 **Parameters:**
 
