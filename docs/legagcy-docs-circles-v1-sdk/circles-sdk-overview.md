@@ -8,7 +8,7 @@ The [Circles SDK](https://www.npmjs.com/package/@circles-sdk/sdk) is a TypeScrip
 
 As a developer, you can start from installing the core SDK and supported packages.
 
-### Circles v2.0 SDK features :&#x20;
+### Circles v1.0 SDK features :&#x20;
 
 ```sh
 npm i @circles-sdk/sdk
