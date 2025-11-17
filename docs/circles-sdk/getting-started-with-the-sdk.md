@@ -10,9 +10,9 @@ This guide explains how to use the latest `@aboutcircles` packages to build a br
 
 * Browser wallet such as MetaMask or Rabby.
 * Gnosis Chain (chain ID `100`) configured inside the wallet. Double-check the RPC endpoint, currency symbol (`xDAI`), and block explorer entries via the [Gnosis Chain docs](https://docs.gnosischain.com/).
-* A small amount of xDAI for gas (obtainable from the [mainnet faucet](https://gnosisfaucet.com/)).
+* A small amount of xDAI for gas (available from the [mainnet faucet](https://gnosisfaucet.com/)).
 
-Keep the wallet unlocked in the same browser context that will load your dApp so the runner can talk to `window.ethereum`.
+Keep the wallet unlocked in the same browser context that will load your dApp so the runner can interact to `window.ethereum`.
 
 ### 2. Install the Circles SDK Packages
 

@@ -12,7 +12,7 @@ Our developer documentation portal provides comprehensive guide to build using C
 If you want to develop a server or client application that utilizes Circles, and allow you to utilize trust connection and personal/group currencies, then Circles SDK would be your entry point. Based on your need, you can pick to develop any avatar post initialization of SDK.
 
 * [Circles SDK package on npm](https://www.npmjs.com/package/@circles-sdk/sdk)
-* [Circles SDK source code](https://github.com/aboutcircles/sdk-v2)
+* [Circles SDK source code](https://github.com/aboutcircles/sdk)
 
 ## Circles Infrastructure
 
