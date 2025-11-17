@@ -4,11 +4,11 @@ icon: file-code
 
 # Circles SDK Overview
 
-The [Circles v2 SDK](https://www.npmjs.com/package/@aboutcircles/sdk) is a TypeScript library that allows you to integrate Circles protocol into your dApp to implement avatars, profiles, token transfers and build trust connections for your use-case. Under the hood, Circles SDK utilizes deployed hub contracts on Gnosis Chain, pathfinder for finding trust network paths and profile service and Circles RPC.
+The [Circles SDK](https://www.npmjs.com/package/@aboutcircles/sdk) is a TypeScript library that allows you to integrate Circles protocol into your dApp to implement avatars, profiles, token transfers and build trust connections for your use-case. Under the hood, Circles SDK utilizes deployed hub contracts on Gnosis Chain, pathfinder for finding trust network paths and profile service and Circles RPC.
 
-### Circles v2.0 SDK :&#x20;
+### Circles SDK :&#x20;
 
-To use the Circles v2 sdk, install the primary npm package
+To use the Circles sdk, install the primary npm package
 
 ```
 npm install @aboutcircles/sdk
