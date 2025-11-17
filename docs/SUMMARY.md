@@ -33,6 +33,7 @@
   * [Organization Avatars](circles-v2-sdk/circles-avatars/organization-avatars/README.md)
     * [Creation of Organizations](circles-v2-sdk/circles-avatars/organization-avatars/creation-of-organizations.md)
     * [Managing trust connections via Org avatar account](circles-v2-sdk/circles-avatars/organization-avatars/managing-trust-connections-via-org-avatar-account.md)
+* [Wrapping and Unwrapping](circles-v2-sdk/wrapping-and-unwrapping.md)
 
 ## Legagcy Docs (Circles v1 sdk)
 
