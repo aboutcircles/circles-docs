@@ -8,8 +8,7 @@ In the Circles SDK, an **Organization Avatar** represents a non-human entity wit
 
 * **Cannot mint tokens**
 * **Can participate in the trust network**
-* **Supports profiles** for organization (in V2)
-* **Compatible with both V1 and V2 of the Circles protocol**
+* **Supports profiles** for organization
 
 
 
