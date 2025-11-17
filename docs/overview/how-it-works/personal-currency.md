@@ -36,13 +36,9 @@ If understood as a tax, then the tax would be negative at first (you get money),
 
 ### **Implementation**
 
-Circles v1 tokens adhere to the ERC20 token standard with added functionality for personal minting and a built-in allowance like mechanism for the Hub contract which is necessary to enable the path transfer functionality.
-
 Circles v2 is built on the ERC1155 token standard. Here, the Hub uses a standard allowance to facilitate path transfers. The token metadata mimics as profile.
 
-### Dead man's switch
+### Halting Mint
 
-Circles v1 tokens have a built-in "dead man's switch" that permanently disables the minting of new tokens after 90 days of inactivity. This proved problematic, so in Circles v2, the mechanism was replaced by a limit that allows a maximum minting amount of 14 days' worth of Circles.&#x20;
-
-In both versions, minting can be stopped manually. This feature is used, for example, to ensure that users who migrate from v1 to v2 cannot mint in v1 before they are allowed to mint in v2.
+In Circles v2, there is a limit that allows a maximum minting amount of 14 days' worth of Circles. Minting can be stopped manually if required.
 
