@@ -4,231 +4,270 @@ icon: user-ninja
 
 # SDK Methods
 
-## **1. getAvatar**
+### 1) getAvatar
 
-Gets an avatar instance by its address.
+Gets an avatar instance by address.
 
-```typescript
-getAvatar: (avatarAddress: string, subscribe?: boolean) => Promise<Avatar>
+```ts
+sdk.getAvatar(avatarAddress: string): Promise<Avatar>;
 ```
 
-* **Parameters**:
-  * `avatarAddress`: The avatar’s wallet address.
-  * `subscribe`: Optional, whether to subscribe to avatar events.
-* **Returns**: A `Promise` that resolves to an `Avatar` instance.
+* **Parameters:**
+  * `avatarAddress` (required): Avatar wallet address.
+* **Returns:** `HumanAvatar | OrganisationAvatar | BaseGroupAvatar`
+* **Example:**
 
-**Usage Example**:
-
-```typescript
-const avatar = await sdk.getAvatar("0x123...abc");
+```ts
+const avatar = await sdk.getAvatar('0x123...abc');
 ```
 
-***
+### 2) register.asHuman
 
-## **2. acceptInvitation**
+Registers a human avatar; handles invitation redemption automatically.
 
-Accepts an invitation to join Circles using either CID or Profile.
-
-```typescript
-acceptInvitation: (inviter: string, cidV0: string) => Promise<AvatarInterface>;
-//or
-acceptInvitation: (inviter: string, profile: Profile) => Promise<AvatarInterface>;
+```ts
+sdk.register.asHuman(inviter: string, profile: Profile | string): Promise<HumanAvatar>;
 ```
 
-* **Parameters**:
-  * `inviter`: The address of the inviting avatar.
-  * `cidV0`: The CIDv0 of the avatar’s metadata (or `profile` data).
-* **Returns**: A `Promise` resolving to an `AvatarInterface`.
+* **Parameters:**
+  * `inviter` (required): Address of inviting avatar.
+  * `profile` (required): Profile object or CID string.
+* **Returns:** `HumanAvatar`
+* **Example:**
 
-**Usage Example**:
-
-```typescript
-await sdk.acceptInvitation("0xInviterAddress", "QmProfileCID");
+```ts
+const human = await sdk.register.asHuman('0xInviter', { name: 'Alice', description: 'Dev' });
 ```
 
-## **3. registerHuman**
+### 3) register.asOrganization
 
-Registers the connected wallet as a human avatar in Circles V1.
+Registers an organization avatar with profile data.
 
-```typescript
-registerHuman: () => Promise<AvatarInterface>
+```ts
+sdk.register.asOrganization(profile: Profile | string): Promise<OrganisationAvatar>;
 ```
 
-* **Returns**: A `Promise` resolving to an `AvatarInterface`, representing the registered human avatar.
+* **Parameters:**
+  * `profile` (required): Profile object or CID string; must include `name`.
+* **Returns:** `OrganisationAvatar`
+* **Example:**
 
-**Usage Example**:
-
-```typescript
-const humanAvatar = await sdk.registerHuman();
+```ts
+const org = await sdk.register.asOrganization({ name: 'Org', description: 'Example org' });
 ```
 
-***
+### 4) register.asGroup
 
-## **4. registerOrganization**
+Registers a Base Group with profile data.
 
-Registers the connected wallet as an organization avatar in Circles V1.
-
-```typescript
-registerOrganization: () => Promise<AvatarInterface>
+```ts
+sdk.register.asGroup(
+  owner: string,
+  service: string,
+  feeCollection: string,
+  initialConditions: string[],
+  name: string,
+  symbol: string,
+  profile: Profile | string
+): Promise<BaseGroupAvatar>;
 ```
 
-* **Returns**: A `Promise` resolving to an `AvatarInterface` for the organization avatar.
+* **Parameters:**
+  * `owner`, `service`, `feeCollection` (required): Addresses.
+  * `initialConditions` (required): Array of condition contract addresses (can be empty).
+  * `name` (required, ≤19 chars), `symbol` (required).
+  * `profile` (required): Profile object or CID.
+* **Returns:** `BaseGroupAvatar`
+* **Example:**
 
-**Usage Example**:
-
-```typescript
-const organizationAvatar = await sdk.registerOrganization();
+```ts
+const group = await sdk.register.asGroup(
+  owner,
+  service,
+  feeCollector,
+  [],
+  'GroupName',
+  'GRP',
+  { name: 'GroupName', description: 'Example group' }
+);
 ```
 
-***
+### 5) profiles.create (global)
 
-## **5. registerOrganizationV2**
+Pins profile data and returns CID.
 
-Registers the connected wallet as an organization avatar in Circles V2 with profile data.
-
-```typescript
-registerOrganizationV2: (profile: Profile) => Promise<AvatarInterface>
+```ts
+sdk.profiles.create(profile: Profile): Promise<string>;
 ```
 
-* **Parameters**:
-  * `profile`: A `Profile` object representing the organization’s profile.
-* **Returns**: A `Promise` resolving to an `AvatarInterface`.
+* **Parameters:** `profile` (required): Profile object.
+* **Returns:** CID string.
+* **Example:**
 
-**Usage Example**:
-
-```typescript
-const orgProfile = { name: "OrgName", description: "An example organization." };
-const orgAvatarV2 = await sdk.registerOrganizationV2(orgProfile);
+```ts
+const cid = await sdk.profiles.create({ name: 'Jane', description: 'Developer' });
 ```
 
-***
+### 6) avatar.profile.update (avatar-bound)
 
-## **6. registerGroupV2**
+Pins profile data and updates on-chain metadata digest for that avatar.
 
-Registers the connected wallet as a group avatar in Circles V2 with profile data.
-
-```typescript
-registerGroupV2: (mint: string, profile: GroupProfile) => Promise<AvatarInterface>
+```ts
+avatar.profile.update(profile: Profile): Promise<string>;
 ```
 
-* **Parameters**:
-  * `mint`: Address of the minting policy contract.
-  * `profile`: A `GroupProfile` object containing group information.
-* **Returns**: A `Promise` resolving to an `AvatarInterface`.
+* **Parameters:** `profile` (required): Profile object.
+* **Returns:** CID string.
+* **Example:**
 
-**Usage Example**:
-
-```typescript
-const groupProfile = { name: "GroupName", description: "An example group." };
-const groupAvatarV2 = await sdk.registerGroupV2("0xMintAddress", groupProfile);
+```ts
+const cid = await avatar.profile.update({ name: 'Jane', description: 'Updated bio' });
 ```
 
-***
+### 7) tokens.getInflationaryWrapper
 
-## **7. migrateAvatar**
+Gets the inflationary ERC20 wrapper address for an avatar’s token (or zero address if undeployed).
 
-Migrates a V1 avatar and its Circles holdings to V2.
-
-```typescript
-migrateAvatar: (avatar: string, profile: Profile, trustRelations?: string[]) => Promise<void>
+```ts
+sdk.tokens.getInflationaryWrapper(address: string): Promise<string>;
 ```
 
-* **Parameters**:
-  * `avatar`: The address of the avatar to migrate.
-  * `profile`: Profile data of the avatar.
-  * `trustRelations`: Optional, a list of trust relations to migrate.
-* **Returns**: A `Promise` resolving to `void`.
+* **Parameters:** `address` (required): Avatar address.
+* **Returns:** Wrapper address or zero.
+* **Example:**
 
-**Usage Example**:
-
-```typescript
-const profile = { name: "John Doe", description: "Human Avatar" };
-await sdk.migrateAvatar("0xAvatarAddress", profile);
+```ts
+const inflWrapper = await sdk.tokens.getInflationaryWrapper('0xAvatar...');
 ```
 
-***
+### 8) tokens.getDemurragedWrapper
 
-## **8. createOrUpdateProfile**
+Gets the demurraged ERC20 wrapper address for an avatar’s token (or zero address if undeployed).
 
-Creates or updates a user profile in Circles.
-
-```typescript
-UpdateProfile: (profile: Profile | string) => Promise<ContractTransactionReceipt>
+```ts
+sdk.tokens.getDemurragedWrapper(address: string): Promise<string>;
 ```
 
-* **Parameters**:
-  * `profile`: A `Profile` object or a CID string pointing to the profile.
-* **Returns**: A `Promise` that resolves to a `ContractTransactionReceipt`.
+* **Parameters:** `address` (required): Avatar address.
+* **Returns:** Wrapper address or zero.
+* **Example:**
 
-**Usage Example**:
-
-```typescript
-const profileData = { name: "John Doe", description: "Developer" };
-const receipt = await sdk.createOrUpdateProfile(profileData);
+```ts
+const demWrapper = await sdk.tokens.getDemurragedWrapper('0xAvatar...');
 ```
 
-***
+### 9) Wrapping (avatar.wrap)
 
-## **9. migrateV1Tokens**
+Wrap/unwrap ERC1155 CRC into ERC20 wrappers.
 
-Migrates all V1 token holdings of an avatar to V2.
+* Wrap demurraged:
 
-```typescript
-migrateV1Tokens: (avatar: string, tokens?: string[]) => Promise<void>
+```ts
+avatar.wrap.asDemurraged(avatarAddress: string, amount: bigint): Promise<TransactionReceipt>;
 ```
 
-* **Parameters**:
-  * `avatar`: The avatar whose tokens need to be migrated.
-  * `tokens`: Optional list of token addresses.
-* **Returns**: A `Promise` resolving to `void`.
+* Wrap inflationary:
 
-**Usage Example**:
-
-```typescript
-await sdk.migrateV1Tokens("0xAvatarAddress");
+```ts
+avatar.wrap.asInflationary(avatarAddress: string, amount: bigint): Promise<TransactionReceipt>;
 ```
 
-***
+* Unwrap demurraged:
 
-## **10. getInflationaryWrapper**
-
-Gets an inflationary wrapper for managing tokens.
-
-```typescript
-getInflationaryWrapper: (wrapperAddress: string) => Promise<InflationaryCircles>
+```ts
+avatar.wrap.unwrapDemurraged(wrapperAddress: string, amount: bigint): Promise<TransactionReceipt>;
 ```
 
-* **Parameters**:
-  * `wrapperAddress`: Address of the inflationary wrapper contract.
-* **Returns**: A `Promise` resolving to `InflationaryCircles`.
+* Unwrap inflationary:
 
-**Usage Example**:
-
-```typescript
-const inflationaryWrapper = await sdk.getInflationaryWrapper("0xWrapperAddress");
+```ts
+avatar.wrap.unwrapInflationary(wrapperAddress: string, amount: bigint): Promise<TransactionReceipt>;
 ```
 
-***
+* **Parameters:**
+  * `avatarAddress` / `wrapperAddress` (required)
+  * `amount` (required, bigint, atto‑CRC)
+* **Returns:** Transaction receipt.
+* **Example:**
 
-## 11. getDemurragedWrapped
-
-This function retrieves a demurrage wrapper, which is used to manage tokens that decrease in value over time (demurrage).
-
-```typescript
-getDemurragedWrapper: (wrapperAddress: string) => Promise<DemurrageCircles>
+```ts
+await avatar.wrap.asInflationary(avatar.address, BigInt(5e18));
 ```
 
-### **Parameters:**
+### 10) Transfers (avatar.transfer)
 
-* `wrapperAddress`: The address of the demurrage wrapper contract.
+* Advanced (pathfinding + unwrap/rewrap):
 
-**Returns :** A `Promise` that resolves to an instance of `DemurrageCircles`.
-
-**Usage Example:**
-
-```typescript
-const demurrageWrapper = await sdk.getDemurragedWrapper("0xWrapperAddress");
+```ts
+avatar.transfer.advanced(
+  to: string,
+  amount: bigint,
+  options?: AdvancedTransferOptions
+): Promise<TransactionReceipt>;
 ```
 
-***
+* Direct (no pathfinding):
 
+```ts
+avatar.transfer.direct(
+  to: string,
+  amount: bigint,
+  tokenAddress?: string,
+  txData?: Uint8Array
+): Promise<TransactionReceipt>;
+```
+
+* Max flow helpers:
+
+```ts
+avatar.transfer.getMaxAmount(to: string): Promise<bigint>;
+avatar.transfer.getMaxAmountAdvanced(to: string, options?: PathfindingOptions): Promise<bigint>;
+```
+
+* **Key optional `options`:** `useWrappedBalances`, `fromTokens`, `toTokens`, `excludeFromTokens`, `excludeToTokens`, `simulatedBalances`, `maxTransfers`, `txData`.
+* **Example:**
+
+```ts
+const receipt = await avatar.transfer.advanced('0xRecipient', BigInt(10e18), { useWrappedBalances: true });
+```
+
+### 11) Trust graph (avatar.trust)
+
+```ts
+avatar.trust.add(avatarOrList: string | string[], expiry?: bigint): Promise<TransactionReceipt>;
+avatar.trust.remove(avatarOrList: string | string[]): Promise<TransactionReceipt>;
+avatar.trust.isTrusting(address: string): Promise<boolean>;
+avatar.trust.isTrustedBy(address: string): Promise<boolean>;
+avatar.trust.getAll(): Promise<AggregatedTrustRelation[]>;
+```
+
+* **expiry** optional (defaults to max uint96).
+* **Example:**
+
+```ts
+await avatar.trust.add('0xFriend'); // indefinite
+```
+
+### 12) Balances & history
+
+```ts
+avatar.balances.getTotal(): Promise<bigint>;
+avatar.balances.getTokenBalances(): Promise<TokenBalanceRow[]>;
+avatar.history.getTransactions(limit?: number, sortOrder?: 'ASC' | 'DESC'): PagedQuery<TransactionRow>;
+```
+
+* **Example:**
+
+```ts
+const tokens = await avatar.balances.getTokenBalances();
+```
+
+### 13) Events
+
+```ts
+await avatar.subscribeToEvents();
+avatar.events.subscribe((event) => console.log(event.$event, event));
+avatar.unsubscribeFromEvents();
+```
+
+* **Returns:** `subscribeToEvents` resolves when WS subscription is active; `events` is an observable stream of Circles events.

@@ -4,314 +4,151 @@ icon: inbox-full
 
 # Circles SDK interface
 
-The Circles SDK provides a high-level interface for interacting with the Circles protocol, focusing on features like user profiles, avatars, token transfers, and contract interactions. It integrates with Circles V1 and V2 hubs, and enables registration, migration, and management of avatars and profiles.
+### Sdk class
 
-## **Class: `Sdk`**
+Constructor: `new Sdk(config?: CirclesConfig, contractRunner?: ContractRunner)`
 
-This class implements the `SdkInterface`, which provides core functionality to interact with the Circles protocol.
+* `config` defaults to `circlesConfig[100]` (Gnosis)
+* `contractRunner` required for any state-changing call (see ContractRunner below)
 
-The `Sdk` class implements the following interface:
+Top-level properties:
 
-```typescript
-import { Avatar } from './avatar';
-import { CirclesConfig } from './circlesConfig';
-import { V1Pathfinder } from './v1/pathfinderV1';
-import { AvatarInterface } from './AvatarInterface';
-import { EthSafeTransaction } from "@safe-global/protocol-kit";
-import { Hub as HubV1, NameRegistryV1 } from '@circles-sdk/abi-v1';
-import { CMGroupDeployer, BaseGroupFactory, DemurrageCircles, Hub as HubV2, InflationaryCircles, NameRegistry } from '@circles-sdk/abi-v2';
-import { AvatarRow, CirclesData, CirclesRpc } from '@circles-sdk/data';
-import { Address } from '@circles-sdk/utils';
-import { GroupProfile, Profile, Profiles } from '@circles-sdk/profiles';
-import { ContractTransactionReceipt } from 'ethers';
-import { SdkContractRunner } from '@circles-sdk/adapter';
-import { V2Pathfinder } from './v2/pathfinderV2';
-import { GroupType } from '@circles-sdk/data/dist/circlesDataInterface';
-/**
- * The SDK interface.
- */
-interface SdkInterface {
-    /**
-     * The signer used to sign transactions (connected wallet e.g. MetaMask).
-     */
-    contractRunner: SdkContractRunner;
-    /**
-     * The chain specific Circles configuration (contract addresses and rpc endpoints).
-     */
-    circlesConfig: CirclesConfig;
-    /**
-     * A configured instance of the CirclesData class, an easy-to-use wrapper around
-     * the Circles RPC Query API.
-     */
-    data: CirclesData;
-    /**
-     * An instance of the typechain generated Circles V1 Hub contract wrapper.
-     */
-    v1Hub: HubV1;
-    /**
-     * An instance of the typechain generated Circles V2 Hub contract wrapper.
-     */
-    v2Hub?: HubV2;
-    /**
-     * An instance of the v1 Pathfinder client (necessary for transfers; only available on gnosis chain with v1 Circles at the moment).
-     */
-    v1Pathfinder?: V1Pathfinder;
-    /**
-     * An instance of the v2 Pathfinder client.
-     */
-    v2Pathfinder?: V2Pathfinder;
-    /**
-     * An instance of the v2 Core Members Group deployer.
-     */
-    coreMembersGroupDeployer?: CMGroupDeployer;
-    /**
-     * An instance of the v2 Base Group deployer.
-     */
-    baseGroupFactory?: BaseGroupFactory;
-    /**
-     * Stores and retrieves profiles from the Circles profile service.
-     */
-    profiles?: Profiles;
-    /**
-     * Gets an Avatar instance by its address. Fails if the avatar is not signed up at Circles.
-     * @param avatarAddress The avatar's address.
-     * @returns The Avatar instance.
-     */
-    getAvatar: (avatarAddress: Address) => Promise<Avatar>;
-    /**
-     * Registers the connected wallet as a human avatar in Circles v1.
-     * @returns The Avatar instance.
-     */
-    registerHuman: () => Promise<AvatarInterface>;
-    /**
-     * Registers the connected wallet as an organization avatar in Circles v1.
-     */
-    registerOrganization: () => Promise<AvatarInterface>;
-    /**
-     * Registers the connected wallet as an organization avatar in Circles v2.
-     * @param profile The profile data of the organization.
-     */
-    registerOrganizationV2: (profile: Profile) => Promise<AvatarInterface>;
-    /**
-     * Registers the connected wallet as a group avatar in Circles v2.
-     * @param mint The address of the minting policy contract to use.
-     * @param profile The profile data of the group.
-     */
-    registerGroupV2: (mint: Address, profile: GroupProfile) => Promise<AvatarInterface>;
-    /**
-     * Migrates a v1 avatar and all its Circles holdings to v2.
-     * [[ Currently only works for human avatars. ]]
-     * @param inviter The address of the avatar that invited the user to v2. Can be 'ZeroAddress' during migration period.
-     * @param avatar The avatar's address.
-     * @param profile The profile data of the avatar.
-     * @trustRelations An optional list of trust relations to migrate.
-     */
-    migrateAvatar: (inviter: Address, avatar: Address, profile: Profile, trustRelations?: string[]) => Promise<void | EthSafeTransaction>;
-    /**
-     * Creates or updates a user profile.
-     *
-     * @param {Profile | string} profile - Profile object containing user information or a CID pointing to an existing profile.
-     * @returns {Promise<ContractTransactionReceipt>} - A promise that resolves to the transaction receipt of the operation.
-     */
-    createOrUpdateProfile: (profile: Profile | string) => Promise<ContractTransactionReceipt>;
-    /**
-     * Checks if an avatar can self-migrate to v2.
-     * @param avatarInfo The avatar's info.
-     */
-    canSelfMigrate: (avatarInfo: AvatarRow) => Promise<boolean>;
-}
-/**
- * The SDK provides a high-level interface to interact with the Circles protocol.
- */
-export declare class Sdk implements SdkInterface {
-    /**
-     * The signer used to sign transactions.
-     */
-    readonly contractRunner: SdkContractRunner;
-    /**
-     * The chain specific Circles configuration.
-     */
-    readonly circlesConfig: CirclesConfig;
-    /**
-     * The Circles RPC client.
-     */
-    readonly circlesRpc: CirclesRpc;
-    /**
-     * The Circles data client.
-     */
-    readonly data: CirclesData;
-    /**
-     * The typechain generated V1 hub contract wrapper.
-     */
-    readonly v1Hub: HubV1;
-    /**
-     * The typechain generated V2 hub contract wrapper.
-     */
-    readonly v2Hub?: HubV2;
-    /**
-     * The typechain generated NameRegistry contract wrapper.
-     */
-    readonly nameRegistry?: NameRegistry;
-    /**
-     * The typechain generated V1NameRegistry contract wrapper.
-     */
-    readonly v1NameRegistry?: NameRegistryV1;
-    /**
-     * The pathfinder client (v1).
-     */
-    readonly v1Pathfinder?: V1Pathfinder;
-    /**
-     * The pathfinder client (v2).
-     */
-    readonly v2Pathfinder: V2Pathfinder;
-    /**
-     * The Core Members Group deployer (v2).
-     */
-    readonly coreMembersGroupDeployer?: CMGroupDeployer;
-    /**
-     * The Base Group deployer (v2).
-     */
-    readonly baseGroupFactory?: BaseGroupFactory;
-    /**
-     * The profiles service client.
-     */
-    readonly profiles?: Profiles;
-    /**
-     * Contains the bootstrap periods for each known hub contract.
-     */
-    readonly bootstrapPeriods: {
-        [contract: string]: number;
-    };
-    /**
-     * Creates a new SDK instance.
-     * @param contractRunner A contract runner instance and its address.
-     * @param config The optional chain specific Circles configuration.
-     */
-    constructor(contractRunner: SdkContractRunner, config?: CirclesConfig);
-    /**
-     * Gets an avatar by its address.
-     * @param avatarAddress The avatar's address.
-     * @param subscribe Whether to subscribe to avatar events.
-     * @returns The avatar instance.
-     * @throws If the given avatar address is not signed up at Circles.
-     */
-    getAvatar: (avatarAddress: Address, subscribe?: boolean) => Promise<Avatar>;
-    /**
-     * Creates or updates a profile and registers its CID in the NameRegistry.
-     *
-     * @param {Profile | string} profile - The profile information or profile ID to be created or updated.
-     * @returns {Promise<ContractTransactionReceipt>} - A promise that resolves to the transaction receipt.
-     * @throws {Error} - Throws an error if the Profiles service or NameRegistry is not configured,
-     *                   or if the transaction fails.
-     */
-    createOrUpdateProfile: (profile: Profile | string) => Promise<ContractTransactionReceipt>;
-    /**
-     * Registers the connected wallet as a human avatar.
-     * @returns The avatar instance.
-     */
-    registerHuman: () => Promise<AvatarInterface>;
-    /**
-     * If you have been invited to Circles, you can accept the invitation and join the Circles network.
-     * Specify who invited you and supply the profile you want to use with your new account.
-     * @param inviter The address of the avatar that invited you.
-     * @param cidV0 The CIDv0 of the avatar's ERC1155 token metadata.
-     */
-    acceptInvitation(inviter: Address, cidV0: string): Promise<AvatarInterface>;
-    /**
-     * If you have been invited to Circles, you can accept the invitation and join the Circles network.
-     * @param inviter The address of the avatar that invited you.
-     * @param profile The profile data of the avatar.
-     */
-    acceptInvitation(inviter: Address, profile: Profile): Promise<AvatarInterface>;
-    private _registerHuman;
-    /**
-     * Checks if the profile argument is a string or a Profile object and creates the profile if necessary.
-     * If the profile is a string, it must be a CIDv0 string (Qm...).
-     * @param profile The profile data or CIDv0 of the avatar.
-     * @private
-     */
-    private createProfileIfNecessary;
-    /**
-     * Registers the connected wallet as an organization avatar.
-     * @returns The avatar instance.
-     */
-    registerOrganization: () => Promise<AvatarInterface>;
-    /**
-     * Registers the connected wallet as an organization avatar in Circles v2.
-     * @param profile The profile data of the organization.
-     */
-    registerOrganizationV2: (profile: Profile) => Promise<AvatarInterface>;
-    /**
-     * Registers the connected wallet as a group avatar in Circles v2.
-     * @param mint The address of the minting policy contract to use.
-     * @param profile The profile data of the group.
-     */
-    registerGroupV2: (mint: Address, profile: GroupProfile) => Promise<AvatarInterface>;
-    private waitForAvatarInfo;
-    /**
-     * Migrates a v1 avatar, and optionally it's trust relations to v2.
-     * @param inviter The address of the avatar that invited the user to v2. Can be 'ZeroAddress' during migration period or if the account that's migrating stopped minting in v1 during the migration period.
-     * @param avatar The avatar's address.
-     * @param profile The profile data of the avatar.
-     * @param trustRelations An optional list of trust relations to migrate.
-     */
-    migrateAvatar: (inviter: Address, avatar: Address, profile: Profile, trustRelations?: string[], isRawCalldata?: boolean) => Promise<void | EthSafeTransaction>;
-    /**
-     * Checks if an avatar can self-migrate to v2.
-     * This is possible either during the migration period or if the avatar stopped minting in v1 before or during that period.
-     * @param avatarInfo The avatar's info.
-     * @private
-     */
-    canSelfMigrate(avatarInfo: AvatarRow): Promise<boolean>;
-    /**
-     * Migrates all V1 token holdings of an avatar to V2 using batch transactions.
-     * @param avatar The avatar whose tokens to migrate.
-     * @param tokens An optional list of token addresses to migrate. If not provided, all tokens will be migrated.
-     * @param batch An optional batch transaction to add transactions to.
-     */
-    migrateV1TokensBatch: (avatar: Address, tokens?: Address[], batch?: any) => Promise<void>;
-    /**
-     * Migrates all V1 token holdings of an avatar to V2.
-     * @param avatar The avatar whose tokens to migrate.
-     * @param tokens An optional list of token addresses to migrate. If not provided, all tokens will be migrated.
-     */
-    migrateV1Tokens: (avatar: Address, tokens?: Address[]) => Promise<void>;
-    getInflationaryWrapper: (wrapperAddress: Address) => Promise<InflationaryCircles>;
-    getDemurragedWrapper: (wrapperAddress: Address) => Promise<DemurrageCircles>;
-    isCoreMembersGroup: (avatar: Address) => Promise<boolean>;
-    getGroupType: (avatar: Address) => Promise<GroupType | undefined>;
-    /**
-     * Checks if the `to` address is a group minter and excludes the group tokens from the transfer
-     * if that's the case.
-     * @param to The receiver of the transfer
-     * @param excludeFromTokens The existing list of tokens to exclude from the transfer
-     * @returns The complete list of tokens to exclude from the transfer
-     */
-    getDefaultTokenExcludeList(to: Address, excludeFromTokens?: Address[]): Promise<Address[] | undefined>;
-}
-export {};
-//# sourceMappingURL=sdk.d.ts.map
+* `core`: low-level contract wrappers (`@aboutcircles/sdk-core`)
+* `rpc`: RPC client (`@aboutcircles/sdk-rpc`)
+* `profilesClient`: IPFS profile helper
+* `senderAddress`: present when a runner is provided
+* `data`: read helpers (see CirclesData)
 
-```
+#### Sdk methods
 
+* `getAvatar(address)` → `HumanAvatar | OrganisationAvatar | BaseGroupAvatar`
 
+**Registration (`sdk.register.*`)**
 
-### **Constructor**
+* `asHuman(inviter, profile)` → `HumanAvatar`
+* `asOrganization(profile)` → `OrganisationAvatar`
+* `asGroup(owner, service, feeCollection, initialConditions, name, symbol, profile)` → `BaseGroupAvatar`
 
-```typescript
-constructor(contractRunner: SdkContractRunner, config?: CirclesConfig)
-```
+**Profiles (`sdk.profiles.*`)**
 
-* **Parameters**:
-  * `contractRunner`: An instance of `SdkContractRunner`, which is responsible for signing transactions.
-  * `config`: Optional, an instance of `CirclesConfig`, containing chain-specific configurations (addresses and endpoints).
+* `create(profile)` → `cid`
+* `get(cid)` → `Profile | undefined`
 
+**Tokens (`sdk.tokens.*`)**
 
+* `getInflationaryWrapper(address)` → wrapper address or zero
+* `getDemurragedWrapper(address)` → wrapper address or zero
+* `getHolders(tokenAddress, limit?, sortOrder?)` → `PagedQuery<TokenHolderRow>`
 
-## **Additional Modules Used**
+**Groups (`sdk.groups.*`)**
 
-* `Avatar`: Represents the Circles avatar with methods for interacting with its state.
-* `CirclesConfig`: Holds chain-specific configurations such as contract addresses and RPC endpoints.
-* `Pathfinder`: Provides routing for token transfers on the Circles network.
-* `Profiles`: Manages avatar profiles within Circles.
-* `ContractTransactionReceipt`: Used to manage transactions and their receipts on the Ethereum blockchain.
+* `getType(avatar)` → group type (currently unsupported)
+* `getMembers(groupAddress, limit?, sortOrder?)` → `PagedQuery<GroupMemberRow>`
+* `getCollateral(groupAddress)` → `TokenBalance[]` (group treasury balances)
+* `getHolders(groupAddress, limit?)` → `PagedQuery<GroupTokenHolderRow>`
+
+### CirclesData (`sdk.data`)
+
+Read-only convenience interface:
+
+* `getAvatar(address)` → `AvatarInfo | undefined`
+* `getTrustRelations(address)` → `AggregatedTrustRelation[]`
+* `getBalances(address)` → `TokenBalance[]`
+
+### ContractRunner (required for writes)
+
+Minimal contract runner the SDK expects when sending transactions:
+
+* `address` (sender)
+* `publicClient` (viem client for reads)
+* `init(): Promise<void>`
+* `sendTransaction(txs: TransactionRequest[]): Promise<any>` Optional: `estimateGas`, `call`, `resolveName`, `sendBatchTransaction`.
+
+### Avatar interfaces (shared across Human/Organisation/BaseGroup)
+
+Obtained via `sdk.getAvatar(address)`. All mutate calls require a runner.
+
+#### balances
+
+* `getTotal()` → total CRC&#x20;
+* `getTokenBalances()` → `TokenBalanceRow[]`
+* `getTotalSupply()` → BigInt (not implemented for all types)
+
+#### trust
+
+* `add(avatar | avatar[], expiry?)`
+* `remove(avatar | avatar[])`
+* `isTrusting(address)` / `isTrustedBy(address)`
+* `getAll()` → `AggregatedTrustRelation[]`
+
+#### profile
+
+* `get()` → `Profile | undefined`
+* `update(profile)` → `cid`
+* `updateMetadata(cid)` → tx receipt
+* `registerShortName(nonce)` → tx receipt
+
+#### history
+
+* `getTransactions(limit?, sortOrder?)` → `PagedQuery<TransactionRow>`
+
+#### transfer
+
+* `direct(to, amount, tokenAddress?, txData?)` → tx receipt
+* `advanced(to, amount, options?)` → tx receipt (pathfinding + unwrap/rewrap)
+* `getMaxAmount(to)` / `getMaxAmountAdvanced(to, options?)` → `bigint`
+
+#### wrap
+
+* `asDemurraged(avatarAddress, amount)` → tx receipt
+* `asInflationary(avatarAddress, amount)` → tx receipt
+* `unwrapDemurraged(wrapperAddress, amount)` → tx receipt
+* `unwrapInflationary(wrapperAddress, amount)` → tx receipt
+
+#### events
+
+* `subscribeToEvents()` → sets `avatar.events` observable
+* `unsubscribeFromEvents()`
+* `events` → observable stream of Circles events
+
+### Human Avatar specifics
+
+#### personalToken
+
+* `getAvailableAmount()` → mintable CRC
+* `mint()` → tx receipt
+* `stop()` → tx receipt (irreversible)
+
+#### groupToken (aliases to `group` in HumanAvatar)
+
+* `mint(group, amount)` → pathfound transfer to mint handler
+* `getMaxMintableAmount(group)` → `bigint`
+* `redeem(group, amount)` → tx receipt (automatic redemption)
+* `properties.owner(group)` / `properties.mintHandler(group)`
+* `setProperties.owner(group, newOwner)`
+* `setProperties.mintHandler(group, newHandler)`
+
+### Organisation Avatar specifics
+
+Same `groupToken` surface as HumanAvatar; lacks personal minting.
+
+### BaseGroup Avatar specifics
+
+#### groupToken (group operations)
+
+* `mint(group, amount)`
+* `getMaxMintableAmount(group)`
+* `redeem(group, amount)`
+* `properties.owner(group)` / `properties.mintHandler(group)`
+* `setProperties.owner(group, newOwner)`
+* `setProperties.mintHandler(group, newHandler)`
+
+#### base group admin (inherited from CommonAvatar group alias)
+
+* `setProperties.memberRequirement(group, newRequirement)`
+* `setProperties.baseName(group, name, symbol)`
+
+### Notes
+
+* Provide a `ContractRunner` for any write call; you can use `SafeBrowserRunner`/`SafeContractRunner` or your own viem-based runner.
+* Pathfinding options for transfers mirror `FindPathParams` (`useWrappedBalances`, token include/exclude lists, `maxTransfers`, `simulatedBalances`, etc.).

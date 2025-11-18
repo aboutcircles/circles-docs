@@ -28,8 +28,8 @@ Here are the deployed addresses for V1 hub and V2 hub that you should consider f
 
 If you want to skip directly to setting up Circles SDK in your application, you can jump to the SDK Configuration Guide which covers all the setup parameters.
 
-{% content-ref url="../legagcy-docs-circles-v1-sdk/getting-started-with-the-sdk.md" %}
-[getting-started-with-the-sdk.md](../legagcy-docs-circles-v1-sdk/getting-started-with-the-sdk.md)
+{% content-ref url="broken-reference" %}
+[Broken link](broken-reference)
 {% endcontent-ref %}
 
 <table data-view="cards"><thead><tr><th></th><th></th><th data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Circles V2 contract source code</strong></td><td>Review the codebase for Circles contracts V2 which follows ERC1155 standard, and manages personal, group and organisation avatars.</td><td><a href="https://github.com/aboutcircles/circles-contracts-v2">https://github.com/aboutcircles/circles-contracts-v2</a></td></tr><tr><td><strong>Circles V2 Reference docs</strong></td><td>Explore the latest updates and functionalities of Circles v2.0 Contracts with detailed documentation.</td><td><a href="https://aboutcircles.github.io/circles-contracts-v2/">https://aboutcircles.github.io/circles-contracts-v2/</a></td></tr><tr><td>Circles Profile Service</td><td>This service indexes and persists profile data from/to IPFS.</td><td><a href="https://github.com/aboutcircles/profile-service">https://github.com/aboutcircles/profile-service</a></td></tr></tbody></table>

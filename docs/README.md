@@ -12,12 +12,12 @@ coverY: 0
 
 ### Build on the Circles Protocol
 
-{% content-ref url="legagcy-docs-circles-v1-sdk/circles-sdk-overview.md" %}
-[circles-sdk-overview.md](legagcy-docs-circles-v1-sdk/circles-sdk-overview.md)
+{% content-ref url="broken-reference" %}
+[Broken link](broken-reference)
 {% endcontent-ref %}
 
-{% content-ref url="legagcy-docs-circles-v1-sdk/getting-started-with-the-sdk.md" %}
-[getting-started-with-the-sdk.md](legagcy-docs-circles-v1-sdk/getting-started-with-the-sdk.md)
+{% content-ref url="broken-reference" %}
+[Broken link](broken-reference)
 {% endcontent-ref %}
 
 {% content-ref url="querying-circles-profiles-and-data/circles-api-specifications.md" %}

@@ -34,34 +34,7 @@
     * [Creation of Organizations](circles-sdk/circles-avatars/organization-avatars/creation-of-organizations.md)
     * [Managing trust connections via Org avatar account](circles-sdk/circles-avatars/organization-avatars/managing-trust-connections-via-org-avatar-account.md)
 * [Wrapping and Unwrapping](circles-sdk/wrapping-and-unwrapping.md)
-
-## Legagcy Docs (Circles v1 sdk)
-
-* [The Circles Stack](legagcy-docs-circles-v1-sdk/the-circles-protocol.md)
-* [Circles SDK Overview](legagcy-docs-circles-v1-sdk/circles-sdk-overview.md)
-* [Quickstart Guide for Circles SDK](legagcy-docs-circles-v1-sdk/getting-started-with-the-sdk.md)
-* [Setting Circles Profiles](legagcy-docs-circles-v1-sdk/circles-profiles.md)
-* [Building with different Circles Avatars](legagcy-docs-circles-v1-sdk/circles-avatars/README.md)
-  * [Personal / Human Avatars](legagcy-docs-circles-v1-sdk/circles-avatars/personal-human-avatars/README.md)
-    * [Inviting and accepting human avatars](legagcy-docs-circles-v1-sdk/circles-avatars/personal-human-avatars/inviting-and-accepting-human-avatars.md)
-    * [Mint personal tokens](legagcy-docs-circles-v1-sdk/circles-avatars/personal-human-avatars/mint-personal-tokens.md)
-    * [Fetching profile of an human avatar](legagcy-docs-circles-v1-sdk/circles-avatars/personal-human-avatars/handle-profile-of-an-avatar.md)
-    * [Manage trust connections](legagcy-docs-circles-v1-sdk/circles-avatars/personal-human-avatars/manage-trust-connections.md)
-    * [Get token balances of an avatar](legagcy-docs-circles-v1-sdk/circles-avatars/personal-human-avatars/get-token-balances-of-an-avatar.md)
-    * [Transfer personal Circles tokens to different avatar](legagcy-docs-circles-v1-sdk/circles-avatars/personal-human-avatars/transfer-personal-circles-tokens-to-different-avatar.md)
-  * [Group Avatars](legagcy-docs-circles-v1-sdk/circles-avatars/group-avatars/README.md)
-    * [Create Base Groups for your community](legagcy-docs-circles-v1-sdk/circles-avatars/group-avatars/create-base-groups-for-your-community.md)
-    * [Mint group tokens](legagcy-docs-circles-v1-sdk/circles-avatars/group-avatars/mint-group-tokens.md)
-    * [Managing group invites](legagcy-docs-circles-v1-sdk/circles-avatars/group-avatars/managing-group-invites.md)
-    * [Find groups and memberships](legagcy-docs-circles-v1-sdk/circles-avatars/group-avatars/find-groups-and-memberships.md)
-    * [Getting total supply of group tokens available](legagcy-docs-circles-v1-sdk/circles-avatars/group-avatars/getting-total-supply-of-group-tokens-available.md)
-  * [Organization Avatars](legagcy-docs-circles-v1-sdk/circles-avatars/organization-avatars/README.md)
-    * [Creation of Organizations](legagcy-docs-circles-v1-sdk/circles-avatars/organization-avatars/creation-of-organizations.md)
-    * [Managing trust connections via Org avatar account](legagcy-docs-circles-v1-sdk/circles-avatars/organization-avatars/managing-trust-connections-via-org-avatar-account.md)
-* [Working with Circles Adapters](legagcy-docs-circles-v1-sdk/working-with-circles-adapters/README.md)
-  * [Ethers Adapter](legagcy-docs-circles-v1-sdk/working-with-circles-adapters/ethers-adapter.md)
-  * [Safe Adapter](legagcy-docs-circles-v1-sdk/working-with-circles-adapters/safe-adapter.md)
-* [Wrapping and Unwrapping](legagcy-docs-circles-v1-sdk/wrapping-and-unwrapping.md)
+* [Pathfinder](circles-sdk/pathfinder.md)
 
 ## Tutorials and Examples
 
@@ -79,7 +52,6 @@
 
 * [Circles SDK interface](circles-sdk-reference/circles-sdk-interface.md)
 * [SDK Methods](circles-sdk-reference/sdk-methods.md)
-* [Circles Data Methods](circles-sdk-reference/circles-data-methods.md)
 * [Circles Events Types](circles-sdk-reference/circles-events-types.md)
 
 ## Developer Support
