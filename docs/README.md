@@ -20,8 +20,8 @@ coverY: 0
 [Broken link](broken-reference)
 {% endcontent-ref %}
 
-{% content-ref url="querying-circles-profiles-and-data/circles-api-specifications.md" %}
-[circles-api-specifications.md](querying-circles-profiles-and-data/circles-api-specifications.md)
+{% content-ref url="broken-reference" %}
+[Broken link](broken-reference)
 {% endcontent-ref %}
 
 ### About Circles
