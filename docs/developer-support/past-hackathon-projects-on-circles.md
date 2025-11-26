@@ -32,3 +32,10 @@ Voting with UBI is a dapp which implements a voting mechanism for DAOs by utiliz
 
 {% embed url="https://ethglobal.com/showcase/voting-with-ubi-k56uu" %}
 
+### 3. EthGlobal Prague 2025
+
+Circles Subscriptz allows users to securely, trustlesly & smoothly authorize recurring payments.
+
+{% embed url="https://ethglobal.com/showcase/circles-subscriptz-tgfhj" %}
+Winner of Blockscout Explorer Pool Prize
+{% endembed %}
