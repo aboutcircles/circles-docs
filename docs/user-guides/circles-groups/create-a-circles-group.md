@@ -13,7 +13,7 @@ icon: wand-magic-sparkles
 Make sure you’ve completed these before continuing.
 
 * [x] You’ve installed a wallet, [Rabby](https://rabby.io/) or [Metamask](https://metamask.io/)
-* [x] You’ve received an invite link, and you have an active [Metri account](https://app.metri.xyz/circles)
+* [x] You’ve received an invite link, and you have an active [Gnosis app account](https://app.gnosis.io/circles)
 * [x] Open the [Circles App](https://app.aboutcircles.com/) and deploy a new [Safe](https://safe.global/)
 
 {% hint style="info" %}
@@ -103,10 +103,10 @@ Once you have added the addresses of all the members you wish to add to the grou
 
 **Editable fields:**
 
-* Group name - this is the name of the group as displayed in the Metri wallet
-* Group description - this is the description for the group that is also displayed in the Metri wallet
+* Group name - this is the name of the group as displayed in the Gnosis app
+* Group description - this is the description for the group that is also displayed in the Gnosis app
 * Location - optionally add a physical location for your group
-* Image - the profile image for your group, also displayed in the Metri wallet
+* Image - the profile image for your group, also displayed in the Gnosis app
 
 ![](https://hackmd.io/_uploads/SJhq7cGIel.png)
 
@@ -168,10 +168,10 @@ Once you have added the addresses of all the members you wish to add to the grou
 
 **Editable fields:**
 
-* Group name - this is the name of the group as displayed in the Metri wallet
-* Group description - this is the description for the group that is also displayed in the Metri wallet
+* Group name - this is the name of the group as displayed in the Gnosis app
+* Group description - this is the description for the group that is also displayed in the Gnosis app
 * Location - optionally add a physical location for your group
-* Image - the profile image for your group, also displayed in the Metri wallet
+* Image - the profile image for your group, also displayed in the Gnosis app
 
 ![](https://hackmd.io/_uploads/r17fV9zUxx.png)
 
