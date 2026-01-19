@@ -12,16 +12,16 @@ coverY: 0
 
 ### Build on the Circles Protocol
 
-{% content-ref url="broken-reference" %}
-[Broken link](broken-reference)
+{% content-ref url="/broken/pages/IMIhhGo4QR2ecqId9vgj" %}
+[Broken link](/broken/pages/IMIhhGo4QR2ecqId9vgj)
 {% endcontent-ref %}
 
-{% content-ref url="broken-reference" %}
-[Broken link](broken-reference)
+{% content-ref url="/broken/pages/dmWDPOpm6jExckgag27o" %}
+[Broken link](/broken/pages/dmWDPOpm6jExckgag27o)
 {% endcontent-ref %}
 
-{% content-ref url="broken-reference" %}
-[Broken link](broken-reference)
+{% content-ref url="/broken/pages/Pd75UYlSjUvWoGsExyqi" %}
+[Broken link](/broken/pages/Pd75UYlSjUvWoGsExyqi)
 {% endcontent-ref %}
 
 ### About Circles
@@ -34,9 +34,8 @@ Under the hood, Circles relies on five simple rules:
 * A **Rule of Trust** lets users swap CRC 1:1 along their social trust graph, so individual non-fungible “personal monies” converge into a commonly spendable currency.&#x20;
 * **Members of a Circles Groups** can mint a shared CRC backed by members’ coins, giving communities their own monetary layer.&#x20;
 
-Together these rules guarantee fair access to new money while deterring Sybil attacks and other abuses.
+Circles also uses an invitation system for onboarding: existing users invite newcomers by paying 96 CRC, while the invitee receives 48 CRC as a welcome bonus. This helps protect network integrity and creates a meaningful cost to discourage spam accounts and Sybil style abuse.
 
-Because payments flow along real-world social links, Circles is both resilient and versatile. Trust can be revoked at any time, shielding honest users from malicious actors, yet the transitive nature of swaps means you can still pay strangers seamlessly. Groups and Organizations add a “fast lane” for adoption: they pool liquidity, act as local or thematic currencies, and let communities balance efficiency against security. The result is a self-governing monetary network in which issuance, security and economic coordination rest with the people who use it.\
-
+Because payments flow along real-world social links, Circles is both resilient and versatile. Trust can be revoked at any time, shielding honest users from malicious actors, yet the transitive nature of swaps means you can still pay strangers seamlessly. Groups and Organizations add a “fast lane” for adoption: they pool liquidity, act as local or thematic currencies, and let communities balance efficiency against security. The result is a self-governing monetary network in which issuance, security and economic coordination rest with the people who use it.<br>
 
 This documentation helps developers explore Circles’ capabilities and delve into the Circles SDK and its various components.
