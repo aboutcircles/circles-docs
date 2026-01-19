@@ -58,11 +58,3 @@
 * [Glossary](developer-support/glossary.md)
 * [Circles Tools](developer-support/circles-tools.md)
 * [Past Hackathon Projects on Circles](developer-support/past-hackathon-projects-on-circles.md)
-
-## User Guides
-
-* [Circles Groups](user-guides/circles-groups/README.md)
-  * [Create a Circles Group](user-guides/circles-groups/create-a-circles-group.md)
-  * [Technical Group Details](user-guides/circles-groups/technical-group-details.md)
-  * [Validation and Use Cases](user-guides/circles-groups/validation-and-use-cases.md)
-* [Contributing Guide](user-guides/contributing-guide.md)
