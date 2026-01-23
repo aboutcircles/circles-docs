@@ -1,7 +1,7 @@
 ---
 icon: font-awesome
-cover: .gitbook/assets/Circle_Docs_Banner_01.png
-coverY: 117.34464475079535
+cover: .gitbook/assets/Circle_Docs_Banner_02.png
+coverY: -117.34464475079535
 ---
 
 # Welcome to Circles
