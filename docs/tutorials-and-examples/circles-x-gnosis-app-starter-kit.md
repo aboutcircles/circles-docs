@@ -7,7 +7,7 @@ description: >-
 
 # Circles x Gnosis App Starter Kit
 
-<figure><img src="../.gitbook/assets/Screenshot 2026-01-30 at 7.40.10 PM.png" alt=""><figcaption></figcaption></figure>
+{% embed url="https://drive.google.com/file/d/1WyOV-bWKTlXYHHWVBQLBLFVPrhXY51rF/view?usp=sharing" %}
 
 {% embed url="https://github.com/aboutcircles/circles-gnosisApp-starter-kit" %}
 
