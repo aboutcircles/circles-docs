@@ -39,6 +39,7 @@
 ## Tutorials and Examples
 
 * [Setting up Circles SDK with React](tutorials-and-examples/setting-up-circles-sdk-with-react-and-javascript.md)
+* [Circles x Gnosis App Starter Kit](tutorials-and-examples/circles-x-gnosis-app-starter-kit.md)
 
 ## Querying Circles profiles and data
 
