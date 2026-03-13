@@ -74,7 +74,7 @@ interface MyGroupType extends EventRow {
 To execute the query definition, you'll need a `CirclesRpc` instance. Create one and pass the Circles rpc url to the constructor.
 
 ```typescript
-const circlesRpc = new CirclesRpc('https://chiado-rpc.aboutcircles.com');
+const circlesRpc = new CirclesRpc('https://rpc.aboutcircles.com/');
 ```
 
 Then create a `CirclesQuery<MyGroupType>` instance.
