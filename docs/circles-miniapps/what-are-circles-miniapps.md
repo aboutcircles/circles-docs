@@ -1,5 +1,7 @@
 # What are Circles MiniApps?
 
+<figure><img src="../.gitbook/assets/circlesminiapps.png" alt=""><figcaption></figcaption></figure>
+
 Circles MiniApps are focused web applications built around Circles.
 
 They are designed to deliver a narrow, task-specific experience rather than a full wallet or a broad product surface.
