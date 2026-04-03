@@ -314,53 +314,7 @@ Avoid heavy blocking work on input/change handlers.
 * Protect against accidental double-submission (disable buttons during pending).
 * Keep domain allowlists for outbound links.
 
-### 15. Testing Strategy
-
-#### 15.1 Unit tests
-
-Test pure modules:
-
-* amount parsers/formatters
-* address validation
-* URL sanitization
-* error normalization
-
-#### 15.2 Integration tests (mock host bridge)
-
-Mock:
-
-* `onWalletChange`
-* `sendTransactions`
-* `signMessage`
-
-Verify:
-
-* state transitions
-* action pipeline behavior
-* failure handling
-
-#### 15.3 Host E2E tests
-
-Validate in the real host:
-
-* wallet connect/disconnect behavior
-* single and batched transaction submissions
-* rejection/approval UX
-* signature flows
-* deep-link or app-data scenarios
-
-### 16. Deployment and Operability
-
-* Build with deterministic lockfile.
-* Publish assets over HTTPS.
-* Set cache headers intentionally (immutable for hashed assets).
-* Add runtime analytics/events for:
-  * wallet connected/disconnected
-  * transaction requested/submitted/failed
-  * signature requested/completed/failed
-* Log only non-sensitive metadata.
-
-### 17. Generic Starter Skeleton
+### Generic Starter Skeleton
 
 ```js
 import { getAddress, isAddress } from 'viem';
