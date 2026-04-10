@@ -166,7 +166,7 @@ Why this is critical:
 * Keeps write paths auditable.
 * Makes retries and logging straightforward.
 
-### 7. Standard Action Pipeline
+### Standard Action Pipeline
 
 For every write action (any state-changing on-chain operation), use this pipeline:
 
