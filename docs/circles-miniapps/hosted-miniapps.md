@@ -1,10 +1,12 @@
 # Hosted MiniApps
 
-This is a practical, end-to-end technical guide for building miniapps that run inside the Circles miniapp host and communicate through `@aboutcircles/miniapp-sdk`.
+This is a practical, end-to-end technical guide for building miniapps that run inside the Circles miniapp host and communicate through [`@aboutcircles/miniapp-sdk`](https://www.npmjs.com/package/@aboutcircles/miniapp-sdk).
 
-The guide is intentionally generic: it does not assume any specific app domain (groups, treasury, profiles, etc.). Use it as a production blueprint for any miniapp feature set.
+{% hint style="info" %}
+If you are a vibecode developer, you can simply copy the entire page using the button above and paste in your coding environment
+{% endhint %}
 
-### 1. Mental Model: How Miniapps Run
+### Mental Model: How Miniapps Run?
 
 A Circles-compatible miniapp is a web app rendered in an iframe inside a host application.
 
@@ -17,7 +19,7 @@ This means:
 * Local browser testing is useful for UI and logic.
 * End-to-end wallet/transaction testing must happen in the host.
 
-### 2. SDK Capabilities (Current Surface)
+### SDK Capabilities&#x20;
 
 The SDK currently exposes:
 
@@ -37,9 +39,9 @@ type Transaction = {
 };
 ```
 
-### 3. Project Setup
+### Project Setup
 
-#### 3.1 Create the app
+#### Create the app
 
 ```bash
 npm create vite@latest my-miniapp -- --template vanilla
@@ -54,7 +56,7 @@ Add additional Circles SDK packages only if your use case needs them:
 npm i @aboutcircles/sdk-core @aboutcircles/sdk-rpc @aboutcircles/sdk-profiles @aboutcircles/sdk-transfers @aboutcircles/sdk-utils
 ```
 
-#### 3.2 Suggested structure
+#### Suggested structure
 
 ```
 src/
@@ -74,7 +76,7 @@ main.js
 
 Keep host bridge logic isolated from domain logic.
 
-### 4. Bootstrapping the Host Bridge
+### &#x20;Bootstrapping the Host Bridge
 
 Create a dedicated bridge module:
 
@@ -93,7 +95,7 @@ export { isMiniappMode, onAppData, onWalletChange, sendTransactions, signMessage
 
 Use `onWalletChange` as the app’s wallet truth source.
 
-### 5. Wallet Lifecycle Pattern
+### Wallet Lifecycle Pattern
 
 Implement wallet lifecycle as a finite-state flow:
 
@@ -134,7 +136,7 @@ Rules:
 * Always reset account-scoped caches on wallet changes.
 * Never assume prior in-memory state is still valid after reconnects.
 
-### 6. Transaction Submission Pattern
+### Transaction Submission Pattern
 
 Always format and submit transactions through one adapter.
 
@@ -198,7 +200,7 @@ export async function performAction(input) {
 }
 ```
 
-### 8. Signing Flows (`signMessage`)
+### Signing Flows (`signMessage`)
 
 Use `signMessage` when your backend or protocol needs host-backed signatures.
 
@@ -214,7 +216,7 @@ Guidance:
 * Prefer `'erc1271'` unless you explicitly require raw bytes semantics.
 * Persist signature type with the signature payload for verifier correctness.
 
-### 9. App Data Injection (`onAppData`)
+### App Data Injection (`onAppData`)
 
 The host can pass app-specific context via query data.
 
@@ -237,7 +239,7 @@ onAppData((raw) => {
 
 Never trust raw host data without validation.
 
-### 10. Validation and Type Safety
+### Validation and Type Safety
 
 Minimum validation set:
 
@@ -248,7 +250,7 @@ Minimum validation set:
 
 Keep pure validation helpers in a dedicated module and test them directly.
 
-### 11. Error Handling and Recovery
+### Error Handling and Recovery
 
 Design a predictable error model:
 
@@ -274,7 +276,7 @@ For recoverable host issues:
 * preserve user input where safe
 * do not silently retry state-changing actions
 
-### 12. Concurrency and Race Control
+### Concurrency and Race Control
 
 Use request IDs for async operations that may race:
 
@@ -294,25 +296,6 @@ Apply to:
 * debounced search
 * paginated loads
 * wallet-dependent initialization
-
-### 13. Performance Practices
-
-* Debounce user-driven remote search.
-* Cache immutable reference data.
-* Batch on-chain reads where available.
-* Defer non-critical UI hydration.
-* Split vendor chunks in build output.
-
-Avoid heavy blocking work on input/change handlers.
-
-### 14. Security Checklist
-
-* Never hardcode private keys, tokens, or secrets in frontend.
-* Escape/sanitize all user-controlled HTML output.
-* Validate all host-injected and URL-provided data.
-* Re-validate critical preconditions before tx submission.
-* Protect against accidental double-submission (disable buttons during pending).
-* Keep domain allowlists for outbound links.
 
 ### Generic Starter Skeleton
 
