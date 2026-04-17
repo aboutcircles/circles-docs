@@ -1,6 +1,6 @@
 # What are Circles MiniApps?
 
-<figure><img src="../.gitbook/assets/circlesminiapps.png" alt=""><figcaption></figcaption></figure>
+<div align="left" data-full-width="false"><figure><img src="../.gitbook/assets/circlesminiapps.png" alt="" width="563"><figcaption></figcaption></figure></div>
 
 Circles MiniApps are focused web applications built around Circles.
 
