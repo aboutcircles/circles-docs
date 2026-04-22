@@ -41,13 +41,6 @@
 * [Setting up Circles SDK with React](tutorials-and-examples/setting-up-circles-sdk-with-react-and-javascript.md)
 * [Circles x Gnosis App Starter Kit](tutorials-and-examples/circles-x-gnosis-app-starter-kit.md)
 
-## Circles MiniApps
-
-* [What are Circles MiniApps?](circles-miniapps/what-are-circles-miniapps.md)
-* [Hosted MiniApps](circles-miniapps/hosted-miniapps.md)
-* [QR-initiated MiniApps](circles-miniapps/qr-initiated-miniapps/README.md)
-  * [Simple Vibecoding Tutorial](circles-miniapps/qr-initiated-miniapps/simple-vibecoding-tutorial.md)
-
 ## Querying Circles profiles and data
 
 * [Query Circles Data](querying-circles-profiles-and-data/query-data.md)
