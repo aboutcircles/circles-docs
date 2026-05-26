@@ -30,7 +30,6 @@
     * [Managing group invites](circles-sdk/circles-avatars/group-avatars/managing-group-invites.md)
     * [Find groups and memberships](circles-sdk/circles-avatars/group-avatars/find-groups-and-memberships.md)
     * [Getting total supply of group tokens available](circles-sdk/circles-avatars/group-avatars/getting-total-supply-of-group-tokens-available.md)
-    * [Migrate your group and update its details](circles-sdk/circles-avatars/group-avatars/migrate-group-and-update-details.md)
   * [Organization Avatars](circles-sdk/circles-avatars/organization-avatars/README.md)
     * [Creation of Organizations](circles-sdk/circles-avatars/organization-avatars/creation-of-organizations.md)
     * [Managing trust connections via Org avatar account](circles-sdk/circles-avatars/organization-avatars/managing-trust-connections-via-org-avatar-account.md)
@@ -60,3 +59,10 @@
 * [Glossary](developer-support/glossary.md)
 * [Circles Tools](developer-support/circles-tools.md)
 * [Past Hackathon Projects on Circles](developer-support/past-hackathon-projects-on-circles.md)
+
+## User Guides
+
+* [Circles Groups](user-guides/circles-groups/README.md)
+  * [Create a Circles Group](user-guides/circles-groups/create-a-circles-group-using-circles-core-app.md)
+  * [Migrate your group and update its details](user-guides/circles-groups/migrate-group-and-update-details.md)
+  * [Technical Group Details](user-guides/circles-groups/technical-group-details.md)

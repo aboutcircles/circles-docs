@@ -36,7 +36,7 @@ Open the Group Checker and locate your group:
 
 In the **Owner** column, find the owner Safe of your group and click the wallet symbol next to it to open it in the Safe UI.
 
-<figure><img src="../../../.gitbook/assets/group-checker-owner-safe.png" alt=""><figcaption><p>The Owner column in the Group Checker. Click the wallet symbol to open the owner Safe.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/group-checker-owner-safe.png" alt=""><figcaption><p>The Owner column in the Group Checker. Click the wallet symbol to open the owner Safe.</p></figcaption></figure>
 
 ### Step 3: Connect to the Safe UI
 
@@ -46,7 +46,7 @@ Connect to the Safe UI using your owner EOA — the wallet that owns the Safe.
 
 Locate the address of your personal Circles profile (for example, via the Gnosis App).
 
-<figure><img src="../../../.gitbook/assets/circles-profile-wallet-address.png" alt=""><figcaption><p>In the Gnosis App, open the QR code panel and copy your wallet address from the Advanced section.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/circles-profile-wallet-address.png" alt=""><figcaption><p>In the Gnosis App, open the QR code panel and copy your wallet address from the Advanced section.</p></figcaption></figure>
 
 ### Step 5: Add your Circles address as a signer
 
