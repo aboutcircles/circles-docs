@@ -1,4 +1,8 @@
-# Invitations and
+---
+icon: envelope
+---
+
+# Invitations and Referrals
 
 Use the Circles SDK to spend invite quota that an inviter already holds and register new humans on Circles.
 
