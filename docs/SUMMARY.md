@@ -35,6 +35,7 @@
     * [Managing trust connections via Org avatar account](circles-sdk/circles-avatars/organization-avatars/managing-trust-connections-via-org-avatar-account.md)
 * [Wrapping and Unwrapping](circles-sdk/wrapping-and-unwrapping.md)
 * [Pathfinder](circles-sdk/pathfinder.md)
+* [Invitations and](circles-sdk/invitations-and.md)
 
 ## Tutorials and Examples
 
