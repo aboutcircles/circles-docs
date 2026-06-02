@@ -2,6 +2,27 @@
 icon: font-awesome
 cover: .gitbook/assets/Circle_Docs_Banner_02.png
 coverY: -117.34464475079535
+layout:
+  width: default
+  cover:
+    visible: true
+    size: full
+  title:
+    visible: true
+  description:
+    visible: true
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+  actions:
+    visible: true
 ---
 
 # Welcome to Circles
