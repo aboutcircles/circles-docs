@@ -4,7 +4,7 @@ icon: inbox-full
 
 # Circles SDK interface
 
-### Sdk class
+#### Sdk class
 
 Constructor: `new Sdk(config?: CirclesConfig, contractRunner?: ContractRunner)`
 
@@ -19,7 +19,7 @@ Top-level properties:
 * `senderAddress`: present when a runner is provided
 * `data`: read helpers (see CirclesData)
 
-#### Sdk methods
+**Sdk methods**
 
 * `getAvatar(address)` → `HumanAvatar | OrganisationAvatar | BaseGroupAvatar`
 
@@ -47,7 +47,7 @@ Top-level properties:
 * `getCollateral(groupAddress)` → `TokenBalance[]` (group treasury balances)
 * `getHolders(groupAddress, limit?)` → `PagedQuery<GroupTokenHolderRow>`
 
-### CirclesData (`sdk.data`)
+#### CirclesData (`sdk.data`)
 
 Read-only convenience interface:
 
@@ -55,7 +55,7 @@ Read-only convenience interface:
 * `getTrustRelations(address)` → `AggregatedTrustRelation[]`
 * `getBalances(address)` → `TokenBalance[]`
 
-### ContractRunner (required for writes)
+#### ContractRunner (required for writes)
 
 Minimal contract runner the SDK expects when sending transactions:
 
@@ -64,91 +64,93 @@ Minimal contract runner the SDK expects when sending transactions:
 * `init(): Promise<void>`
 * `sendTransaction(txs: TransactionRequest[]): Promise<any>` Optional: `estimateGas`, `call`, `resolveName`, `sendBatchTransaction`.
 
-### Avatar interfaces (shared across Human/Organisation/BaseGroup)
+#### Avatar interfaces (shared across Human/Organisation/BaseGroup)
 
 Obtained via `sdk.getAvatar(address)`. All mutate calls require a runner.
 
-#### balances
+**balances**
 
-* `getTotal()` → total CRC&#x20;
+* `getTotal()` → total CRC
 * `getTokenBalances()` → `TokenBalanceRow[]`
 * `getTotalSupply()` → BigInt (not implemented for all types)
 
-#### trust
+**trust**
 
 * `add(avatar | avatar[], expiry?)`
 * `remove(avatar | avatar[])`
 * `isTrusting(address)` / `isTrustedBy(address)`
 * `getAll()` → `AggregatedTrustRelation[]`
 
-#### profile
+**profile**
 
 * `get()` → `Profile | undefined`
 * `update(profile)` → `cid`
 * `updateMetadata(cid)` → tx receipt
 * `registerShortName(nonce)` → tx receipt
 
-#### history
+**history**
 
 * `getTransactions(limit?, sortOrder?)` → `PagedQuery<TransactionRow>`
 
-#### transfer
+**transfer**
 
 * `direct(to, amount, tokenAddress?, txData?)` → tx receipt
 * `advanced(to, amount, options?)` → tx receipt (pathfinding + unwrap/rewrap)
 * `getMaxAmount(to)` / `getMaxAmountAdvanced(to, options?)` → `bigint`
 
-#### wrap
+**wrap**
 
 * `asDemurraged(avatarAddress, amount)` → tx receipt
 * `asInflationary(avatarAddress, amount)` → tx receipt
 * `unwrapDemurraged(wrapperAddress, amount)` → tx receipt
 * `unwrapInflationary(wrapperAddress, amount)` → tx receipt
 
-#### events
+**events**
 
 * `subscribeToEvents()` → sets `avatar.events` observable
 * `unsubscribeFromEvents()`
 * `events` → observable stream of Circles events
 
-### Human Avatar specifics
+#### Human Avatar specifics
 
-#### personalToken
+**personalToken**
 
-* `getAvailableAmount()` → mintable CRC
+* `getMintableAmount()` → `{ amount, startPeriod, endPeriod }` (mintable CRC + issuance window)
 * `mint()` → tx receipt
 * `stop()` → tx receipt (irreversible)
 
-#### groupToken (aliases to `group` in HumanAvatar)
+**groupToken (Human / Organisation)**
 
 * `mint(group, amount)` → pathfound transfer to mint handler
 * `getMaxMintableAmount(group)` → `bigint`
 * `redeem(group, amount)` → tx receipt (automatic redemption)
-* `properties.owner(group)` / `properties.mintHandler(group)`
-* `setProperties.owner(group, newOwner)`
-* `setProperties.mintHandler(group, newHandler)`
+* `properties.owner(group)` / `properties.mintHandler(group)` / `properties.treasury(group)` / `properties.service(group)` / `properties.feeCollection(group)` / `properties.getMembershipConditions(group)` — read-only (no setters on Human/Organisation)
 
-### Organisation Avatar specifics
+#### Organisation Avatar specifics
 
 Same `groupToken` surface as HumanAvatar; lacks personal minting.
 
-### BaseGroup Avatar specifics
+#### BaseGroup Avatar specifics
 
-#### groupToken (group operations)
+BaseGroup avatars do **not** expose a `groupToken` namespace. They manage their own group through no-arg getters and owner-only setters:
 
-* `mint(group, amount)`
-* `getMaxMintableAmount(group)`
-* `redeem(group, amount)`
-* `properties.owner(group)` / `properties.mintHandler(group)`
-* `setProperties.owner(group, newOwner)`
-* `setProperties.mintHandler(group, newHandler)`
+**properties (read-only, for this group)**
 
-#### base group admin (inherited from CommonAvatar group alias)
+* `owner()` / `mintHandler()` / `service()` / `feeCollection()`
+* `getMembershipConditions()` → `Address[]`
 
-* `setProperties.memberRequirement(group, newRequirement)`
-* `setProperties.baseName(group, name, symbol)`
+**setProperties (owner-only writes)**
 
-### Notes
+* `owner(newOwner)` → tx receipt
+* `service(newService)` → tx receipt
+* `feeCollection(newFeeCollection)` → tx receipt
+* `membershipCondition(condition, enabled)` → tx receipt
+
+**trust (group-specific addition)**
+
+* `addBatchWithConditions(members, expiry?)` → tx receipt (validates members against membership conditions before trusting)
+
+#### Notes
 
 * Provide a `ContractRunner` for any write call; you can use `SafeBrowserRunner`/`SafeContractRunner` or your own viem-based runner.
 * Pathfinding options for transfers mirror `FindPathParams` (`useWrappedBalances`, token include/exclude lists, `maxTransfers`, `simulatedBalances`, etc.).

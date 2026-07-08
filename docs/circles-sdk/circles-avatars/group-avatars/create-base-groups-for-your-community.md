@@ -4,21 +4,22 @@ icon: people-group
 
 # Create Base Groups for your community
 
-#### Base Groups are capable of following:
+**Base Groups are capable of following:**
 
 * They can set membership conditions to define who can be part of the group
 * They can register short names with a nonce
 * They can trust avatars individually or in batches with condition checks.
 
-### Create a Base Group
+#### Create a Base Group
 
 `sdk.register.asGroup` wraps profile pinning, factory deployment, and address extraction.
 
 ```ts
 import { Sdk } from '@aboutcircles/sdk';
+import { circlesConfig } from '@aboutcircles/sdk-core';
 
 const sdk = new Sdk(
-  { rpcUrl: 'https://rpc.aboutcircles.com' },
+  circlesConfig[100],
   runner // ContractRunner tied to your wallet
 );
 
@@ -43,7 +44,7 @@ console.log('Base group created at:', groupAvatar.address);
 
 The returned instance is a `BaseGroupAvatar`, ready for trust, membership, and admin actions.
 
-### Membership Management
+#### Membership Management
 
 ```ts
 // List current conditions
@@ -53,7 +54,7 @@ const conditions = await groupAvatar.properties.getMembershipConditions();
 await groupAvatar.setProperties.membershipCondition('0xCondition1', true);
 ```
 
-### Trust Management
+#### Trust Management
 
 ```ts
 // Trust avatars (default expiry = max uint96)
@@ -67,7 +68,7 @@ const oneYear = BigInt(Math.floor(Date.now() / 1000)) + 31536000n;
 await groupAvatar.trust.addBatchWithConditions(['0xC', '0xD'], oneYear);
 ```
 
-### Group Administration
+#### Group Administration
 
 ```ts
 // Change ownership / service / fee collection

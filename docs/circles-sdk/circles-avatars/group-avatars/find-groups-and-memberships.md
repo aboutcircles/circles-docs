@@ -2,18 +2,19 @@
 
 You can use the RPC helpers on `sdk.rpc.group` to search for Base Groups and to fetch memberships for an avatar. These methods work with cursor-based pagination via `PagedQuery`.
 
-### Initialize RPC Access
+#### Initialize RPC Access
 
 ```ts
 import { Sdk } from '@aboutcircles/sdk';
+import { circlesConfig } from '@aboutcircles/sdk-core';
 import { CirclesRpc } from '@aboutcircles/sdk-rpc';
 
 // Preferred: reuse the RPC client from an SDK instance
-const sdk = new Sdk({ rpcUrl: 'https://rpc.aboutcircles.com' });
+const sdk = new Sdk(circlesConfig[100]);
 const rpc = sdk.rpc;
 ```
 
-### Find Groups
+#### Find Groups
 
 Fetch groups with an optional filter and limit:
 
@@ -29,7 +30,7 @@ console.log('Retrieved groups:', groups);
 
 * `findGroups(limit, params?)` pulls pages under the hood and returns up to `limit` rows.
 
-### Get Group Memberships for an Avatar
+#### Get Group Memberships for an Avatar
 
 `getGroupMemberships` returns a `PagedQuery`; call `queryNextPage()` to iterate.
 
@@ -42,10 +43,10 @@ console.log('Memberships:', membershipsQuery.currentPage?.results);
 
 You can continue paging while `currentPage?.hasMore` is true.
 
-### Full Example
+#### Full Example
 
 ```ts
-const sdk = new Sdk({ rpcUrl: 'https://rpc.aboutcircles.com' });
+const sdk = new Sdk(circlesConfig[100]);
 const rpc = sdk.rpc;
 
 // Find groups whose names start with "Community"

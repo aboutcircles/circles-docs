@@ -1,13 +1,14 @@
 # Getting total supply of group tokens available
 
-Use `balances.getTotalSupply()` on avatars that expose a minted token (currently Base Groups).&#x20;
+Use `balances.getTotalSupply()` on avatars that expose a minted token (currently Base Groups).
 
-### Get Total Supply for a Base Group
+#### Get Total Supply for a Base Group
 
 ```ts
 import { Sdk, BaseGroupAvatar } from '@aboutcircles/sdk';
+import { circlesConfig } from '@aboutcircles/sdk-core';
 
-const sdk = new Sdk({ rpcUrl: 'https://rpc.aboutcircles.com' }, runner);
+const sdk = new Sdk(circlesConfig[100], runner);
 const avatar = await sdk.getAvatar('0xGroupAddress');
 
 if (avatar instanceof BaseGroupAvatar) {
