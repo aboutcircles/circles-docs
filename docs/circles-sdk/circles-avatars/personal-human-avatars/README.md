@@ -81,4 +81,4 @@ console.log(avatarFromProfile.avatarInfo);
 
 * Establish trust through `avatar.trust.add('0xFriend...', expiry?)`, remove trust via `avatar.trust.remove`, and inspect relationships using `avatar.trust.getAll()` or `avatar.trust.isTrusting`.
 * Transfer CRC with `avatar.transfer.direct('0xRecipient...', 25n * 10n ** 18n)` for simple paths, or `avatar.transfer.advanced` to opt into wrapped balances, token filters, or encoded metadata.
-* Replenish personal (unwrapped) CRC by converting wrapped holdings with `avatar.balances.replenish()`; the SDK uses the pathfinder to determine the optimal flow back to the avatar’s personal token.
+* To convert wrapped holdings back into personal (unwrapped) CRC, unwrap with `avatar.wrap.unwrapDemurraged(...)` / `avatar.wrap.unwrapInflationary(...)`, or send to yourself with `avatar.transfer.advanced(avatar.address, amount, { useWrappedBalances: true })` and let the pathfinder route the flow back to your personal token.

@@ -46,7 +46,7 @@
 
 * [Query Circles Data](querying-circles-profiles-and-data/query-data.md)
 * [Subscribing to Avatar events](querying-circles-profiles-and-data/subscribing-to-avatar-events.md)
-* [Utilising CirclesQuery Class](querying-circles-profiles-and-data/utilising-circlesquery-class.md)
+* [Utilising PagedQuery Class](querying-circles-profiles-and-data/utilising-circlesquery-class.md)
 * [Query Circles profiles](querying-circles-profiles-and-data/query-circles-profiles.md)
 
 ## Circles SDK Reference

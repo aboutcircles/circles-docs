@@ -11,7 +11,7 @@ Circles pathfinder calculates “how much and through which tokens can flow from
 
 ### Entry points
 
-* High-level SDK: `const rpc = (sdk as any).rpc; rpc.pathfinder.findPath / findMaxFlow`
+* High-level SDK: `sdk.rpc.pathfinder.findPath / findMaxFlow` (`sdk.rpc` is a public property — no cast needed)
 * Standalone: `const rpc = new CirclesRpc(config.circlesRpcUrl);`
 
 #### Methods
@@ -28,7 +28,10 @@ Circles pathfinder calculates “how much and through which tokens can flow from
 * `fromTokens` / `toTokens` (Address\[], optional): Only allow these token owners from sender/recipient sides.
 * `excludeFromTokens` / `excludeToTokens` (Address\[], optional): Ban specific token owners.
 * `simulatedBalances` (array, optional): Inject hypothetical balances `{ holder, token, amount, isWrapped, isStatic }`.
+* `simulatedTrusts` (array, optional): Inject hypothetical trust edges `{ truster, trustee }`.
+* `simulatedConsentedAvatars` (Address\[], optional): Treat these addresses as having granted ERC‑1155 operator approval. Affects which intermediate hops count as valid.
 * `maxTransfers` (number, optional): Hop cap; lower = faster, but may reduce flow.
+* `debugShowIntermediateSteps` (boolean, optional): Populate `PathfindingResult.debug` with the pipeline transformation stages.
 
 ### `findPath` (targeted route)
 
@@ -37,7 +40,7 @@ Computes a path for a requested amount; returns what is actually achievable plus
 ```ts
 import { CirclesRpc } from '@aboutcircles/sdk-rpc';
 
-const rpc = new CirclesRpc('https://rpc.circlesubi.network/');
+const rpc = new CirclesRpc('https://rpc.aboutcircles.com/');
 
 const path = await rpc.pathfinder.findPath({
   from: '0xSender',
@@ -57,6 +60,25 @@ console.log(path.transfers);  // [{ from, to, tokenOwner, value }]
 
 * `maxFlow` – achievable flow for this request.
 * `transfers` – ordered legs; `tokenOwner` is the ERC1155 owner or wrapper used in that hop.
+* `debug` – present only when `debugShowIntermediateSteps: true` was passed.
+
+#### Debugging a route
+
+Setting `debugShowIntermediateSteps: true` returns each stage of the transformation pipeline, which is useful when a route looks wrong and you need to see where it changed:
+
+```ts
+const path = await rpc.pathfinder.findPath({
+  from, to, targetFlow,
+  debugShowIntermediateSteps: true
+});
+
+path.debug?.rawPaths;       // raw solver output, incl. token-pool intermediary nodes
+path.debug?.collapsed;      // token pools collapsed to direct avatar → avatar flows
+path.debug?.routerInserted; // group mints routed (avatar → router → group)
+path.debug?.sorted;         // final on-chain execution order (collateral before mints)
+```
+
+Each stage is a `TransferStep[]`. Leave the flag off in production — it makes the response considerably larger.
 
 If `maxFlow < targetFlow`, decide to scale down or show an error.
 

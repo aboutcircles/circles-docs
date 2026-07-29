@@ -253,13 +253,19 @@ await avatar.trust.add('0xFriend'); // indefinite
 ```ts
 avatar.balances.getTotal(): Promise<bigint>;
 avatar.balances.getTokenBalances(): Promise<TokenBalanceRow[]>;
-avatar.history.getTransactions(limit?: number, sortOrder?: 'ASC' | 'DESC'): PagedQuery<TransactionRow>;
+avatar.balances.getTotalSupply(): Promise<bigint>;
+avatar.history.getTransactions(limit?: number): PagedQuery<TransactionRow>;
 ```
 
+* `getTransactions` uses cursor-based pagination; `limit` is the page size (default 50). Advance with `query.queryNextPage()` and read `query.currentPage`.
 * **Example:**
 
 ```ts
 const tokens = await avatar.balances.getTokenBalances();
+
+const query = avatar.history.getTransactions(20);
+await query.queryNextPage();
+query.currentPage.results.forEach(tx => console.log(tx.from, '->', tx.to, tx.circles));
 ```
 
 ### 13) Events
@@ -271,3 +277,83 @@ avatar.unsubscribeFromEvents();
 ```
 
 * **Returns:** `subscribeToEvents` resolves when WS subscription is active; `events` is an observable stream of Circles events.
+
+### 14) Invitations (avatar.invitation — Human only)
+
+```ts
+avatar.invitation.getReferralCode(): Promise<{ transactions: TransactionRequest[]; privateKey: Hex }>;
+avatar.invitation.invite(invitee: string): Promise<TransactionRequest[]>;
+avatar.invitation.getProxyInviters(): Promise<ProxyInviter[]>;
+avatar.invitation.getClaimableFreeInvites(): Promise<bigint>;
+avatar.invitation.findInvitePath(proxyInviterAddress?: string): Promise<PathfindingResult>;
+avatar.invitation.computeAddress(signer: string): string;
+avatar.invitation.generateReferrals(count: number): Promise<{ secrets: Hex[]; signers: string[]; transactionReceipt: TransactionReceipt }>;
+avatar.invitation.getQuota(): Promise<bigint>;
+avatar.invitation.getInvitationFee(): Promise<bigint>;
+avatar.invitation.getInvitationModule(): Promise<string>;
+avatar.invitation.listReferrals(limit?: number, offset?: number): Promise<ReferralPreviewList>;
+```
+
+* Use `getReferralCode()` when the invitee has **no** Safe yet, and `invite(invitee)` when they already have one but aren't registered.
+* `getClaimableFreeInvites()` returns `0` unless the avatar is an eligible Gnosis Pay user. When it's `> 0`, `invite()` and `getReferralCode()` automatically take the free-invite path instead of proxy inviters or farm quota.
+* `computeAddress` is synchronous — it does not return a promise.
+* **Example:**
+
+```ts
+const { transactions, privateKey } = await avatar.invitation.getReferralCode();
+// send `transactions` with your runner, then share `privateKey` with the invitee
+```
+
+### 15) Group memberships (avatar.group — Human only)
+
+```ts
+avatar.group.getGroupMemberships(limit?: number): PagedQuery<GroupMembershipRow>;
+avatar.group.getGroupMembershipsWithDetails(limit?: number): Promise<GroupRow[]>;
+```
+
+* `limit` defaults to 50 in both.
+* `getGroupMembershipsWithDetails` enriches each membership with the group's name, symbol, owner, treasury, mint handler and member count.
+* **Example:**
+
+```ts
+const groups = await avatar.group.getGroupMembershipsWithDetails();
+groups.forEach(g => console.log(`${g.name} (${g.symbol}) — ${g.memberCount} members`));
+```
+
+### 16) Referrals storage (sdk.referrals)
+
+```ts
+sdk.referrals.store(privateKey: string, inviter: string): Promise<void>;
+sdk.referrals.retrieve(privateKey: string): Promise<ReferralInfo>;
+sdk.referrals.listMine(): Promise<ReferralList>;
+```
+
+* Requires `referralsServiceUrl` in your `CirclesConfig`; every call throws a config error otherwise.
+* `retrieve` is a public endpoint (no auth). `listMine` requires an authenticated token provider.
+
+### 17) Transfer annotations (sdk.rpc.transaction)
+
+Reads the annotation blobs attached to CRC v2 transfers.
+
+```ts
+sdk.rpc.transaction.getTransferData(
+  address: string,
+  direction?: 'sent' | 'received' | null,
+  counterparty?: string | null,
+  fromBlock?: number | null,
+  toBlock?: number | null,
+  limit?: number,
+  cursor?: string | null
+): Promise<PagedResponse<TransferDataRow>>;
+```
+
+* `limit` defaults to 50. Pass `null` for any filter you want to skip — argument order is positional.
+* Each `TransferDataRow` carries a hex `data` blob; decode it with `decodeCrcV2TransferData` from `@aboutcircles/sdk-utils`.
+* **Example:**
+
+```ts
+import { decodeCrcV2TransferData } from '@aboutcircles/sdk-utils';
+
+const page = await sdk.rpc.transaction.getTransferData('0xAvatar...', 'sent');
+page.results.forEach(r => console.log(r.transactionHash, decodeCrcV2TransferData(r.data)));
+```

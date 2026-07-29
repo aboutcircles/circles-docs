@@ -15,9 +15,11 @@ Top-level properties:
 
 * `core`: low-level contract wrappers (`@aboutcircles/sdk-core`)
 * `rpc`: RPC client (`@aboutcircles/sdk-rpc`)
-* `profilesClient`: IPFS profile helper
+* `circlesConfig`: the resolved config this instance was built with
 * `senderAddress`: present when a runner is provided
 * `data`: read helpers (see CirclesData)
+
+The IPFS profile helper is internal; use the `sdk.profiles.*` namespace below instead.
 
 **Sdk methods**
 
@@ -38,14 +40,22 @@ Top-level properties:
 
 * `getInflationaryWrapper(address)` → wrapper address or zero
 * `getDemurragedWrapper(address)` → wrapper address or zero
-* `getHolders(tokenAddress, limit?, sortOrder?)` → `PagedQuery<TokenHolderRow>`
+* `getHolders(tokenAddress, limit?)` → `PagedQuery<TokenHolderRow>` (`limit` defaults to 100)
 
 **Groups (`sdk.groups.*`)**
 
-* `getType(avatar)` → group type (currently unsupported)
-* `getMembers(groupAddress, limit?, sortOrder?)` → `PagedQuery<GroupMemberRow>`
+* `getType(avatar)` → group type — **not implemented**; currently throws `SdkError.unsupportedOperation`
+* `getMembers(groupAddress, limit?)` → `PagedQuery<GroupMemberRow>` (`limit` defaults to 100)
 * `getCollateral(groupAddress)` → `TokenBalance[]` (group treasury balances)
-* `getHolders(groupAddress, limit?)` → `PagedQuery<GroupTokenHolderRow>`
+* `getHolders(groupAddress, limit?)` → `PagedQuery<GroupTokenHolderRow>` (`limit` defaults to 100)
+
+**Referrals (`sdk.referrals.*`)**
+
+Requires `referralsServiceUrl` in `CirclesConfig`; otherwise each call throws a config error.
+
+* `store(privateKey, inviter)` → `void` — key is validated on-chain; `inviter` is self-declared for dashboard visibility
+* `retrieve(privateKey)` → referral info (public endpoint, no auth)
+* `listMine()` → referrals created by the authenticated user (requires a token provider)
 
 #### CirclesData (`sdk.data`)
 
@@ -54,6 +64,7 @@ Read-only convenience interface:
 * `getAvatar(address)` → `AvatarInfo | undefined`
 * `getTrustRelations(address)` → `AggregatedTrustRelation[]`
 * `getBalances(address)` → `TokenBalance[]`
+* `getAllInvitations(address, minimumBalance?)` → invitations involving this address; `minimumBalance` filters out inviters that can no longer cover the fee
 
 #### ContractRunner (required for writes)
 
@@ -90,7 +101,7 @@ Obtained via `sdk.getAvatar(address)`. All mutate calls require a runner.
 
 **history**
 
-* `getTransactions(limit?, sortOrder?)` → `PagedQuery<TransactionRow>`
+* `getTransactions(limit?)` → `PagedQuery<TransactionRow>` (`limit` defaults to 50; cursor-based pagination via `queryNextPage()`)
 
 **transfer**
 
@@ -113,6 +124,28 @@ Obtained via `sdk.getAvatar(address)`. All mutate calls require a runner.
 
 #### Human Avatar specifics
 
+**invitation**
+
+Invite flows pick their funding source automatically: free invites first (if the avatar is an eligible Gnosis Pay user), then proxy inviters, then farm quota.
+
+* `getReferralCode()` → `{ transactions, privateKey }` — invite someone who does **not** have a Safe yet; share the private key with them
+* `invite(invitee)` → `TransactionRequest[]` — invite an address that already has a Safe but is not registered in Circles
+* `getProxyInviters()` → `ProxyInviter[]` — addresses that trust this avatar, are trusted by the invitation module, and hold enough balance (96 CRC per invite)
+* `getClaimableFreeInvites()` → `bigint` — free invites claimable as an eligible Gnosis Pay user; `0` when not eligible
+* `findInvitePath(proxyInviterAddress?)` → path from this avatar to the invitation module, optionally routed through a specific proxy inviter
+* `computeAddress(signer)` → `Address` — deterministic CREATE2 Safe address for a signer (synchronous)
+* `generateReferrals(count)` → `{ secrets, signers, transactionReceipt }` — batch referrals via the InvitationFarm
+* `getQuota()` → `bigint` — remaining farm invite quota
+* `getInvitationFee()` → `bigint` — invitation fee (96 CRC)
+* `getInvitationModule()` → `Address` — invitation module address from the farm
+* `listReferrals(limit?, offset?)` → `ReferralPreviewList` — referrals created by this avatar (`limit` defaults to 10, `offset` to 0)
+
+**group (memberships)**
+
+* `getGroupMemberships(limit?)` → `PagedQuery<GroupMembershipRow>` — groups this avatar belongs to (`limit` defaults to 50)
+* `getGroupMembershipsWithDetails(limit?)` → `GroupRow[]` — same, enriched with name, symbol, owner, treasury, mint handler and member count
+* `properties` — alias of `groupToken.properties` below
+
 **personalToken**
 
 * `getMintableAmount()` → `{ amount, startPeriod, endPeriod }` (mintable CRC + issuance window)
@@ -128,7 +161,7 @@ Obtained via `sdk.getAvatar(address)`. All mutate calls require a runner.
 
 #### Organisation Avatar specifics
 
-Same `groupToken` surface as HumanAvatar; lacks personal minting.
+Same `groupToken` surface as HumanAvatar; lacks personal minting and the `invitation` namespace. Its `group` namespace only aliases `groupToken.properties` — the membership queries (`getGroupMemberships`) are Human-only.
 
 #### BaseGroup Avatar specifics
 
@@ -152,5 +185,6 @@ BaseGroup avatars do **not** expose a `groupToken` namespace. They manage their 
 
 #### Notes
 
+* Base Groups are the group type the SDK models directly. Other, custom group implementations are possible on the protocol — they use their own mint policies and are not covered by the `BaseGroupAvatar` surface described here.
 * Provide a `ContractRunner` for any write call; you can use `SafeBrowserRunner`/`SafeContractRunner` or your own viem-based runner.
 * Pathfinding options for transfers mirror `FindPathParams` (`useWrappedBalances`, token include/exclude lists, `maxTransfers`, `simulatedBalances`, etc.).

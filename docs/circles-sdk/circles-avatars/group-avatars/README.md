@@ -33,3 +33,9 @@ Groups within the Circles ecosystem serve several important purposes:
 3. **Pooling Resources**: The group treasury system allows pooling of resources from members.&#x20;
 4. **Collective Governance**: Groups implement membership systems that can include conditions and expiry times.
 
+### Base Groups and custom groups
+
+The pages in this section describe **Base Groups** — the standard group implementation, created with `sdk.register.asGroup(...)` and managed through the `BaseGroupAvatar` surface. This is what most integrations need.
+
+The protocol itself is not limited to Base Groups: custom group implementations with their own mint policies are also possible. Those live outside the `BaseGroupAvatar` API described here and are not covered in these pages.
+

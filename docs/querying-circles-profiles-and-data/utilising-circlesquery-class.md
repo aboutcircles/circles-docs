@@ -1,13 +1,17 @@
 ---
 description: >-
-  The CirclesQuery class allows you to execute custom queries against the
+  The PagedQuery class allows you to execute custom queries against the
   Circles RPC api.
 icon: diagram-previous
 ---
 
-# Utilising CirclesQuery Class
+# Utilising PagedQuery Class
 
-The previously shown `CirclesData` class returns `CirclesQuery<T>` objects for all paged query results. You can execute custom queries against all tables in the Circles index and filter with them.
+Paged results across the SDK (`avatar.history.getTransactions()`, `sdk.groups.getMembers()`, `avatar.group.getGroupMemberships()`, …) are returned as `PagedQuery<TRow>` instances from `@aboutcircles/sdk-rpc`. You can also construct one yourself to query any table in the Circles index with your own columns and filters.
+
+{% hint style="info" %}
+Earlier SDK versions exposed a `CirclesQuery<T>` class you instantiated directly. In the current SDK, `CirclesQuery<T>` is only a type, and the class to use is `PagedQuery<TRow>`. Pagination is now cursor-based and handled server-side by the `circles_paginated_query` RPC method.
+{% endhint %}
 
 ### Write a query
 
@@ -17,7 +21,7 @@ First you'll need to define a query. The basic structure of a query is the same 
 * `table`: The name of the table you want to query.
 * `columns`: A list of column names you want to select.
 * `filter`: A list of filter conditions that must be met.
-* `sortOrder`: Can be 'asc' or 'desc'.
+* `sortOrder`: `'ASC'` or `'DESC'` (uppercase).
 * `limit`: How many rows to return (max: 1000).
 
 {% hint style="info" %}
@@ -74,16 +78,18 @@ interface MyGroupType extends EventRow {
 To execute the query definition, you'll need a `CirclesRpc` instance. Create one and pass the Circles rpc url to the constructor.
 
 ```typescript
+import { CirclesRpc, PagedQuery } from '@aboutcircles/sdk-rpc';
+
 const circlesRpc = new CirclesRpc('https://rpc.aboutcircles.com/');
 ```
 
-Then create a `CirclesQuery<MyGroupType>` instance.
+Then create a `PagedQuery<MyGroupType>` instance. Note the first constructor argument is `circlesRpc.client`, not the `CirclesRpc` instance itself.
 
 ```typescript
-const query = new CirclesQuery<MyGroupType>(circlesRpc, queryDefinition);
+const query = new PagedQuery<MyGroupType>(circlesRpc.client, queryDefinition);
 ```
 
-Call `getNextPage()` to retrieve the first page of the result set. You can then access the results through the `currentPage` property. This property includes the `results` themselves, along with `firstCursor`, `lastCursor`, `limit`, `size`, and `sortOrder`.
+Call `queryNextPage()` to retrieve the first page of the result set. You can then access the results through the `currentPage` property. This property includes the `results` themselves, along with `limit`, `size`, `sortOrder`, `hasMore`, and `nextCursor`.
 
 ```typescript
 const hasResults = await query.queryNextPage();
@@ -95,25 +101,35 @@ if (!hasResults) {
 }
 ```
 
-### Add computed columns
-
-You can extend the CirclesQuery with computed columns. Computed columns are defined by a callback that takes in the row and returns a new value. Here we convert the value of the previously queried `cidV0Digest` field (which is originally a hex-string) to a CID in `Qm..` format.
+To walk the whole result set, keep calling `queryNextPage()` and stop when `hasMore` is false:
 
 ```typescript
-const calculatedColumns = [{
-  name: 'cidV0',
-  generator: async (row: MyGroupType) => {
+while (await query.queryNextPage()) {
+  query.currentPage.results.forEach(row => console.log(row));
+  if (!query.currentPage.hasMore) break;
+}
+```
+
+### Transform rows
+
+You can post-process every row as it is read by passing a `rowTransformer` callback. Here we convert the value of the previously queried `cidV0Digest` field (which is originally a hex-string) to a CID in `Qm..` format.
+
+```typescript
+const query = new PagedQuery<MyGroupType>(
+  circlesRpc.client,
+  queryDefinition,
+  (row) => {
     if (!row.cidV0Digest) {
-      return undefined;
+      return row;
     }
 
     const dataFromHexString = hexStringToUint8Array(row.cidV0Digest.substring(2));
-    return uint8ArrayToCidV0(dataFromHexString);
+    return { ...row, cidV0: uint8ArrayToCidV0(dataFromHexString) };
   }
-}];
+);
 ```
 
-The new column should be added to the custom type.
+The new field should be added to the custom type.
 
 ```typescript
 interface MyGroupType extends EventRow {
@@ -124,11 +140,9 @@ interface MyGroupType extends EventRow {
 }
 ```
 
-Then you can execute the query just like you did before. The calculated column function will be executed for each row in a page.
+Then you can execute the query just like you did before. The transformer runs for each row in a page.
 
 ```typescript
-const query = new CirclesQuery<MyGroupType>(circlesRpc, queryDefinition, calculatedColumns);
-
 const hasResults = await query.queryNextPage();
 if (!hasResults) {
   console.log("The query yielded no results.");
@@ -137,3 +151,7 @@ if (!hasResults) {
   rows.forEach(row => console.log(row));
 }
 ```
+
+{% hint style="info" %}
+The transformer is synchronous. If you need async enrichment (an IPFS fetch, for example), do it after reading the page rather than inside the transformer.
+{% endhint %}

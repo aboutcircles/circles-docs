@@ -204,8 +204,8 @@ for (const secret of secrets) {
 The high-level facade also exposes:
 
 ```ts
-await avatar.invitation.getQuota();
-await avatar.invitation.getInvitationFee();
+await avatar.invitation.getInvitationFee();    // 96 CRC
+await avatar.invitation.listReferrals(10, 0);  // referrals created by this avatar (limit, offset)
 ```
 
 For single-invite flows, it also provides:
@@ -213,6 +213,31 @@ For single-invite flows, it also provides:
 ```ts
 await avatar.invitation.getReferralCode();
 await avatar.invitation.invite(inviteeAddress);
+```
+
+#### Choosing a funding source
+
+You don't have to select one — `invite()` and `getReferralCode()` resolve the funding source themselves, preferring free invites, then proxy inviters, then farm quota. These helpers let you inspect or override that choice:
+
+```ts
+// Free invites, if this avatar is an eligible Gnosis Pay user (0 otherwise).
+// When > 0, the free-invite path is taken automatically.
+const freeInvites = await avatar.invitation.getClaimableFreeInvites();
+
+// Addresses that trust this avatar, are trusted by the invitation module,
+// and hold at least 96 CRC per invite.
+const proxyInviters = await avatar.invitation.getProxyInviters();
+
+// Inspect the route to the invitation module, optionally via a chosen proxy inviter.
+const path = await avatar.invitation.findInvitePath(proxyInviters[0]?.address);
+```
+
+#### Predicting the invitee's Safe address
+
+Referral invites create the invitee's Safe deterministically via CREATE2, so you can compute the address before it exists — useful for pre-seeding UI or trust relations. Note this call is synchronous:
+
+```ts
+const futureSafe = avatar.invitation.computeAddress(signerAddress);
 ```
 
 ### Execute invitation transactions atomically
@@ -390,11 +415,23 @@ SafeBrowserRunner
 Persist and retrieve referral secrets through the top-level SDK:
 
 ```ts
-await sdk.referrals.store(privateKey, inviter);
-await sdk.referrals.storeBatch(/* ... */);
-await sdk.referrals.retrieve(/* ... */);
-await sdk.referrals.listMine(/* ... */);
+await sdk.referrals.store(privateKey, inviter);  // validated on-chain before storing
+await sdk.referrals.retrieve(privateKey);        // public endpoint, no auth
+await sdk.referrals.listMine();                  // requires an authenticated token provider
 ```
+
+All three require `referralsServiceUrl` in your `CirclesConfig` — they throw a config error otherwise.
+
+Batch storage is **not** on the top-level facade. To store many secrets in one request, use the `Referrals` client from `@aboutcircles/sdk-invitations` directly:
+
+```ts
+import { Referrals } from '@aboutcircles/sdk-invitations';
+
+const referrals = new Referrals(/* ...config... */);
+await referrals.storeBatch(/* ... */);
+```
+
+Otherwise, loop over `sdk.referrals.store(...)` as shown in the batch-referrals example above.
 
 ### Errors and troubleshooting
 
