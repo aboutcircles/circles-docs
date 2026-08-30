@@ -60,3 +60,10 @@
 * [Glossary](developer-support/glossary.md)
 * [Circles Tools](developer-support/circles-tools.md)
 * [Past Hackathon Projects on Circles](developer-support/past-hackathon-projects-on-circles.md)
+
+## User Guides
+
+* [Circles Groups](user-guides/circles-groups/README.md)
+  * [Create a Circles Group](user-guides/circles-groups/create-a-circles-group-using-circles-core-app.md)
+  * [Migrate your group and update its details](user-guides/circles-groups/migrate-group-and-update-details.md)
+  * [Technical Group Details](user-guides/circles-groups/technical-group-details.md)
