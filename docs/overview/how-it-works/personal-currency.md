@@ -30,7 +30,7 @@ The following graph visualizes the balance of an account over time, assuming no 
 
 <figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
-If understood as a tax, then the tax would be negative at first (you get money), but once your balance reaches the threshold of 125.000 Circles, it turns positive (you loose money).
+If understood as a tax, then the tax would be negative at first (you get money), but once your balance reaches the threshold of 125.000 Circles, it turns positive (you lose money).
 
 <figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
